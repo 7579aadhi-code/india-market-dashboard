@@ -1,0 +1,25 @@
+{
+  "_comment": "Fields here have no reliable free/public daily-updating source. Fill in real numbers when you have them (e.g. from CRISIL/FBIL/CCIL/a terminal). The daily update agent will use these values as-is and will NOT overwrite them with guesses. Update 'as_of' whenever you change a value.",
+
+  "nifty50_pe_5yr_median": { "value": 22.1, "as_of": "2026-07-03", "source": "placeholder - replace with real 5yr median PE" },
+  "nifty50_pe_10yr_median": { "value": 21.3, "as_of": "2026-07-03", "source": "placeholder - replace with real 10yr median PE" },
+
+  "midcap150_pe_5yr_median": { "value": 26.5, "as_of": "2026-07-03", "source": "placeholder" },
+  "midcap150_pe_10yr_median": { "value": 24.0, "as_of": "2026-07-03", "source": "placeholder" },
+
+  "smallcap250_current_pe": { "value": 35.52, "as_of": "2026-07-02", "source": "trendlyne.com (fallback only — latest.json.valuation.small_cap.pe is primary)" },
+  "smallcap250_pb": { "value": 3.68, "as_of": "2026-05-11", "source": "screener.in — stale (most recent found), refresh when a same-day figure is available" },
+  "smallcap250_div_yield": { "value": null, "as_of": "2026-07-03", "source": "NOT FOUND today - fill manually" },
+  "smallcap250_pe_5yr_median": { "value": 26.0, "as_of": "2026-07-03", "source": "placeholder" },
+  "smallcap250_pe_10yr_median": { "value": 23.5, "as_of": "2026-07-03", "source": "placeholder" },
+
+  "aaa_corp_5yr": { "value": 7.15, "as_of": "2026-07-03", "source": "placeholder - replace with CRISIL/FBIL data" },
+  "aaa_corp_3yr": { "value": 7.05, "as_of": "2026-07-03", "source": "placeholder" },
+  "aaa_corp_1yr": { "value": 6.95, "as_of": "2026-07-03", "source": "placeholder" },
+  "aa_corp_3yr": { "value": 7.55, "as_of": "2026-07-03", "source": "placeholder" },
+  "aa_corp_1yr": { "value": 7.35, "as_of": "2026-07-03", "source": "placeholder" },
+  "cd_12m": { "value": 7.10, "as_of": "2026-07-03", "source": "placeholder" },
+  "cd_3m": { "value": 6.60, "as_of": "2026-07-03", "source": "placeholder" },
+  "call_rate": { "value": 6.25, "as_of": "2026-07-03", "source": "placeholder - RBI overnight call money rate" },
+  "t_repo": { "value": 6.20, "as_of": "2026-07-03", "source": "placeholder" }
+}

@@ -1,0 +1,45 @@
+{
+  "generated_at_ist": "2026-07-03T08:30:00+05:30",
+  "note": "Snapshot meant to be checked around/after India's 3:30pm IST close. Asia-Pacific markets shown are same-day closes (they close before/around India); Europe/US markets may still be mid-session or pre-open depending on when this was generated — check each region's own local session status below.",
+  "regions": {
+    "asia_pacific": {
+      "session_status": "Most Asia-Pac markets close before or around India's 3:30pm IST close",
+      "indices": [
+        { "name": "Nikkei 225", "country": "Japan", "close": 69744.07, "pct_change": 1.47 },
+        { "name": "Hang Seng", "country": "Hong Kong", "close": 23351.68, "pct_change": 1.29 },
+        { "name": "Shanghai Composite", "country": "China", "close": 4044.12, "pct_change": 0.38 },
+        { "name": "KOSPI Composite", "country": "South Korea", "close": 7890.57, "pct_change": 3.17, "note": "conflicting figures found in search — verify next run" },
+        { "name": "S&P/ASX 200", "country": "Australia", "close": 8844.40, "pct_change": 1.37 },
+        { "name": "Straits Times Index (STI)", "country": "Singapore", "close": 5232.27, "pct_change": 0.29 }
+      ]
+    },
+    "europe": {
+      "session_status": "UK/Europe markets are typically mid-session when India closes at 3:30pm IST (UK opens ~1:30pm IST, closes ~9:30pm IST)",
+      "indices": [
+        { "name": "FTSE 100", "country": "United Kingdom", "close": 10652.87, "pct_change": 1.67 },
+        { "name": "DAX 40", "country": "Germany", "close": 25634.88, "pct_change": null, "note": "% change not confidently sourced this run" },
+        { "name": "CAC 40", "country": "France", "close": 8498.00, "pct_change": -0.79 }
+      ]
+    },
+    "us": {
+      "session_status": "US markets open ~7:00pm IST and close ~1:30am IST — at India's 3:30pm close, US shows the PRIOR session's close (or futures, if available)",
+      "indices": [
+        { "name": "S&P 500", "close": 7483.24, "pct_change": 0.00 },
+        { "name": "Dow Jones", "close": 52900.07, "pct_change": 1.14 },
+        { "name": "Nasdaq Composite", "close": 25832.67, "pct_change": -0.80 }
+      ]
+    }
+  },
+  "currencies": {
+    "gbp_usd": { "value": 1.3359, "pct_change": 0.08 },
+    "eur_usd": { "value": 1.1451, "pct_change": 0.13 },
+    "usd_sgd": { "value": 1.2957, "pct_change": 0.07 },
+    "usd_jpy": { "value": 161.11, "pct_change": 0.06 }
+  },
+  "bond_yields": {
+    "uk_10y_gilt": { "yield": 4.80, "as_of": "2026-07-02" },
+    "singapore_10y": { "yield": 2.04, "as_of": "2026-06-29" },
+    "us_10y_treasury": { "yield": 4.46, "as_of": "2026-07-02" }
+  },
+  "summary": "Asia-Pacific closed broadly higher (Nikkei +1.47%, ASX +1.37%, Hang Seng +1.29%), Europe is rallying into its afternoon session led by the FTSE 100 (+1.67%) on defensive/pharma/defence strength, while the US carries forward a mixed prior close (Dow +1.14%, Nasdaq -0.80%) into its evening IST session."
+}

@@ -1,0 +1,51 @@
+{
+  "as_of_date": "2026-07-02",
+  "generated_at_ist": "2026-07-03T08:00:00+05:30",
+  "india_equity": {
+    "nifty50": { "close": 24175.70, "pct_change": 0.71 },
+    "sensex": { "close": 77502.0, "pct_change": 0.75 },
+    "midcap150": { "close": 22934.90, "pct_change": 0.49 },
+    "smallcap250": { "close": 17983.35, "pct_change": 1.02 }
+  },
+  "valuation": {
+    "large_cap": { "pe": 20.70, "pb": 3.16, "div_yield": 1.39, "verdict": "Fairly Valued" },
+    "mid_cap": { "pe": 29.2, "pb": 4.78, "div_yield": 0.66, "verdict": "Overvalued" },
+    "small_cap": { "pe": 35.52, "pb": 3.68, "div_yield": null, "verdict": "Overvalued", "note": "PB is from mid-May 2026 (most recent found); div_yield not found today, manual entry needed" }
+  },
+  "us_equity": {
+    "sp500": { "close": 7483.24, "pct_change": 0.00 },
+    "dow": { "close": 52900.07, "pct_change": 1.14 },
+    "nasdaq": { "close": 25832.67, "pct_change": -0.80 }
+  },
+  "india_debt": {
+    "gsec_10y": { "yield": 6.71, "bps_change": -3 },
+    "us_10y": { "yield": 4.46, "bps_change": -2 }
+  },
+  "commodities": {
+    "gold_comex_usd_oz": { "value": 4187.57, "pct_change": 1.50 },
+    "gold_mcx_inr_10g": { "value": 128224, "pct_change": 1.50, "note": "approx conversion, not exact MCX settlement" },
+    "silver_comex_usd_oz": { "value": 62.448, "pct_change": 2.27 },
+    "silver_mcx_inr_kg": { "value": 191300, "pct_change": 2.27, "note": "approx conversion, not exact MCX settlement" },
+    "brent_usd_bbl": { "value": 71.55, "pct_change": -0.04 },
+    "brent_mcx_inr_bbl": { "value": 6814, "pct_change": -0.04, "note": "approx conversion" }
+  },
+  "currency": {
+    "usd_inr": { "value": 95.24, "change": 0.0, "driver": "RBI liquidity measures and steady FII bond inflows supporting rupee" }
+  },
+  "india_vix": { "value": 13.24, "pct_change": -2.63, "wk52_high": 28.91, "wk52_low": 8.72 },
+  "buffett_indicator": {
+    "bse_mcap_lakh_cr": 474.51,
+    "bse_mcap_usd_tn": 5.03,
+    "india_gdp_usd_tn": 4.15,
+    "ratio_pct": 121.2,
+    "verdict": "Overvalued"
+  },
+  "beer_model": {
+    "earnings_yield_pct": 4.83,
+    "gsec_10y_pct": 6.71,
+    "beer_ratio": 1.39,
+    "erp_pct": -1.88,
+    "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
+  },
+  "summary": "Nifty and Sensex closed higher led by IT majors while smallcaps (+1.02%) outran large caps; valuations in mid/smallcap segments look stretched (PE 29.2 / 35.5 vs large-cap 20.7) and a negative equity risk premium suggests bonds are relatively more attractive than equities right now."
+}

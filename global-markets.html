@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Markets Snapshot</title>
+<style>
+  :root {
+    --green: #0a8a4a; --red: #c0392b; --bg: #0f1420; --card: #161d2e;
+    --border: #263048; --text: #e8ecf4; --muted: #8b96ab; --accent: #4d8dff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg); color: var(--text); padding: 24px;
+  }
+  header { margin-bottom: 24px; }
+  h1 { margin: 0 0 4px; font-size: 26px; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .nav { margin-bottom: 10px; font-size: 13px; }
+  .nav a { color: var(--accent); text-decoration: none; margin-right: 16px; }
+  .nav a:hover { text-decoration: underline; }
+  .manual-flag { color: #e0a92e; font-size: 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  .card h2 { margin: 0 0 4px; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .card .session-status { font-size: 11px; color: var(--muted); margin-bottom: 10px; display: block; font-style: italic; }
+  .row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .row:last-child { border-bottom: none; }
+  .label { color: var(--muted); }
+  .country { color: var(--muted); font-size: 11px; }
+  .val { font-weight: 600; text-align: right; }
+  .up { color: var(--green); } .down { color: var(--red); } .flat { color: var(--muted); }
+  .summary { background: linear-gradient(135deg, #1a2540, #131a2c); border: 1px solid var(--accent); border-radius: 10px; padding: 18px 20px; font-size: 15px; margin-bottom: 20px; }
+  .note-badge { font-size: 10px; background: #3a2f14; color: #e0a92e; padding: 1px 6px; border-radius: 4px; margin-left: 6px; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 30px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav"><a href="index.html">← India Market Dashboard</a> <a href="global-markets.html">Global Markets Snapshot</a></div>
+  <h1>Global Markets Snapshot (ex-India)</h1>
+  <div class="meta" id="meta-line">Generated <b>—</b> IST</div>
+  <div class="manual-flag">🟡 Meant for checking right after India's 3:30pm IST close — auto-refreshes on a schedule, not truly real-time. See each region's session-status note for what "today's" figure actually means for that market.</div>
+</header>
+
+<div class="summary" id="summary-text">Loading…</div>
+
+<div class="grid">
+
+  <div class="card">
+    <h2>Asia-Pacific</h2>
+    <span class="session-status" id="apac-status">—</span>
+    <div id="apac-rows"></div>
+  </div>
+
+  <div class="card">
+    <h2>Europe (incl. UK)</h2>
+    <span class="session-status" id="europe-status">—</span>
+    <div id="europe-rows"></div>
+  </div>
+
+  <div class="card">
+    <h2>United States</h2>
+    <span class="session-status" id="us-status">—</span>
+    <div id="us-rows"></div>
+  </div>
+
+  <div class="card">
+    <h2>Currencies</h2>
+    <div class="row"><span class="label">GBP/USD</span><span class="val" id="gbpusd">—</span></div>
+    <div class="row"><span class="label">EUR/USD</span><span class="val" id="eurusd">—</span></div>
+    <div class="row"><span class="label">USD/SGD</span><span class="val" id="usdsgd">—</span></div>
+    <div class="row"><span class="label">USD/JPY</span><span class="val" id="usdjpy">—</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Global Bond Yields (10Y)</h2>
+    <div class="row"><span class="label">UK Gilt</span><span class="val" id="uk10y">—</span></div>
+    <div class="row"><span class="label">Singapore</span><span class="val" id="sg10y">—</span></div>
+    <div class="row"><span class="label">US Treasury</span><span class="val" id="us10y">—</span></div>
+  </div>
+
+</div>
+
+<footer>
+  Internal dashboard — for client use. Not investment advice. Fields with a 🟡 note indicate data that could not be confidently verified on the last run.
+</footer>
+
+<script id="data-global" type="application/json">
+{
+  "generated_at_ist": "2026-07-03T08:30:00+05:30",
+  "note": "Snapshot meant to be checked around/after India's 3:30pm IST close. Asia-Pacific markets shown are same-day closes (they close before/around India); Europe/US markets may still be mid-session or pre-open depending on when this was generated — check each region's own local session status below.",
+  "regions": {
+    "asia_pacific": {
+      "session_status": "Most Asia-Pac markets close before or around India's 3:30pm IST close",
+      "indices": [
+        {
+          "name": "Nikkei 225",
+          "country": "Japan",
+          "close": 69744.07,
+          "pct_change": 1.47
+        },
+        {
+          "name": "Hang Seng",
+          "country": "Hong Kong",
+          "close": 23351.68,
+          "pct_change": 1.29
+        },
+        {
+          "name": "Shanghai Composite",
+          "country": "China",
+          "close": 4044.12,
+          "pct_change": 0.38
+        },
+        {
+          "name": "KOSPI Composite",
+          "country": "South Korea",
+          "close": 7890.57,
+          "pct_change": 3.17,
+          "note": "conflicting figures found in search — verify next run"
+        },
+        {
+          "name": "S&P/ASX 200",
+          "country": "Australia",
+          "close": 8844.4,
+          "pct_change": 1.37
+        },
+        {
+          "name": "Straits Times Index (STI)",
+          "country": "Singapore",
+          "close": 5232.27,
+          "pct_change": 0.29
+        }
+      ]
+    },
+    "europe": {
+      "session_status": "UK/Europe markets are typically mid-session when India closes at 3:30pm IST (UK opens ~1:30pm IST, closes ~9:30pm IST)",
+      "indices": [
+        {
+          "name": "FTSE 100",
+          "country": "United Kingdom",
+          "close": 10652.87,
+          "pct_change": 1.67
+        },
+        {
+          "name": "DAX 40",
+          "country": "Germany",
+          "close": 25634.88,
+          "pct_change": null,
+          "note": "% change not confidently sourced this run"
+        },
+        {
+          "name": "CAC 40",
+          "country": "France",
+          "close": 8498.0,
+          "pct_change": -0.79
+        }
+      ]
+    },
+    "us": {
+      "session_status": "US markets open ~7:00pm IST and close ~1:30am IST — at India's 3:30pm close, US shows the PRIOR session's close (or futures, if available)",
+      "indices": [
+        {
+          "name": "S&P 500",
+          "close": 7483.24,
+          "pct_change": 0.0
+        },
+        {
+          "name": "Dow Jones",
+          "close": 52900.07,
+          "pct_change": 1.14
+        },
+        {
+          "name": "Nasdaq Composite",
+          "close": 25832.67,
+          "pct_change": -0.8
+        }
+      ]
+    }
+  },
+  "currencies": {
+    "gbp_usd": {
+      "value": 1.3359,
+      "pct_change": 0.08
+    },
+    "eur_usd": {
+      "value": 1.1451,
+      "pct_change": 0.13
+    },
+    "usd_sgd": {
+      "value": 1.2957,
+      "pct_change": 0.07
+    },
+    "usd_jpy": {
+      "value": 161.11,
+      "pct_change": 0.06
+    }
+  },
+  "bond_yields": {
+    "uk_10y_gilt": {
+      "yield": 4.8,
+      "as_of": "2026-07-02"
+    },
+    "singapore_10y": {
+      "yield": 2.04,
+      "as_of": "2026-06-29"
+    },
+    "us_10y_treasury": {
+      "yield": 4.46,
+      "as_of": "2026-07-02"
+    }
+  },
+  "summary": "Asia-Pacific closed broadly higher (Nikkei +1.47%, ASX +1.37%, Hang Seng +1.29%), Europe is rallying into its afternoon session led by the FTSE 100 (+1.67%) on defensive/pharma/defence strength, while the US carries forward a mixed prior close (Dow +1.14%, Nasdaq -0.80%) into its evening IST session."
+}
+</script>
+<script>
+async function loadData() {
+  const inline = document.getElementById('data-global').textContent.trim();
+  if (!inline.startsWith('__')) return JSON.parse(inline);
+  const res = await fetch('data/global_latest.json?_=' + Date.now());
+  return await res.json();
+}
+
+function fmtPct(v, digits=2) {
+  if (v === null || v === undefined) return '<span class="flat">N/A</span>';
+  const cls = v > 0 ? 'up' : v < 0 ? 'down' : 'flat';
+  const arrow = v > 0 ? '▲' : v < 0 ? '▼' : '→';
+  return `<span class="${cls}">${arrow} ${v > 0 ? '+' : ''}${v.toFixed(digits)}%</span>`;
+}
+function num(v, digits=2) {
+  return v === null || v === undefined ? 'N/A' : v.toLocaleString('en-IN', {maximumFractionDigits: digits});
+}
+function indexRow(idx) {
+  const noteHtml = idx.note ? `<span class="note-badge">check</span>` : '';
+  return `<div class="row">
+    <span class="label">${idx.name}<br><span class="country">${idx.country || ''}</span></span>
+    <span class="val">${num(idx.close)} ${fmtPct(idx.pct_change)} ${noteHtml}</span>
+  </div>`;
+}
+
+async function load() {
+  const d = await loadData();
+
+  document.getElementById('meta-line').innerHTML = `Generated <b>${d.generated_at_ist}</b>`;
+  document.getElementById('summary-text').textContent = d.summary;
+
+  document.getElementById('apac-status').textContent = d.regions.asia_pacific.session_status;
+  document.getElementById('apac-rows').innerHTML = d.regions.asia_pacific.indices.map(indexRow).join('');
+
+  document.getElementById('europe-status').textContent = d.regions.europe.session_status;
+  document.getElementById('europe-rows').innerHTML = d.regions.europe.indices.map(indexRow).join('');
+
+  document.getElementById('us-status').textContent = d.regions.us.session_status;
+  document.getElementById('us-rows').innerHTML = d.regions.us.indices.map(indexRow).join('');
+
+  document.getElementById('gbpusd').innerHTML = `${num(d.currencies.gbp_usd.value, 4)} ${fmtPct(d.currencies.gbp_usd.pct_change)}`;
+  document.getElementById('eurusd').innerHTML = `${num(d.currencies.eur_usd.value, 4)} ${fmtPct(d.currencies.eur_usd.pct_change)}`;
+  document.getElementById('usdsgd').innerHTML = `${num(d.currencies.usd_sgd.value, 4)} ${fmtPct(d.currencies.usd_sgd.pct_change)}`;
+  document.getElementById('usdjpy').innerHTML = `${num(d.currencies.usd_jpy.value, 2)} ${fmtPct(d.currencies.usd_jpy.pct_change)}`;
+
+  document.getElementById('uk10y').innerHTML = `${num(d.bond_yields.uk_10y_gilt.yield)}% <span class="country">as of ${d.bond_yields.uk_10y_gilt.as_of}</span>`;
+  document.getElementById('sg10y').innerHTML = `${num(d.bond_yields.singapore_10y.yield)}% <span class="country">as of ${d.bond_yields.singapore_10y.as_of}</span>`;
+  document.getElementById('us10y').innerHTML = `${num(d.bond_yields.us_10y_treasury.yield)}% <span class="country">as of ${d.bond_yields.us_10y_treasury.as_of}</span>`;
+}
+load().catch(e => {
+  document.getElementById('summary-text').textContent = 'Failed to load data — ' + e.message;
+});
+</script>
+
+</body>
+</html>
