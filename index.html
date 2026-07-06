@@ -162,128 +162,133 @@
 
 <script id="data-latest" type="application/json">
 {
-  "as_of_date": "2026-07-02",
-  "generated_at_ist": "2026-07-03T08:00:00+05:30",
+  "as_of_date": "2026-07-03",
+  "generated_at_ist": "2026-07-05T08:00:00+05:30",
   "india_equity": {
     "nifty50": {
-      "close": 24175.7,
-      "pct_change": 0.71
+      "close": 24270.85,
+      "pct_change": 0.39
     },
     "sensex": {
-      "close": 77502.0,
-      "pct_change": 0.75
+      "close": 77763.91,
+      "pct_change": 0.34
     },
     "midcap150": {
-      "close": 22934.9,
-      "pct_change": 0.49
+      "close": 22884.35,
+      "pct_change": -0.22
     },
     "smallcap250": {
-      "close": 17983.35,
-      "pct_change": 1.02
+      "close": 17996.25,
+      "pct_change": 0.07
     }
   },
   "valuation": {
     "large_cap": {
-      "pe": 20.7,
-      "pb": 3.16,
+      "pe": 20.92,
+      "pb": 3.17,
       "div_yield": 1.39,
       "verdict": "Fairly Valued"
     },
     "mid_cap": {
-      "pe": 29.2,
+      "pe": 29.3,
       "pb": 4.78,
       "div_yield": 0.66,
       "verdict": "Overvalued"
     },
     "small_cap": {
-      "pe": 35.52,
+      "pe": 36.07,
       "pb": 3.68,
       "div_yield": null,
       "verdict": "Overvalued",
-      "note": "PB is from mid-May 2026 (most recent found); div_yield not found today, manual entry needed"
+      "note": "PE updated from indexpe.in (July 2026); PB is from mid-May 2026 (most recent found); div_yield not found, manual entry needed"
     }
   },
   "us_equity": {
     "sp500": {
       "close": 7483.24,
-      "pct_change": 0.0
+      "pct_change": 0.0,
+      "note": "July 2 close — US market closed July 3 (observed Independence Day)"
     },
     "dow": {
       "close": 52900.07,
-      "pct_change": 1.14
+      "pct_change": 1.14,
+      "note": "July 2 close — US market closed July 3 (observed Independence Day)"
     },
     "nasdaq": {
       "close": 25832.67,
-      "pct_change": -0.8
+      "pct_change": -0.8,
+      "note": "July 2 close — US market closed July 3 (observed Independence Day)"
     }
   },
   "india_debt": {
     "gsec_10y": {
-      "yield": 6.71,
-      "bps_change": -3
+      "yield": 6.72,
+      "bps_change": 1
     },
     "us_10y": {
-      "yield": 4.46,
-      "bps_change": -2
+      "yield": 4.49,
+      "bps_change": 3,
+      "note": "July 2 close (US closed July 3 for Independence Day); updated from 4.46% per Advisor Perspectives snapshot"
     }
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4187.57,
-      "pct_change": 1.5
+      "value": 4170.25,
+      "pct_change": 1.15
     },
     "gold_mcx_inr_10g": {
-      "value": 128224,
-      "pct_change": 1.5,
+      "value": 127655,
+      "pct_change": 1.15,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 62.448,
-      "pct_change": 2.27
+      "value": 62.81,
+      "pct_change": 0.58
     },
     "silver_mcx_inr_kg": {
-      "value": 191300,
-      "pct_change": 2.27,
+      "value": 192258,
+      "pct_change": 0.58,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
-      "value": 71.55,
-      "pct_change": -0.04
+      "value": 72.1,
+      "pct_change": 0.77
     },
     "brent_mcx_inr_bbl": {
-      "value": 6814,
-      "pct_change": -0.04,
+      "value": 6865,
+      "pct_change": 0.77,
       "note": "approx conversion"
     }
   },
   "currency": {
     "usd_inr": {
-      "value": 95.24,
-      "change": 0.0,
-      "driver": "RBI liquidity measures and steady FII bond inflows supporting rupee"
+      "value": 95.215,
+      "change": -0.185,
+      "driver": "Rupee firmed as softer US June jobs data (released July 2) weighed on the dollar; steady FII bond inflows supported the move"
     }
   },
   "india_vix": {
-    "value": 13.24,
-    "pct_change": -2.63,
+    "value": 11.8,
+    "pct_change": -3.99,
     "wk52_high": 28.91,
     "wk52_low": 8.72
   },
   "buffett_indicator": {
-    "bse_mcap_lakh_cr": 474.51,
-    "bse_mcap_usd_tn": 5.03,
+    "bse_mcap_lakh_cr": 476.38,
+    "bse_mcap_usd_tn": 5.0,
     "india_gdp_usd_tn": 4.15,
-    "ratio_pct": 121.2,
-    "verdict": "Overvalued"
+    "ratio_pct": 120.5,
+    "verdict": "Overvalued",
+    "note": "BSE mcap estimated proportionally from June 2026 baseline (~474.51 lakh crore) scaled by Nifty 50 move; exact BSE daily mcap not retrieved this run"
   },
   "beer_model": {
-    "earnings_yield_pct": 4.83,
-    "gsec_10y_pct": 6.71,
-    "beer_ratio": 1.39,
-    "erp_pct": -1.88,
+    "earnings_yield_pct": 4.78,
+    "gsec_10y_pct": 6.72,
+    "beer_ratio": 1.41,
+    "erp_pct": -1.94,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty and Sensex closed higher led by IT majors while smallcaps (+1.02%) outran large caps; valuations in mid/smallcap segments look stretched (PE 29.2 / 35.5 vs large-cap 20.7) and a negative equity risk premium suggests bonds are relatively more attractive than equities right now."
+  "summary": "Nifty 50 extended its winning streak to a third consecutive session (+0.39% to 24,271) on July 3 as softer US jobs data boosted risk appetite; India VIX fell to 11.80, signalling calm; the rupee firmed to 95.22; however, the equity risk premium remains in negative territory (-1.94%) and mid/smallcap valuations look stretched (PE 29.3 / 36.1) — US markets were closed July 3 for Independence Day."
 }
 </script>
 <script id="data-manual" type="application/json">
