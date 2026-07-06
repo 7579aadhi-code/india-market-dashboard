@@ -1,0 +1,52 @@
+name: Daily India Market Dashboard Update
+
+# Runs at 8:30 AM IST = 3:00 AM UTC, every day.
+# Indian markets open 9:15 AM IST, so this always captures the prior session's close.
+# Also runs 30 min later as a retry guard in case of transient failures.
+# workflow_dispatch lets you trigger a manual run from the GitHub Actions UI.
+on:
+  schedule:
+    - cron: '0 3 * * *'   # 8:30 AM IST  (primary)
+    - cron: '30 3 * * *'  # 9:00 AM IST  (retry guard — git diff will be empty if first run succeeded)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Fetch market data → data/latest.json
+        run: python scripts/fetch_market_data.py
+
+      - name: Inline JSON into HTML (sync_html.py)
+        run: python sync_html.py
+
+      - name: Commit and push (skip if nothing changed)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          SESSION=$(python -c "import json; print(json.load(open('data/latest.json'))['as_of_date'])")
+          if git diff --staged --quiet; then
+            echo "No changes to commit (data already up to date)."
+          else
+            git commit -m "Daily India dashboard update: ${SESSION}"
+            git push
+          fi
