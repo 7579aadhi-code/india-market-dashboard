@@ -18,6 +18,7 @@ PAGES = [
     (ROOT / "index.html", [
         ("data-latest", ROOT / "data" / "latest.json"),
         ("data-manual", ROOT / "data" / "manual_overrides.json"),
+        ("data-global", ROOT / "data" / "global_latest.json"),
     ]),
     (ROOT / "global-markets.html", [
         ("data-global", ROOT / "data" / "global_latest.json"),

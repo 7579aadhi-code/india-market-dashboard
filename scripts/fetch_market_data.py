@@ -300,6 +300,27 @@ def main():
     print(f"  Smallcap250  : {small250_close}  ({small250_pct}%)")
 
     # ------------------------------------------------------------------ #
+    # 1b. India sector indices
+    # ------------------------------------------------------------------ #
+    print("\n[India sectors]")
+    SECTOR_TICKERS = {
+        "bank_nifty":  "^NSEBANK",
+        "nifty_it":    "^CNXIT",
+        "nifty_auto":  "^CNXAUTO",
+        "nifty_fmcg":  "^CNXFMCG",
+        "nifty_pharma":"^CNXPHARMA",
+        "nifty_metal": "^CNXMETAL",
+        "nifty_realty":"^CNXREALTY",
+        "nifty_energy":"^CNXENERGY",
+        "nifty_infra": "^CNXINFRA",
+    }
+    india_sectors = {}
+    for key, ticker in SECTOR_TICKERS.items():
+        _, close, pct = yf_last(ticker)
+        india_sectors[key] = {"close": close, "pct_change": pct}
+        print(f"  {key}: {close} ({pct}%)")
+
+    # ------------------------------------------------------------------ #
     # 2. US equity indices
     # ------------------------------------------------------------------ #
     print("\n[US equity]")
@@ -565,6 +586,7 @@ def main():
         },
         "summary": summary,
         "nifty_history": nifty_history,
+        "india_sectors": india_sectors,
     }
 
     # ------------------------------------------------------------------ #
