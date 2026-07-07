@@ -168,6 +168,40 @@ a:hover{text-decoration:underline}
 /* ─── Scroll-to section anchors ─────────────────────────────────────── */
 .section-anchor{display:block;height:1px;margin-top:-1px}
 
+/* ─── EOD Report blocks ─────────────────────────────────────────────── */
+.eod-block{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:20px;margin-bottom:16px;
+}
+.eod-hd{
+  font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--text);margin-bottom:14px;padding-bottom:10px;
+  border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;
+}
+.eod-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:50%;background:var(--blue);
+  color:#fff;font-size:11px;font-weight:700;flex-shrink:0;
+}
+.eod-sub{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--muted);margin-bottom:8px;
+}
+
+/* ─── Data table ─────────────────────────────────────────────────────── */
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{
+  text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--muted);padding:4px 8px 6px;
+  border-bottom:1px solid var(--border);
+}
+.data-table th:not(:first-child){text-align:right}
+.data-table td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04)}
+.data-table td:not(:first-child){text-align:right;font-weight:600}
+.data-table tbody tr:last-child td{border-bottom:none}
+.data-table .lbl-cell{color:var(--dim);font-weight:400}
+.data-table .verdict-cell{font-size:11px}
+
 /* ─── Footer ────────────────────────────────────────────────────────── */
 footer{
   color:var(--muted);font-size:11px;
@@ -202,49 +236,144 @@ footer{
 <section class="section active" id="tab-overview">
 <div class="page-wrap">
 
+  <!-- EOD Summary banner -->
   <div class="summary-bar" id="summary-text">Loading market data…</div>
 
-  <!-- India key indices (4 across) -->
-  <div class="grid g-4" style="margin-bottom:16px" id="india-kpi-row"></div>
+  <!-- ① INDIA EQUITY ─────────────────────────────────────── -->
+  <div class="eod-block">
+    <div class="eod-hd"><span class="eod-num">①</span> India Equity — Closing Prices</div>
+    <div class="grid g-4" id="india-kpi-row"></div>
+    <div style="margin-top:14px">
+      <div class="eod-sub">Valuation</div>
+      <div class="grid g-3" id="ov-valuation-cards" style="margin-top:10px"></div>
+    </div>
+  </div>
 
-  <!-- Nifty chart + Buffett gauge -->
-  <div class="grid g-2" style="margin-bottom:16px">
+  <!-- ② US EQUITY ──────────────────────────────────────────── -->
+  <div class="eod-block">
+    <div class="eod-hd"><span class="eod-num">②</span> US Equity — Previous Session Close</div>
+    <div class="grid g-3" id="ov-us-kpi"></div>
+  </div>
+
+  <!-- ③ INDIA DEBT MARKET ──────────────────────────────────── -->
+  <div class="eod-block">
+    <div class="eod-hd"><span class="eod-num">③</span> India Debt Market — Yields &amp; Rates</div>
+    <div class="grid g-2">
+      <div>
+        <div class="eod-sub">Government &amp; Corp Bonds</div>
+        <table class="data-table">
+          <thead><tr><th>Instrument</th><th>Yield / Rate</th><th>Δ bps</th></tr></thead>
+          <tbody id="ov-debt-table"></tbody>
+        </table>
+      </div>
+      <div>
+        <div class="eod-sub">Money Market</div>
+        <table class="data-table">
+          <thead><tr><th>Instrument</th><th>Rate</th><th>Δ bps</th></tr></thead>
+          <tbody id="ov-mm-table"></tbody>
+        </table>
+        <div class="eod-sub" style="margin-top:18px">Yield Ladder</div>
+        <canvas id="yieldChart" height="110"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ US 10Y + ⑤ COMMODITIES + ⑥ CURRENCY in one row -->
+  <div class="grid g-3">
+
+    <!-- ④ US 10Y Treasury -->
+    <div class="eod-block" style="margin:0">
+      <div class="eod-hd"><span class="eod-num">④</span> US 10-Year Treasury</div>
+      <div style="font-size:32px;font-weight:800;letter-spacing:-.03em;margin:10px 0 4px" id="ov-us10y-big">—</div>
+      <div id="ov-us10y-bps" style="font-size:13px"></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">India 10Y G-Sec: <b id="ov-india10y" style="color:var(--text)">—</b></div>
+    </div>
+
+    <!-- ⑥ Currency -->
+    <div class="eod-block" style="margin:0">
+      <div class="eod-hd"><span class="eod-num">⑥</span> Currency — USD/INR</div>
+      <div style="font-size:32px;font-weight:800;letter-spacing:-.03em;margin:10px 0 4px" id="ov-usdinr-big">—</div>
+      <div id="ov-usdinr-chg" style="font-size:13px"></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">EUR/INR: <b id="ov-eurinr" style="color:var(--text)">—</b> &nbsp; GBP/INR: <b id="ov-gbpinr" style="color:var(--text)">—</b></div>
+    </div>
+
+    <!-- ⑦ India VIX -->
+    <div class="eod-block" style="margin:0">
+      <div class="eod-hd"><span class="eod-num">⑦</span> India VIX</div>
+      <div style="font-size:32px;font-weight:800;letter-spacing:-.03em;margin:10px 0 4px" id="ov-vix-big">—</div>
+      <div id="ov-vix-pct" style="font-size:13px"></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">52w: <b id="ov-vix-hl" style="color:var(--text)">—</b></div>
+    </div>
+
+  </div>
+
+  <!-- ⑤ COMMODITIES ────────────────────────────────────────── -->
+  <div class="eod-block">
+    <div class="eod-hd"><span class="eod-num">⑤</span> Commodities</div>
+    <div class="grid g-3">
+      <div>
+        <div class="eod-sub">Gold</div>
+        <table class="data-table"><tbody id="ov-gold-table"></tbody></table>
+      </div>
+      <div>
+        <div class="eod-sub">Silver</div>
+        <table class="data-table"><tbody id="ov-silver-table"></tbody></table>
+      </div>
+      <div>
+        <div class="eod-sub">Crude Oil</div>
+        <table class="data-table"><tbody id="ov-crude-table"></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑧ BUFFETT INDICATOR ─────────────────────────────────── -->
+  <div class="eod-block">
+    <div class="eod-hd"><span class="eod-num">⑧</span> GDP-to-Market Cap (Buffett Indicator)</div>
+    <div class="grid g-2">
+      <div>
+        <table class="data-table">
+          <tbody id="ov-buffett-table"></tbody>
+        </table>
+      </div>
+      <div style="position:relative">
+        <div class="gauge-wrap" style="padding-top:44%">
+          <canvas id="buffettGauge"></canvas>
+          <div class="gauge-label">
+            <div class="g-val" id="bi-big">—</div>
+            <div class="g-sub" id="bi-verdict-lbl">—</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px;padding:0 8px">
+          <span>&lt;75% Undervalued</span><span>75–100% Fair</span><span>&gt;100% Overvalued</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑨ BEER / FED MODEL ──────────────────────────────────── -->
+  <div class="eod-block">
+    <div class="eod-hd"><span class="eod-num">⑨</span> BEER / Fed Model (Equity vs Bonds)</div>
+    <div class="grid g-2">
+      <div>
+        <table class="data-table"><tbody id="ov-beer-table"></tbody></table>
+        <div style="font-size:12px;color:var(--muted);margin-top:10px;padding:10px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--border)" id="ov-beer-interp">—</div>
+      </div>
+      <div>
+        <canvas id="beerChart" height="130"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nifty chart + PE chart -->
+  <div class="grid g-2">
     <div class="card">
       <div class="card-hd">🇮🇳 Nifty 50 — 30-Day Price Trend</div>
       <canvas id="niftyChart" height="95"></canvas>
     </div>
     <div class="card">
-      <div class="card-hd">📊 Buffett Indicator (Market-Cap / GDP)</div>
-      <div class="gauge-wrap">
-        <canvas id="buffettGauge"></canvas>
-        <div class="gauge-label">
-          <div class="g-val" id="bi-big">—</div>
-          <div class="g-sub" id="bi-verdict-lbl">—</div>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:8px">
-        <span>BSE Mcap <b id="bi-mcap-s" style="color:var(--text)">—</b> USD tn</span>
-        <span>India GDP <b id="bi-gdp-s" style="color:var(--text)">—</b> USD tn</span>
-      </div>
+      <div class="card-hd">📈 PE Valuation vs Historical Medians</div>
+      <canvas id="peChart" height="95"></canvas>
     </div>
-  </div>
-
-  <!-- PE chart + Yield chart -->
-  <div class="grid g-2" style="margin-bottom:16px">
-    <div class="card">
-      <div class="card-hd">📈 PE Valuation — Current vs Median (5yr &amp; 10yr)</div>
-      <canvas id="peChart" height="80"></canvas>
-    </div>
-    <div class="card">
-      <div class="card-hd">🏦 India Yield Ladder</div>
-      <canvas id="yieldChart" height="80"></canvas>
-    </div>
-  </div>
-
-  <!-- Global snapshot row -->
-  <div class="card" style="margin-bottom:16px">
-    <div class="card-hd">🌏 World Markets — Previous Session Close</div>
-    <div class="grid g-3" id="global-snap-row" style="margin:0"></div>
   </div>
 
 </div>
@@ -1380,6 +1509,160 @@ function render() {
   /* Summary */
   set('summary-text', d.summary || '—');
 
+  /* ── ① India Equity KPI row ───────────────────── */
+  const kpiData = [
+    {name:'Nifty 50',      val:ie.nifty50?.close,    pct:ie.nifty50?.pct_change,    dec:2},
+    {name:'BSE Sensex',    val:ie.sensex?.close,     pct:ie.sensex?.pct_change,     dec:0},
+    {name:'Nifty Midcap 150', val:ie.midcap150?.close, pct:ie.midcap150?.pct_change, dec:2},
+    {name:'Nifty Smallcap 250',val:ie.smallcap250?.close,pct:ie.smallcap250?.pct_change,dec:2},
+  ];
+  const kpiHtml = kpiData.map(({name,val,pct,dec})=>`
+    <div class="mkt-card">
+      <div class="mkt-name">${name}</div>
+      <div class="mkt-val">${val!=null?n(val,dec):'—'}</div>
+      <div class="mkt-chg">${pctHtml(pct)}</div>
+    </div>`).join('');
+  set('india-kpi-row', kpiHtml);
+
+  /* ① Valuation cards in overview */
+  const scPe = val.small_cap?.pe ?? m.smallcap250_current_pe?.value;
+  function valCard(title, pe, pb, dy, med5, med10, verdict) {
+    const peDiff = pe && med5 ? ((pe-med5)/med5*100).toFixed(1) : null;
+    const diffCls = peDiff==null?'flat':peDiff>5?'dn':peDiff<-5?'up':'flat';
+    return `<div class="card" style="padding:14px">
+      <div class="card-hd">${title}</div>
+      <table class="data-table">
+        <tbody>
+          <tr><td class="lbl-cell">PE Ratio</td><td>${pe!=null?n(pe):'—'}</td></tr>
+          <tr><td class="lbl-cell">5-Yr Median PE</td><td>${med5!=null?n(med5):'—'} ${peDiff!=null?`<span class="${diffCls}" style="font-size:10px">(${peDiff>0?'+':''}${peDiff}%)</span>`:''}</td></tr>
+          <tr><td class="lbl-cell">10-Yr Median PE</td><td>${med10!=null?n(med10):'—'}</td></tr>
+          <tr><td class="lbl-cell">P/B Ratio</td><td>${pb!=null?n(pb):'—'}</td></tr>
+          <tr><td class="lbl-cell">Dividend Yield</td><td>${dy!=null?n(dy)+'%':'—'}</td></tr>
+          <tr><td class="lbl-cell">Verdict</td><td class="verdict-cell">${chipHtml(verdict)}</td></tr>
+        </tbody>
+      </table>
+    </div>`;
+  }
+  set('ov-valuation-cards',
+    valCard('Large Cap — Nifty 50', val.large_cap?.pe, val.large_cap?.pb, val.large_cap?.div_yield,
+      m.nifty50_pe_5yr_median?.value, m.nifty50_pe_10yr_median?.value, val.large_cap?.verdict) +
+    valCard('Mid Cap — Midcap 150', val.mid_cap?.pe, val.mid_cap?.pb, val.mid_cap?.div_yield,
+      m.midcap150_pe_5yr_median?.value, m.midcap150_pe_10yr_median?.value, val.mid_cap?.verdict) +
+    valCard('Small Cap — Smallcap 250', scPe, val.small_cap?.pb, val.small_cap?.div_yield,
+      m.smallcap250_pe_5yr_median?.value, m.smallcap250_pe_10yr_median?.value, val.small_cap?.verdict)
+  );
+
+  /* ── ② US Equity ─────────────────────────────── */
+  set('ov-us-kpi', [
+    {name:'S&P 500',          val:ue.sp500?.close,  pct:ue.sp500?.pct_change},
+    {name:'Dow Jones',        val:ue.dow?.close,    pct:ue.dow?.pct_change},
+    {name:'Nasdaq Composite', val:ue.nasdaq?.close, pct:ue.nasdaq?.pct_change},
+  ].map(({name,val,pct})=>`
+    <div class="mkt-card">
+      <div class="mkt-name">${name}</div>
+      <div class="mkt-val">${val!=null?n(val,0):'—'}</div>
+      <div class="mkt-chg">${pctHtml(pct)}</div>
+    </div>`).join(''));
+
+  /* ── ③ India Debt Market ─────────────────────── */
+  function debtRow(label, rate, bps, note) {
+    const bpsStr = bps!=null
+      ? `<span class="${bps>0?'up':bps<0?'dn':'flat'}">${bps>0?'+':''}${bps}</span>`
+      : '<span class="flat">—</span>';
+    const noteStr = note ? `<span class="badge badge-est" title="${note}">est.</span>` : '';
+    return `<tr>
+      <td class="lbl-cell">${label}${noteStr}</td>
+      <td>${rate!=null?rate+'%':'—'}</td>
+      <td>${bpsStr}</td>
+    </tr>`;
+  }
+  const g10y = debt?.gsec_10y, us10y = debt?.us_10y;
+  set('ov-debt-table',
+    debtRow('10 Yr G-Sec', g10y?.yield, g10y?.bps_change) +
+    debtRow('5 Yr AAA Corp', m.aaa_corp_5yr?.value, null, 'sourced; intraday bps N/A') +
+    debtRow('3 Yr AAA Corp', m.aaa_corp_3yr?.value, null, 'sourced; intraday bps N/A') +
+    debtRow('1 Yr AAA Corp', m.aaa_corp_1yr?.value, null, 'sourced; intraday bps N/A') +
+    debtRow('3 Yr AA Corp',  m.aa_corp_3yr?.value,  null, 'sourced; intraday bps N/A') +
+    debtRow('1 Yr AA Corp',  m.aa_corp_1yr?.value,  null, 'sourced; intraday bps N/A')
+  );
+  set('ov-mm-table',
+    debtRow('12M CD',        m.cd_12m?.value,    null, 'sourced; intraday bps N/A') +
+    debtRow('3M CD',         m.cd_3m?.value,     null, 'sourced; intraday bps N/A') +
+    debtRow('Call (O/N)',    m.call_rate?.value,  null, 'sourced; intraday bps N/A') +
+    debtRow('T-Repo',        m.t_repo?.value,     null, 'sourced; intraday bps N/A')
+  );
+
+  /* ── ④ US 10Y ────────────────────────────────── */
+  set('ov-us10y-big', us10y?.yield!=null ? us10y.yield.toFixed(2)+'%' : '—');
+  set('ov-us10y-bps', us10y?.bps_change!=null
+    ? `<span class="${us10y.bps_change>0?'up':us10y.bps_change<0?'dn':'flat'}">${us10y.bps_change>0?'+':''}${us10y.bps_change} bps vs prior day</span>`
+    : '<span class="flat">bps change N/A</span>');
+  set('ov-india10y', g10y?.yield!=null ? g10y.yield.toFixed(2)+'%' : '—');
+
+  /* ── ⑥ Currency ─────────────────────────────── */
+  const usdInr = cur?.usd_inr;
+  set('ov-usdinr-big', usdInr?.value!=null ? n(usdInr.value, 3) : '—');
+  const inrChg = usdInr?.change;
+  const inrDir = inrChg==null ? '—' : inrChg < 0
+    ? `<span class="up">₹ Firmed ${n(Math.abs(inrChg),3)}</span>`
+    : inrChg > 0
+    ? `<span class="dn">₹ Weakened ${n(inrChg,3)}</span>`
+    : `<span class="flat">Unchanged</span>`;
+  set('ov-usdinr-chg', inrDir);
+  set('ov-eurinr', cur?.eur_inr?.value!=null ? n(cur.eur_inr.value,2) : '—');
+  set('ov-gbpinr', cur?.gbp_inr?.value!=null ? n(cur.gbp_inr.value,2) : '—');
+
+  /* ── ⑦ India VIX ─────────────────────────────── */
+  set('ov-vix-big', vix?.value!=null ? n(vix.value) : '—');
+  set('ov-vix-pct', pctHtml(vix?.pct_change));
+  set('ov-vix-hl',  `${n(vix?.wk52_high)} / ${n(vix?.wk52_low)}`);
+
+  /* ── ⑤ Commodities ───────────────────────────── */
+  function commRow(label, val, pct, sym, dec) {
+    return `<tr>
+      <td class="lbl-cell">${label}</td>
+      <td>${val!=null?sym+n(val,dec):'—'}</td>
+      <td>${pct!=null?`<span class="${pct>0?'up':pct<0?'dn':'flat'}">${pct>0?'▲':'▼'} ${Math.abs(pct).toFixed(2)}%</span>`:'—'}</td>
+    </tr>`;
+  }
+  set('ov-gold-table',
+    commRow('COMEX ($/oz)', com?.gold_comex_usd_oz?.value, com?.gold_comex_usd_oz?.pct_change, '$', 2) +
+    commRow('MCX (₹/10g)',  com?.gold_mcx_inr_10g?.value,  com?.gold_comex_usd_oz?.pct_change, '₹', 0)
+  );
+  set('ov-silver-table',
+    commRow('COMEX ($/oz)', com?.silver_comex_usd_oz?.value, com?.silver_comex_usd_oz?.pct_change, '$', 3) +
+    commRow('MCX (₹/kg)',   com?.silver_mcx_inr_kg?.value,   com?.silver_comex_usd_oz?.pct_change, '₹', 0)
+  );
+  set('ov-crude-table',
+    commRow('Brent ($/bbl)',   com?.brent_usd_bbl?.value, com?.brent_usd_bbl?.pct_change, '$', 2) +
+    commRow('Brent MCX (₹/bbl)', com?.brent_mcx_inr_bbl?.value, com?.brent_usd_bbl?.pct_change, '₹', 0) +
+    commRow('WTI ($/bbl)',    com?.wti_usd_bbl?.value,   com?.wti_usd_bbl?.pct_change, '$', 2)
+  );
+
+  /* ── ⑧ Buffett Indicator ─────────────────────── */
+  set('bi-big',        bi?.ratio_pct!=null ? bi.ratio_pct.toFixed(1)+'%' : '—');
+  set('bi-verdict-lbl', bi?.verdict || '—');
+  set('bi-mcap-s',  n(bi?.bse_mcap_usd_tn));
+  set('bi-gdp-s',   n(bi?.india_gdp_usd_tn));
+  set('ov-buffett-table', `
+    <tr><td class="lbl-cell">BSE Mcap (₹ lakh cr)</td><td>${n(bi?.bse_mcap_lakh_cr)}</td></tr>
+    <tr><td class="lbl-cell">BSE Mcap (USD tn)</td><td>$${n(bi?.bse_mcap_usd_tn)} tn</td></tr>
+    <tr><td class="lbl-cell">India GDP (USD tn, est.)</td><td>$${n(bi?.india_gdp_usd_tn)} tn</td></tr>
+    <tr><td class="lbl-cell">Ratio (Mcap / GDP)</td><td><b>${bi?.ratio_pct!=null?bi.ratio_pct.toFixed(1)+'%':'—'}</b></td></tr>
+    <tr><td class="lbl-cell">Verdict</td><td>${chipHtml(bi?.verdict)}</td></tr>
+  `);
+
+  /* ── ⑨ BEER Model ────────────────────────────── */
+  set('ov-beer-table', `
+    <tr><td class="lbl-cell">Nifty 50 PE</td><td>${n(val.large_cap?.pe)}</td></tr>
+    <tr><td class="lbl-cell">Earnings Yield (1/PE)</td><td>${beer?.earnings_yield_pct!=null?beer.earnings_yield_pct.toFixed(2)+'%':'—'}</td></tr>
+    <tr><td class="lbl-cell">India 10Y G-Sec Yield</td><td>${beer?.gsec_10y_pct!=null?beer.gsec_10y_pct.toFixed(2)+'%':'—'}</td></tr>
+    <tr><td class="lbl-cell">BEER Ratio (G-Sec ÷ EY)</td><td><b>${n(beer?.beer_ratio)}</b></td></tr>
+    <tr><td class="lbl-cell">Equity Risk Premium (EY − G-Sec)</td><td><b><span class="${(beer?.erp_pct||0)>=0?'up':'dn'}">${beer?.erp_pct!=null?(beer.erp_pct>0?'+':'')+beer.erp_pct.toFixed(2)+'%':'—'}</span></b></td></tr>
+  `);
+  set('ov-beer-interp', `<b>Interpretation:</b> ${beer?.interpretation || '—'}`);
+  set('beer-interp', beer?.interpretation || '—');
+
   /* ── Ticker strip ─────────────────────────────── */
   const ticks = [
     ['NIFTY 50', ie.nifty50?.close, ie.nifty50?.pct_change, 0],
@@ -1413,25 +1696,7 @@ function render() {
     $('ticker').appendChild(el);
   });
 
-  /* ── Overview: India KPI row ──────────────────── */
-  const kpiData = [
-    {name:'Nifty 50',val:ie.nifty50?.close,pct:ie.nifty50?.pct_change,dec:2},
-    {name:'BSE Sensex',val:ie.sensex?.close,pct:ie.sensex?.pct_change,dec:0},
-    {name:'Nifty Midcap 150',val:ie.midcap150?.close,pct:ie.midcap150?.pct_change,dec:2},
-    {name:'Nifty Smallcap 250',val:ie.smallcap250?.close,pct:ie.smallcap250?.pct_change,dec:2},
-  ];
-  $('india-kpi-row').innerHTML = kpiData.map(({name,val,pct,dec})=>`
-    <div class="mkt-card">
-      <div class="mkt-name">${name}</div>
-      <div class="mkt-val">${val!=null?n(val,dec):'—'}</div>
-      <div class="mkt-chg">${pctHtml(pct)}</div>
-    </div>`).join('');
-
-  /* ── Overview: Buffett gauge labels ───────────── */
-  set('bi-big', bi?.ratio_pct!=null ? bi.ratio_pct.toFixed(1)+'%' : '—');
-  set('bi-verdict-lbl', bi?.verdict || '—');
-  set('bi-mcap-s', n(bi?.bse_mcap_usd_tn));
-  set('bi-gdp-s', n(bi?.india_gdp_usd_tn));
+  /* ── Overview: Global snap row ────────────────── */
 
   /* ── FII/DII ──────────────────────────────────── */
   set('fii-date', fiiDii.date ? `(${fiiDii.date})` : '');
@@ -1455,7 +1720,8 @@ function render() {
     set('n52-from-low',  `<span class="up">+${fromLow}%</span>`);
     // Progress bar
     const pos = ((nCur - nLow) / (nHigh - nLow) * 100).toFixed(1);
-    $('nifty52w-bar').innerHTML = `
+    const barEl = $('nifty52w-bar');
+    if (barEl) barEl.innerHTML = `
       <div style="background:var(--border);border-radius:4px;height:8px;position:relative">
         <div style="background:linear-gradient(90deg,var(--green),var(--amber),var(--red));border-radius:4px;height:100%;width:${pos}%"></div>
         <div style="position:absolute;top:-16px;left:calc(${pos}% - 4px);font-size:10px;color:var(--text)">▲</div>
@@ -1469,7 +1735,7 @@ function render() {
   if (g?.regions) {
     const regionEmoji = {asia_pacific:'🌏',europe:'🇪🇺',us:'🇺🇸'};
     const regionLabel = {asia_pacific:'Asia-Pacific',europe:'Europe',us:'Americas'};
-    $('global-snap-row').innerHTML = Object.entries(g.regions).map(([key,reg])=>`
+    const snapHtml = Object.entries(g.regions).map(([key,reg])=>`
       <div class="card" style="padding:14px">
         <div class="card-hd">${regionEmoji[key]||'🌐'} ${regionLabel[key]||key}
           <span class="status-dot ${reg.session_status==='open'?'open':'closed'}"></span>
@@ -1480,6 +1746,8 @@ function render() {
             <span class="val" style="font-size:12px">${n(idx.close,0)} ${pctHtml(idx.pct_change)}</span>
           </div>`).join('')}
       </div>`).join('');
+    const snapEl = $('global-snap-row');
+    if (snapEl) snapEl.innerHTML = snapHtml;
   }
 
   /* ── India tab: full indices ──────────────────── */
@@ -1521,7 +1789,6 @@ function render() {
   }).join('');
 
   /* ── Valuation cards ──────────────────────────── */
-  const scPe = val.small_cap?.pe ?? m.smallcap250_current_pe?.value;
   const scPb = val.small_cap?.pb ?? m.smallcap250_pb?.value;
   const scDy = val.small_cap?.div_yield ?? m.smallcap250_div_yield?.value;
   set('lc-pe',  n(val.large_cap?.pe));
