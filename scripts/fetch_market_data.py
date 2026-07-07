@@ -275,6 +275,22 @@ def main():
     except Exception:
         prior = {}
 
+    # Use yesterday's history file for bps changes, not the last-run file.
+    # This prevents same-day re-runs from showing 0 bps when yield actually moved.
+    def load_prior_day():
+        today = now_ist.date()
+        for delta in range(1, 6):  # look back up to 5 calendar days
+            d = today - datetime.timedelta(days=delta)
+            p = HISTORY_DIR / f"{d.isoformat()}.json"
+            if p.exists():
+                try:
+                    return json.loads(p.read_text())
+                except Exception:
+                    pass
+        return prior  # fallback to last run
+
+    prior_day = load_prior_day()
+
     # ------------------------------------------------------------------ #
     # 1. India equity indices
     # ------------------------------------------------------------------ #
@@ -342,8 +358,8 @@ def main():
     us_10y = round(float(us_10y_raw), 2) if us_10y_raw is not None else None
     print(f"  US 10Y  : {us_10y}%")
 
-    prior_india_10y = (prior.get("india_debt") or {}).get("gsec_10y", {}).get("yield")
-    prior_us_10y    = (prior.get("india_debt") or {}).get("us_10y",   {}).get("yield")
+    prior_india_10y = (prior_day.get("india_debt") or {}).get("gsec_10y", {}).get("yield")
+    prior_us_10y    = (prior_day.get("india_debt") or {}).get("us_10y",   {}).get("yield")
 
     # Sanity clamp: India G-Sec yields don't normally move more than 25 bps in a session.
     # A larger delta almost certainly means the scraper picked up a wrong number.
@@ -392,7 +408,7 @@ def main():
         _, usd_inr, _ = yf_last("INR=X", precision=3)
     _, eur_inr, eur_inr_pct = yf_last("EURINR=X", precision=2)
     _, gbp_inr, gbp_inr_pct = yf_last("GBPINR=X", precision=2)
-    prior_usd_inr = (prior.get("currency") or {}).get("usd_inr", {}).get("value")
+    prior_usd_inr = (prior_day.get("currency") or {}).get("usd_inr", {}).get("value")
     usd_inr_change = round(usd_inr - prior_usd_inr, 3) if (usd_inr and prior_usd_inr) else None
     print(f"  USD/INR : {usd_inr}  (Δ {usd_inr_change})")
     print(f"  EUR/INR : {eur_inr}  ({eur_inr_pct}%)")
@@ -438,17 +454,19 @@ def main():
         print(f"  RBI rates: {rbi_rates}")
     except Exception as e:
         print(f"  [WARN] RBI rates: {e}", file=sys.stderr)
-    # Fall back to prior, then known-good hardcoded rates (updated June 2025 cut)
+    # Fall back to prior only if it was live-scraped; otherwise use updated hardcoded rates.
+    HARDCODED_RBI = {
+        "repo_rate": 5.25, "sdf_rate": 5.00, "msf_rate": 5.50,
+        "crr": 4.0, "slr": 18.0,
+        "_source": "hardcoded_fallback_Jun2026"
+    }
     prior_rbi = prior.get("rbi_policy") or {}
     if not rbi_rates.get("repo_rate"):
-        if prior_rbi.get("repo_rate"):
+        prior_is_live = "_source" not in prior_rbi  # only trust prior if it came from live scraping
+        if prior_rbi.get("repo_rate") and prior_is_live:
             rbi_rates = prior_rbi
         else:
-            rbi_rates = {
-                "repo_rate": 6.0, "sdf_rate": 5.75, "msf_rate": 6.25,
-                "crr": 4.0, "slr": 18.0,
-                "_source": "hardcoded_fallback_Jun2025"
-            }
+            rbi_rates = HARDCODED_RBI
 
     # ------------------------------------------------------------------ #
     # 6c. NSE FII / DII net flows
@@ -533,11 +551,12 @@ def main():
     # 9. Buffett indicator
     # ------------------------------------------------------------------ #
     prior_buf = prior.get("buffett_indicator") or {}
+    prior_day_buf = prior_day.get("buffett_indicator") or {}
     india_gdp_usd_tn = prior_buf.get("india_gdp_usd_tn", 4.15)
 
     bse_lakh_cr = bse_usd_tn = buffett_ratio = buffett_verdict = None
-    prior_nifty    = (prior.get("india_equity") or {}).get("nifty50", {}).get("close")
-    prior_lakh_cr  = prior_buf.get("bse_mcap_lakh_cr")
+    prior_nifty    = (prior_day.get("india_equity") or {}).get("nifty50", {}).get("close")
+    prior_lakh_cr  = prior_day_buf.get("bse_mcap_lakh_cr") or prior_buf.get("bse_mcap_lakh_cr")
     if prior_lakh_cr and prior_nifty and nifty_close:
         bse_lakh_cr = round(prior_lakh_cr * nifty_close / prior_nifty, 2)
     if bse_lakh_cr and usd_inr:
