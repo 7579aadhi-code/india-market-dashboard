@@ -4,53 +4,174 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>India Market Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --green: #0a8a4a; --red: #c0392b; --bg: #0f1420; --card: #161d2e;
-    --border: #263048; --text: #e8ecf4; --muted: #8b96ab; --accent: #4d8dff;
+    --green:#16a34a; --red:#dc2626; --amber:#d97706;
+    --bg:#0b0f1a; --card:#111827; --card2:#161e30;
+    --border:#1e2d45; --text:#e2e8f0; --muted:#64748b;
+    --accent:#3b82f6; --accent2:#8b5cf6;
   }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    background: var(--bg); color: var(--text); padding: 24px;
-  }
-  header { margin-bottom: 24px; }
-  h1 { margin: 0 0 4px; font-size: 26px; }
-  .meta { color: var(--muted); font-size: 13px; }
-  .manual-flag { color: #e0a92e; font-size: 12px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
-  .card h2 { margin: 0 0 12px; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
-  .row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
-  .row:last-child { border-bottom: none; }
-  .label { color: var(--muted); }
-  .val { font-weight: 600; }
-  .up { color: var(--green); } .down { color: var(--red); } .flat { color: var(--muted); }
-  .verdict { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-  .verdict.Undervalued { background: rgba(10,138,74,.2); color: var(--green); }
-  .verdict.Fairly { background: rgba(77,141,255,.2); color: var(--accent); }
-  .verdict.Overvalued { background: rgba(192,57,43,.2); color: var(--red); }
-  .verdict.Pending { background: rgba(139,150,171,.2); color: var(--muted); }
-  .summary { background: linear-gradient(135deg, #1a2540, #131a2c); border: 1px solid var(--accent); border-radius: 10px; padding: 18px 20px; font-size: 15px; margin-bottom: 20px; }
-  .manual-badge { font-size: 10px; background: #3a2f14; color: #e0a92e; padding: 1px 6px; border-radius: 4px; margin-left: 6px; }
-  footer { color: var(--muted); font-size: 12px; margin-top: 30px; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);padding:0}
+
+  /* ── ticker strip ── */
+  .ticker{background:#060c18;border-bottom:1px solid var(--border);padding:8px 24px;display:flex;gap:28px;overflow-x:auto;white-space:nowrap;font-size:13px}
+  .ticker-item{display:flex;flex-direction:column;gap:1px}
+  .ticker-item .t-lbl{color:var(--muted);font-size:11px}
+  .ticker-item .t-val{font-weight:700;font-size:14px}
+
+  /* ── main layout ── */
+  .page{max-width:1400px;margin:0 auto;padding:20px 24px 40px}
+  header{margin-bottom:20px}
+  h1{font-size:24px;font-weight:700;letter-spacing:-.02em}
+  .meta{color:var(--muted);font-size:12px;margin-top:3px}
+  .summary-bar{background:linear-gradient(120deg,#0f1f3d,#111827);border:1px solid var(--accent);border-radius:10px;padding:14px 18px;font-size:14px;line-height:1.5;margin-bottom:22px}
+
+  /* ── chart cards ── */
+  .chart-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+  .chart-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:900px){.chart-row,.chart-row-3{grid-template-columns:1fr}}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+  .card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:14px}
+
+  /* ── data grid ── */
+  .data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-bottom:16px}
+
+  .row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+  .row:last-child{border-bottom:none}
+  .label{color:var(--muted)}
+  .val{font-weight:600}
+
+  /* colours */
+  .up{color:var(--green)} .down{color:var(--red)} .flat{color:var(--muted)}
+
+  /* verdict chips */
+  .chip{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700}
+  .chip.Undervalued{background:rgba(22,163,74,.18);color:var(--green)}
+  .chip.Fairly,.chip.FairlyValued{background:rgba(59,130,246,.18);color:var(--accent)}
+  .chip.Overvalued{background:rgba(220,38,38,.18);color:var(--red)}
+  .chip.Pending,.chip.DataPending{background:rgba(100,116,139,.18);color:var(--muted)}
+
+  /* badges */
+  .badge{font-size:10px;padding:1px 5px;border-radius:4px;margin-left:5px;vertical-align:middle}
+  .badge-est{background:#2d1f0a;color:#e0a92e}
+  .badge-src{background:#0a2d1f;color:#4dbf8d}
+  .badge-auto{background:#0a1e3d;color:#6ba4ff}
+
+  /* buffett gauge */
+  .gauge-wrap{position:relative;width:100%;padding-top:50%}
+  .gauge-wrap canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important}
+  .gauge-label{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);text-align:center}
+  .gauge-label .g-val{font-size:26px;font-weight:800}
+  .gauge-label .g-sub{font-size:11px;color:var(--muted)}
+
+  /* yield bar */
+  .yield-bar-wrap{position:relative}
+
+  footer{color:var(--muted);font-size:11px;margin-top:30px;padding-top:14px;border-top:1px solid var(--border)}
 </style>
 </head>
 <body>
 
+<!-- ── Ticker strip ── -->
+<div class="ticker" id="ticker-strip">
+  <div class="ticker-item"><span class="t-lbl">NIFTY 50</span><span class="t-val" id="tk-nifty">—</span></div>
+  <div class="ticker-item"><span class="t-lbl">SENSEX</span><span class="t-val" id="tk-sensex">—</span></div>
+  <div class="ticker-item"><span class="t-lbl">MIDCAP 150</span><span class="t-val" id="tk-mid">—</span></div>
+  <div class="ticker-item"><span class="t-lbl">SMALLCAP 250</span><span class="t-val" id="tk-small">—</span></div>
+  <div class="ticker-item"><span class="t-lbl">INDIA VIX</span><span class="t-val" id="tk-vix">—</span></div>
+  <div class="ticker-item"><span class="t-lbl">USD/INR</span><span class="t-val" id="tk-inr">—</span></div>
+  <div class="ticker-item"><span class="t-lbl">GOLD $/oz</span><span class="t-val" id="tk-gold">—</span></div>
+  <div class="ticker-item"><span class="t-lbl">BRENT $/bbl</span><span class="t-val" id="tk-brent">—</span></div>
+  <div class="ticker-item"><span class="t-lbl">INDIA 10Y</span><span class="t-val" id="tk-gsec">—</span></div>
+  <div class="ticker-item"><span class="t-lbl">US 10Y</span><span class="t-val" id="tk-us10y">—</span></div>
+</div>
+
+<div class="page">
+
 <header>
-  <div class="nav" style="margin-bottom:10px;font-size:13px;"><a href="index.html" style="color:var(--accent);text-decoration:none;margin-right:16px;">India Market Dashboard</a><a href="global-markets.html" style="color:var(--accent);text-decoration:none;">Global Markets Snapshot →</a></div>
-  <h1>India Market Dashboard</h1>
-  <div class="meta" id="meta-line">Data as of <b>—</b> · Generated <b>—</b> IST</div>
-  <div class="manual-flag">🟡 "sourced" badges = real published figures with a source cited (hover for it) · "est." badges = reasoned estimates where no exact same-day figure was found (no reliable free live feed) — edit data/manual_overrides.json to update</div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:4px">
+        <a href="index.html" style="color:var(--accent);text-decoration:none">India Market Dashboard</a>
+        &nbsp;·&nbsp;
+        <a href="global-markets.html" style="color:var(--accent);text-decoration:none">Global Markets →</a>
+      </div>
+      <h1>India Market Dashboard</h1>
+      <div class="meta" id="meta-line">Data as of <b>—</b> · Generated <b>—</b> IST</div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);text-align:right;max-width:340px;line-height:1.6">
+      🟡 <b>est.</b> = reasoned estimate &nbsp;|&nbsp; 🟢 <b>sourced</b> = cited figure<br>
+      Auto-refreshes daily at 8:30 AM IST via GitHub Actions
+    </div>
+  </div>
 </header>
 
-<div class="summary" id="summary-text">Loading…</div>
+<div class="summary-bar" id="summary-text">Loading…</div>
 
-<div class="grid">
+<!-- ── Row 1: Nifty chart + Buffett gauge ── -->
+<div class="chart-row">
+  <div class="card">
+    <div class="card-title">Nifty 50 — 30-Day Price Trend</div>
+    <canvas id="niftyChart" height="90"></canvas>
+  </div>
+  <div class="card">
+    <div class="card-title">Buffett Indicator (Market-Cap / GDP)</div>
+    <div class="gauge-wrap">
+      <canvas id="buffettGauge"></canvas>
+      <div class="gauge-label">
+        <div class="g-val" id="bi-ratio-big">—</div>
+        <div class="g-sub" id="bi-verdict-sub">—</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between">
+      <span>BSE Mcap: <b id="bi-mcap-usd-s">—</b> USD tn</span>
+      <span>India GDP: <b id="bi-gdp-s">—</b> USD tn</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Row 2: PE valuation bars + Yield ladder ── -->
+<div class="chart-row">
+  <div class="card">
+    <div class="card-title">PE Valuation — Current vs 5yr & 10yr Median</div>
+    <canvas id="peChart" height="80"></canvas>
+  </div>
+  <div class="card">
+    <div class="card-title">India Yield Ladder</div>
+    <canvas id="yieldChart" height="80"></canvas>
+  </div>
+</div>
+
+<!-- ── Row 3: BEER model doughnut + commodities sparkline ── -->
+<div class="chart-row-3">
+  <div class="card">
+    <div class="card-title">BEER Model — Earnings Yield vs G-Sec</div>
+    <canvas id="beerChart" height="130"></canvas>
+    <div style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center" id="beer-interp-s">—</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Commodity Prices (USD)</div>
+    <div id="commodity-rows"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">US Equity Indices</div>
+    <div class="row"><span class="label">S&amp;P 500</span><span class="val" id="sp500">—</span></div>
+    <div class="row"><span class="label">Dow Jones</span><span class="val" id="dow">—</span></div>
+    <div class="row"><span class="label">Nasdaq</span><span class="val" id="nasdaq">—</span></div>
+    <div style="margin-top:16px" class="card-title">Currency</div>
+    <div class="row"><span class="label">USD/INR</span><span class="val" id="usdinr">—</span></div>
+    <div class="row"><span class="label">Driver</span><span class="val" id="usdinr-driver" style="font-weight:400;font-size:11px;text-align:right;max-width:55%;color:var(--muted)">—</span></div>
+  </div>
+</div>
+
+<!-- ── Data cards grid ── -->
+<div class="data-grid">
 
   <div class="card">
-    <h2>India Equity — Indices</h2>
+    <div class="card-title">India Equity — Indices</div>
     <div class="row"><span class="label">Nifty 50</span><span class="val" id="nifty50">—</span></div>
     <div class="row"><span class="label">BSE Sensex</span><span class="val" id="sensex">—</span></div>
     <div class="row"><span class="label">Nifty Midcap 150</span><span class="val" id="midcap150">—</span></div>
@@ -58,86 +179,66 @@
   </div>
 
   <div class="card">
-    <h2>India Equity — Valuation (Large Cap)</h2>
+    <div class="card-title">Valuation — Large Cap (Nifty 50)</div>
     <div class="row"><span class="label">PE Ratio</span><span class="val" id="lc-pe">—</span></div>
-    <div class="row"><span class="label">5Yr Median PE</span><span class="val" id="lc-pe5">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">10Yr Median PE</span><span class="val" id="lc-pe10">— <span class="manual-badge">manual</span></span></div>
+    <div class="row"><span class="label">5Yr Median PE</span><span class="val" id="lc-pe5">—</span></div>
+    <div class="row"><span class="label">10Yr Median PE</span><span class="val" id="lc-pe10">—</span></div>
     <div class="row"><span class="label">P/B Ratio</span><span class="val" id="lc-pb">—</span></div>
     <div class="row"><span class="label">Dividend Yield</span><span class="val" id="lc-dy">—</span></div>
     <div class="row"><span class="label">Verdict</span><span class="val" id="lc-verdict">—</span></div>
   </div>
 
   <div class="card">
-    <h2>India Equity — Valuation (Mid Cap)</h2>
+    <div class="card-title">Valuation — Mid Cap (Midcap 150)</div>
     <div class="row"><span class="label">PE Ratio</span><span class="val" id="mc-pe">—</span></div>
-    <div class="row"><span class="label">5Yr Median PE</span><span class="val" id="mc-pe5">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">10Yr Median PE</span><span class="val" id="mc-pe10">— <span class="manual-badge">manual</span></span></div>
+    <div class="row"><span class="label">5Yr Median PE</span><span class="val" id="mc-pe5">—</span></div>
+    <div class="row"><span class="label">10Yr Median PE</span><span class="val" id="mc-pe10">—</span></div>
     <div class="row"><span class="label">P/B Ratio</span><span class="val" id="mc-pb">—</span></div>
     <div class="row"><span class="label">Dividend Yield</span><span class="val" id="mc-dy">—</span></div>
     <div class="row"><span class="label">Verdict</span><span class="val" id="mc-verdict">—</span></div>
   </div>
 
   <div class="card">
-    <h2>India Equity — Valuation (Small Cap)</h2>
-    <div class="row"><span class="label">PE Ratio</span><span class="val" id="sc-pe">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">5Yr Median PE</span><span class="val" id="sc-pe5">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">10Yr Median PE</span><span class="val" id="sc-pe10">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">P/B Ratio</span><span class="val" id="sc-pb">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">Dividend Yield</span><span class="val" id="sc-dy">— <span class="manual-badge">manual</span></span></div>
+    <div class="card-title">Valuation — Small Cap (Smallcap 250)</div>
+    <div class="row"><span class="label">PE Ratio</span><span class="val" id="sc-pe">—</span></div>
+    <div class="row"><span class="label">5Yr Median PE</span><span class="val" id="sc-pe5">—</span></div>
+    <div class="row"><span class="label">10Yr Median PE</span><span class="val" id="sc-pe10">—</span></div>
+    <div class="row"><span class="label">P/B Ratio</span><span class="val" id="sc-pb">—</span></div>
+    <div class="row"><span class="label">Dividend Yield</span><span class="val" id="sc-dy">—</span></div>
     <div class="row"><span class="label">Verdict</span><span class="val" id="sc-verdict">—</span></div>
   </div>
 
   <div class="card">
-    <h2>US Equity</h2>
-    <div class="row"><span class="label">S&amp;P 500</span><span class="val" id="sp500">—</span></div>
-    <div class="row"><span class="label">Dow Jones</span><span class="val" id="dow">—</span></div>
-    <div class="row"><span class="label">Nasdaq Composite</span><span class="val" id="nasdaq">—</span></div>
-  </div>
-
-  <div class="card">
-    <h2>India Debt Market</h2>
+    <div class="card-title">India Debt Market</div>
     <div class="row"><span class="label">10 Yr G-Sec</span><span class="val" id="gsec10">—</span></div>
-    <div class="row"><span class="label">5 Yr AAA Corp Bond</span><span class="val" id="aaa5">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">3 Yr AAA Corp Bond</span><span class="val" id="aaa3">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">1 Yr AAA Corp Bond</span><span class="val" id="aaa1">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">3 Yr AA Corp Bond</span><span class="val" id="aa3">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">1 Yr AA Corp Bond</span><span class="val" id="aa1">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">12 Month CD</span><span class="val" id="cd12">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">3 Month CD</span><span class="val" id="cd3">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">Call Rate (O/N)</span><span class="val" id="callrate">— <span class="manual-badge">manual</span></span></div>
-    <div class="row"><span class="label">T-Repo</span><span class="val" id="trepo">— <span class="manual-badge">manual</span></span></div>
+    <div class="row"><span class="label">5 Yr AAA Corp</span><span class="val" id="aaa5">—</span></div>
+    <div class="row"><span class="label">3 Yr AAA Corp</span><span class="val" id="aaa3">—</span></div>
+    <div class="row"><span class="label">1 Yr AAA Corp</span><span class="val" id="aaa1">—</span></div>
+    <div class="row"><span class="label">3 Yr AA Corp</span><span class="val" id="aa3">—</span></div>
+    <div class="row"><span class="label">1 Yr AA Corp</span><span class="val" id="aa1">—</span></div>
+    <div class="row"><span class="label">12M CD</span><span class="val" id="cd12">—</span></div>
+    <div class="row"><span class="label">3M CD</span><span class="val" id="cd3">—</span></div>
+    <div class="row"><span class="label">Call Rate (O/N)</span><span class="val" id="callrate">—</span></div>
+    <div class="row"><span class="label">T-Repo</span><span class="val" id="trepo">—</span></div>
   </div>
 
   <div class="card">
-    <h2>US 10-Year Treasury</h2>
+    <div class="card-title">BEER / Fed Model (India)</div>
+    <div class="row"><span class="label">Earnings Yield</span><span class="val" id="beer-ey">—</span></div>
+    <div class="row"><span class="label">India 10Y G-Sec</span><span class="val" id="beer-gsec">—</span></div>
+    <div class="row"><span class="label">BEER Ratio</span><span class="val" id="beer-ratio">—</span></div>
+    <div class="row"><span class="label">Equity Risk Premium</span><span class="val" id="beer-erp">—</span></div>
+    <div class="row"><span class="label">Interpretation</span><span class="val" id="beer-interp" style="font-weight:400;font-size:11px;text-align:right;max-width:55%;color:var(--muted)">—</span></div>
+    <div style="margin-top:16px" class="card-title">India VIX</div>
+    <div class="row"><span class="label">Current</span><span class="val" id="vix">—</span></div>
+    <div class="row"><span class="label">52-Wk High</span><span class="val" id="vix-high">—</span></div>
+    <div class="row"><span class="label">52-Wk Low</span><span class="val" id="vix-low">—</span></div>
+    <div style="margin-top:16px" class="card-title">US 10Y Treasury</div>
     <div class="row"><span class="label">Yield</span><span class="val" id="us10y">—</span></div>
   </div>
 
   <div class="card">
-    <h2>Commodities</h2>
-    <div class="row"><span class="label">Gold (COMEX $/oz)</span><span class="val" id="gold-usd">—</span></div>
-    <div class="row"><span class="label">Gold (MCX ₹/10g)</span><span class="val" id="gold-inr">—</span></div>
-    <div class="row"><span class="label">Silver (COMEX $/oz)</span><span class="val" id="silver-usd">—</span></div>
-    <div class="row"><span class="label">Silver (MCX ₹/kg)</span><span class="val" id="silver-inr">—</span></div>
-    <div class="row"><span class="label">Brent Crude ($/bbl)</span><span class="val" id="brent-usd">—</span></div>
-    <div class="row"><span class="label">Brent Crude (₹/bbl approx)</span><span class="val" id="brent-inr">—</span></div>
-  </div>
-
-  <div class="card">
-    <h2>Currency</h2>
-    <div class="row"><span class="label">USD/INR</span><span class="val" id="usdinr">—</span></div>
-    <div class="row"><span class="label">Driver</span><span class="val" id="usdinr-driver" style="font-weight:400;font-size:12px;text-align:right;max-width:60%;">—</span></div>
-  </div>
-
-  <div class="card">
-    <h2>India VIX</h2>
-    <div class="row"><span class="label">Current</span><span class="val" id="vix">—</span></div>
-    <div class="row"><span class="label">52-Wk High</span><span class="val" id="vix-high">—</span></div>
-    <div class="row"><span class="label">52-Wk Low</span><span class="val" id="vix-low">—</span></div>
-  </div>
-
-  <div class="card">
-    <h2>GDP-to-Market-Cap (Buffett Indicator)</h2>
+    <div class="card-title">Buffett Indicator</div>
     <div class="row"><span class="label">BSE Mcap (₹ lakh cr)</span><span class="val" id="bi-mcap-cr">—</span></div>
     <div class="row"><span class="label">BSE Mcap (US$ tn)</span><span class="val" id="bi-mcap-usd">—</span></div>
     <div class="row"><span class="label">India GDP (US$ tn)</span><span class="val" id="bi-gdp">—</span></div>
@@ -145,58 +246,52 @@
     <div class="row"><span class="label">Verdict</span><span class="val" id="bi-verdict">—</span></div>
   </div>
 
-  <div class="card">
-    <h2>BEER / Fed Model (India)</h2>
-    <div class="row"><span class="label">Nifty 50 Earnings Yield</span><span class="val" id="beer-ey">—</span></div>
-    <div class="row"><span class="label">India 10Y G-Sec Yield</span><span class="val" id="beer-gsec">—</span></div>
-    <div class="row"><span class="label">BEER Ratio</span><span class="val" id="beer-ratio">—</span></div>
-    <div class="row"><span class="label">Equity Risk Premium</span><span class="val" id="beer-erp">—</span></div>
-    <div class="row"><span class="label">Interpretation</span><span class="val" id="beer-interp" style="font-weight:400;font-size:12px;text-align:right;max-width:60%;">—</span></div>
-  </div>
-
-</div>
+</div><!-- end data-grid -->
 
 <footer>
-  Internal dashboard — for client use. Auto-updates once daily at 8:00 AM IST from prior day's close via a scheduled agent. Fields tagged "manual" require periodic manual refresh in <code>data/manual_overrides.json</code>. Not investment advice.
+  Auto-updates daily at 8:30 AM IST via GitHub Actions · Fields tagged <b>est.</b> are reasoned estimates — edit <code>data/manual_overrides.json</code> to update · Not investment advice
 </footer>
 
+</div><!-- end .page -->
+
+<!-- ════════ DATA (inlined by sync_html.py) ════════ -->
 <script id="data-latest" type="application/json">
 {
-  "as_of_date": "2026-07-06",
-  "generated_at_ist": "2026-07-06T13:18:09+05:30",
+  "as_of_date": "2026-07-07",
+  "generated_at_ist": "2026-07-07T11:36:04+05:30",
   "india_equity": {
     "nifty50": {
-      "close": 24443.75,
-      "pct_change": 0.71
+      "close": 24515.05,
+      "pct_change": 0.35
     },
     "sensex": {
-      "close": 78319.76,
-      "pct_change": 0.71
+      "close": 78560.85,
+      "pct_change": 0.35
     },
     "midcap150": {
-      "close": 22945.9,
-      "pct_change": 0.27
+      "close": 22895.15,
+      "pct_change": -0.34
     },
     "smallcap250": {
-      "close": 18037.75,
+      "close": 17969.9,
       "pct_change": null
     }
   },
   "valuation": {
     "large_cap": {
-      "pe": 20.92,
+      "pe": 21.06,
       "pb": 3.17,
       "div_yield": 1.39,
-      "verdict": "Undervalued"
+      "verdict": "Fairly Valued"
     },
     "mid_cap": {
-      "pe": 29.32,
+      "pe": 29.43,
       "pb": 4.78,
       "div_yield": 0.66,
       "verdict": "Overvalued"
     },
     "small_cap": {
-      "pe": 36.07,
+      "pe": 36.23,
       "pb": 3.68,
       "div_yield": null,
       "verdict": "Overvalued",
@@ -205,22 +300,22 @@
   },
   "us_equity": {
     "sp500": {
-      "close": 7483.24,
-      "pct_change": 0.0
+      "close": 7537.43,
+      "pct_change": 0.72
     },
     "dow": {
-      "close": 52900.07,
-      "pct_change": 1.14
+      "close": 53055.91,
+      "pct_change": 0.29
     },
     "nasdaq": {
-      "close": 25832.67,
-      "pct_change": -0.8
+      "close": 26121.16,
+      "pct_change": 1.12
     }
   },
   "india_debt": {
     "gsec_10y": {
       "yield": 6.69,
-      "bps_change": -3
+      "bps_change": 0
     },
     "us_10y": {
       "yield": 4.49,
@@ -229,62 +324,184 @@
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4169.7,
-      "pct_change": 1.39
+      "value": 4138.0,
+      "pct_change": -0.41
     },
     "gold_mcx_inr_10g": {
-      "value": 127990,
-      "pct_change": 1.39,
+      "value": 126787,
+      "pct_change": -0.41,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 62.815,
-      "pct_change": 3.58
+      "value": 61.015,
+      "pct_change": -1.46
     },
     "silver_mcx_inr_kg": {
-      "value": 192812,
-      "pct_change": 3.58,
+      "value": 186948,
+      "pct_change": -1.46,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
-      "value": 71.72,
-      "pct_change": -0.11
+      "value": 72.86,
+      "pct_change": 1.21
     },
     "brent_mcx_inr_bbl": {
-      "value": 6847,
-      "pct_change": -0.11,
+      "value": 6944,
+      "pct_change": 1.21,
       "note": "approx conversion"
     }
   },
   "currency": {
     "usd_inr": {
-      "value": 95.473,
-      "change": 0.018,
+      "value": 95.3,
+      "change": -0.173,
       "driver": "Auto-fetched via yfinance; narrative driver not available in automated mode"
     }
   },
   "india_vix": {
-    "value": 11.92,
-    "pct_change": 1.02,
+    "value": 11.78,
+    "pct_change": -0.34,
     "wk52_high": 28.91,
     "wk52_low": 8.86
   },
   "buffett_indicator": {
-    "bse_mcap_lakh_cr": 479.78,
-    "bse_mcap_usd_tn": 5.03,
+    "bse_mcap_lakh_cr": 481.18,
+    "bse_mcap_usd_tn": 5.05,
     "india_gdp_usd_tn": 4.15,
-    "ratio_pct": 121.2,
+    "ratio_pct": 121.7,
     "verdict": "Overvalued",
     "note": "BSE mcap estimated proportionally from prior session scaled by Nifty move; India GDP carried from last manual figure"
   },
   "beer_model": {
-    "earnings_yield_pct": 4.78,
+    "earnings_yield_pct": 4.75,
     "gsec_10y_pct": 6.69,
-    "beer_ratio": 1.4,
-    "erp_pct": -1.91,
+    "beer_ratio": 1.41,
+    "erp_pct": -1.94,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 rose +0.71% to 24,443.75 on 2026-07-06; India 10Y G-Sec at 6.69%; rupee weakened to 95.473; Gold $4169.7/oz +1.39%; ERP -1.91% — bonds more attractive."
+  "summary": "Nifty 50 rose +0.35% to 24,515.05 on 2026-07-07; India 10Y G-Sec at 6.69%; rupee firmed to 95.300; Gold $4138.0/oz -0.41%; ERP -1.94% — bonds more attractive.",
+  "nifty_history": [
+    {
+      "d": "2026-05-25",
+      "c": 24031.7
+    },
+    {
+      "d": "2026-05-26",
+      "c": 23913.7
+    },
+    {
+      "d": "2026-05-27",
+      "c": 23907.15
+    },
+    {
+      "d": "2026-05-29",
+      "c": 23547.75
+    },
+    {
+      "d": "2026-06-01",
+      "c": 23382.6
+    },
+    {
+      "d": "2026-06-02",
+      "c": 23483.55
+    },
+    {
+      "d": "2026-06-03",
+      "c": 23405.6
+    },
+    {
+      "d": "2026-06-04",
+      "c": 23416.55
+    },
+    {
+      "d": "2026-06-05",
+      "c": 23366.7
+    },
+    {
+      "d": "2026-06-08",
+      "c": 23123.0
+    },
+    {
+      "d": "2026-06-09",
+      "c": 23242.1
+    },
+    {
+      "d": "2026-06-10",
+      "c": 23214.95
+    },
+    {
+      "d": "2026-06-11",
+      "c": 23161.6
+    },
+    {
+      "d": "2026-06-12",
+      "c": 23622.9
+    },
+    {
+      "d": "2026-06-15",
+      "c": 23853.9
+    },
+    {
+      "d": "2026-06-16",
+      "c": 23989.15
+    },
+    {
+      "d": "2026-06-17",
+      "c": 24085.7
+    },
+    {
+      "d": "2026-06-18",
+      "c": 24168.0
+    },
+    {
+      "d": "2026-06-19",
+      "c": 24013.1
+    },
+    {
+      "d": "2026-06-22",
+      "c": 24102.9
+    },
+    {
+      "d": "2026-06-23",
+      "c": 23824.1
+    },
+    {
+      "d": "2026-06-24",
+      "c": 24021.65
+    },
+    {
+      "d": "2026-06-25",
+      "c": 24056.0
+    },
+    {
+      "d": "2026-06-29",
+      "c": 23946.25
+    },
+    {
+      "d": "2026-06-30",
+      "c": 23865.75
+    },
+    {
+      "d": "2026-07-01",
+      "c": 24005.85
+    },
+    {
+      "d": "2026-07-02",
+      "c": 24175.7
+    },
+    {
+      "d": "2026-07-03",
+      "c": 24270.85
+    },
+    {
+      "d": "2026-07-06",
+      "c": 24430.35
+    },
+    {
+      "d": "2026-07-07",
+      "c": 24514.65
+    }
+  ]
 }
 </script>
 <script id="data-manual" type="application/json">
@@ -387,142 +604,346 @@
   }
 }
 </script>
+
 <script>
-async function loadData() {
-  // Primary path: data is inlined into this file at generation time (works from file://,
-  // no server needed). Fallback: if the inline placeholders were never substituted (e.g.
-  // this exact template file was opened directly), try fetch() — which requires http(s).
-  const inlineLatest = document.getElementById('data-latest').textContent.trim();
-  const inlineManual = document.getElementById('data-manual').textContent.trim();
-  if (!inlineLatest.startsWith('__')) {
-    return { d: JSON.parse(inlineLatest), m: JSON.parse(inlineManual) };
-  }
-  const res = await fetch('data/latest.json?_=' + Date.now());
-  const d = await res.json();
-  const mres = await fetch('data/manual_overrides.json?_=' + Date.now());
-  const m = await mres.json();
-  return { d, m };
+/* ── helpers ── */
+function fmtPct(v,d=2){
+  if(v===null||v===undefined)return'<span class="flat">N/A</span>';
+  const cls=v>0?'up':v<0?'down':'flat';
+  const arr=v>0?'▲':v<0?'▼':'→';
+  return`<span class="${cls}">${arr} ${v>0?'+':''}${v.toFixed(d)}%</span>`;
+}
+function fmtBps(v){
+  if(v===null||v===undefined)return'<span class="flat">N/A</span>';
+  const cls=v>0?'up':v<0?'down':'flat';
+  const arr=v>0?'▲':v<0?'▼':'→';
+  return`<span class="${cls}">${arr} ${v>0?'+':''}${v} bps</span>`;
+}
+function num(v,d=2){return v===null||v===undefined?'N/A':v.toLocaleString('en-IN',{maximumFractionDigits:d});}
+function chipHtml(v){
+  const map={'Overvalued':'Overvalued','Fairly Valued':'FairlyValued','Undervalued':'Undervalued','Data Pending':'DataPending'};
+  const cls=map[v]||'Pending';
+  return`<span class="chip ${cls}">${v||'Pending'}</span>`;
+}
+function mBadge(f){
+  if(!f||f.value===null||f.value===undefined)return'<span class="badge badge-est">N/A</span>';
+  const est=(f.source||'').trim().toLowerCase().startsWith('estimated');
+  return est
+    ?`<span class="badge badge-est" title="${f.source||''}">est.</span>`
+    :`<span class="badge badge-src" title="${f.source||''}">sourced ${f.as_of||''}</span>`;
 }
 
-async function load() {
-  const { d, m } = await loadData();
+/* ── load inline JSON ── */
+function getData(){
+  const il=document.getElementById('data-latest').textContent.trim();
+  const im=document.getElementById('data-manual').textContent.trim();
+  if(il.startsWith('__'))throw new Error('Inline placeholders not substituted — run sync_html.py first');
+  return{d:JSON.parse(il),m:JSON.parse(im)};
+}
 
-  // Renders a badge reflecting whether a manual-override field is a real sourced
-  // figure or a reasoned estimate (per its `source` text in manual_overrides.json),
-  // instead of a flat "manual" label — keeps confidence level honest at a glance.
-  const mBadge = (field) => {
-    if (!field || field.value === null || field.value === undefined) return '<span class="manual-badge">N/A</span>';
-    const isEstimate = (field.source || '').trim().toLowerCase().startsWith('estimated');
-    return isEstimate
-      ? '<span class="manual-badge" title="' + (field.source || '') + '">est.</span>'
-      : '<span class="manual-badge" style="background:#1a3a2f;color:#4dbf8d;" title="' + (field.source || '') + '">sourced ' + (field.as_of || '') + '</span>';
-  };
+/* ── charts ── */
+const CHART_DEFAULTS={
+  color:'#e2e8f0',
+  borderColor:'#1e2d45',
+  font:{family:'-apple-system,"Segoe UI",Roboto,Arial,sans-serif'}
+};
+Chart.defaults.color=CHART_DEFAULTS.color;
+Chart.defaults.font.family=CHART_DEFAULTS.font.family;
 
-  const fmtPct = (v, digits=2) => {
-    if (v === null || v === undefined) return '<span class="flat">N/A</span>';
-    const cls = v > 0 ? 'up' : v < 0 ? 'down' : 'flat';
-    const arrow = v > 0 ? '▲' : v < 0 ? '▼' : '→';
-    return `<span class="${cls}">${arrow} ${v > 0 ? '+' : ''}${v.toFixed(digits)}%</span>`;
-  };
-  const fmtBps = (v) => {
-    if (v === null || v === undefined) return '<span class="flat">N/A</span>';
-    const cls = v > 0 ? 'up' : v < 0 ? 'down' : 'flat';
-    const arrow = v > 0 ? '▲' : v < 0 ? '▼' : '→';
-    return `<span class="${cls}">${arrow} ${v > 0 ? '+' : ''}${v} bps</span>`;
-  };
-  const num = (v, digits=2) => v === null || v === undefined ? 'N/A' : v.toLocaleString('en-IN', {maximumFractionDigits: digits});
-  const verdictClass = (v) => v ? v.replace(/\s+/g, '').replace('Overvalued','Overvalued').replace('FairlyValued','Fairly').replace('Undervalued','Undervalued').replace('DataPending','Pending') : 'Pending';
-  const verdictHtml = (v) => `<span class="verdict ${verdictClass(v)}">${v || 'Pending'}</span>`;
+function buildNiftyChart(history){
+  if(!history||!history.length)return;
+  const labels=history.map(p=>p.d.slice(5));// MM-DD
+  const prices=history.map(p=>p.c);
+  const first=prices[0];
+  const last=prices[prices.length-1];
+  const isUp=last>=first;
+  const lineColor=isUp?'#16a34a':'#dc2626';
+  const gradId=isUp?'greenGrad':'redGrad';
 
-  document.getElementById('meta-line').innerHTML = `Data as of <b>${d.as_of_date}</b> (previous close) · Generated <b>${d.generated_at_ist}</b>`;
-  document.getElementById('summary-text').textContent = d.summary;
+  const ctx=document.getElementById('niftyChart').getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,0,200);
+  grad.addColorStop(0,isUp?'rgba(22,163,74,.35)':'rgba(220,38,38,.35)');
+  grad.addColorStop(1,'rgba(0,0,0,0)');
 
-  // India equity indices
-  document.getElementById('nifty50').innerHTML = `${num(d.india_equity.nifty50.close)} ${fmtPct(d.india_equity.nifty50.pct_change)}`;
-  document.getElementById('sensex').innerHTML = `${num(d.india_equity.sensex.close)} ${fmtPct(d.india_equity.sensex.pct_change)}`;
-  document.getElementById('midcap150').innerHTML = `${num(d.india_equity.midcap150.close)} ${fmtPct(d.india_equity.midcap150.pct_change)}`;
-  document.getElementById('smallcap250').innerHTML = `${num(d.india_equity.smallcap250.close)} ${fmtPct(d.india_equity.smallcap250.pct_change)}`;
+  new Chart(ctx,{
+    type:'line',
+    data:{
+      labels,
+      datasets:[{
+        data:prices,
+        borderColor:lineColor,
+        backgroundColor:grad,
+        borderWidth:2,
+        pointRadius:0,
+        pointHoverRadius:4,
+        fill:true,
+        tension:.3,
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{display:false},tooltip:{
+        callbacks:{label:ctx=>`₹${ctx.parsed.y.toLocaleString('en-IN')}`}
+      }},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{maxTicksLimit:8,font:{size:10}}},
+        y:{
+          grid:{color:'rgba(255,255,255,.04)'},
+          ticks:{callback:v=>'₹'+v.toLocaleString('en-IN',{maximumFractionDigits:0}),font:{size:10}},
+          position:'right'
+        }
+      }
+    }
+  });
+}
 
-  // Large cap valuation
-  document.getElementById('lc-pe').textContent = num(d.valuation.large_cap.pe);
-  document.getElementById('lc-pe5').innerHTML = `${num(m.nifty50_pe_5yr_median.value)} ${mBadge(m.nifty50_pe_5yr_median)}`;
-  document.getElementById('lc-pe10').innerHTML = `${num(m.nifty50_pe_10yr_median.value)} ${mBadge(m.nifty50_pe_10yr_median)}`;
-  document.getElementById('lc-pb').textContent = num(d.valuation.large_cap.pb);
-  document.getElementById('lc-dy').textContent = num(d.valuation.large_cap.div_yield) + '%';
-  document.getElementById('lc-verdict').innerHTML = verdictHtml(d.valuation.large_cap.verdict);
+function buildBuffettGauge(ratio){
+  const ctx=document.getElementById('buffettGauge').getContext('2d');
+  // 0-75 = under, 75-100 = fair, 100-200 = over (cap display at 175)
+  const MAX=175;
+  const val=Math.min(ratio||0,MAX);
+  const pct=val/MAX;
+  // segments: under(0-75), fair(75-100), over(100-175)
+  const segments=[75/MAX,25/MAX,(MAX-100)/MAX];
+  const colors=['rgba(22,163,74,.7)','rgba(59,130,246,.7)','rgba(220,38,38,.7)'];
+  const remaining=1-pct;
 
-  // Mid cap
-  document.getElementById('mc-pe').textContent = num(d.valuation.mid_cap.pe);
-  document.getElementById('mc-pe5').innerHTML = `${num(m.midcap150_pe_5yr_median.value)} ${mBadge(m.midcap150_pe_5yr_median)}`;
-  document.getElementById('mc-pe10').innerHTML = `${num(m.midcap150_pe_10yr_median.value)} ${mBadge(m.midcap150_pe_10yr_median)}`;
-  document.getElementById('mc-pb').textContent = num(d.valuation.mid_cap.pb);
-  document.getElementById('mc-dy').textContent = num(d.valuation.mid_cap.div_yield) + '%';
-  document.getElementById('mc-verdict').innerHTML = verdictHtml(d.valuation.mid_cap.verdict);
+  new Chart(ctx,{
+    type:'doughnut',
+    data:{
+      datasets:[
+        // background arc (full grey track)
+        {data:[1],backgroundColor:['rgba(255,255,255,.06)'],borderWidth:0,cutout:'72%',circumference:180,rotation:270,weight:1},
+        // coloured zones
+        {data:segments,backgroundColor:colors,borderWidth:0,cutout:'72%',circumference:180,rotation:270,weight:1.5},
+        // needle indicator
+        {data:[pct,1-pct],backgroundColor:[ratio>=100?'#dc2626':ratio>=75?'#3b82f6':'#16a34a','rgba(0,0,0,0)'],borderWidth:0,cutout:'84%',circumference:180,rotation:270,weight:.5},
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{enabled:false}},
+    }
+  });
+}
 
-  // Small cap — PE/PB come live from latest.json when present, fall back to manual overrides
-  const scPe = d.valuation.small_cap.pe !== null && d.valuation.small_cap.pe !== undefined ? d.valuation.small_cap.pe : m.smallcap250_current_pe.value;
-  const scPb = d.valuation.small_cap.pb !== null && d.valuation.small_cap.pb !== undefined ? d.valuation.small_cap.pb : m.smallcap250_pb.value;
-  const scDy = d.valuation.small_cap.div_yield !== null && d.valuation.small_cap.div_yield !== undefined ? d.valuation.small_cap.div_yield : m.smallcap250_div_yield.value;
-  document.getElementById('sc-pe').textContent = num(scPe);
-  document.getElementById('sc-pe5').innerHTML = `${num(m.smallcap250_pe_5yr_median.value)} ${mBadge(m.smallcap250_pe_5yr_median)}`;
-  document.getElementById('sc-pe10').innerHTML = `${num(m.smallcap250_pe_10yr_median.value)} ${mBadge(m.smallcap250_pe_10yr_median)}`;
-  document.getElementById('sc-pb').textContent = num(scPb) + (d.valuation.small_cap.note ? ' *' : '');
-  document.getElementById('sc-dy').innerHTML = scDy !== null && scDy !== undefined ? num(scDy) + '%' : 'N/A <span class="manual-badge">manual</span>';
-  document.getElementById('sc-verdict').innerHTML = verdictHtml(d.valuation.small_cap.verdict);
+function buildPeChart(lcPe,mcPe,scPe,n50_5,n50_10,mid_5,mid_10,sc_5,sc_10){
+  const ctx=document.getElementById('peChart').getContext('2d');
+  new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['Large Cap (Nifty 50)','Mid Cap (Midcap 150)','Small Cap (Smallcap 250)'],
+      datasets:[
+        {label:'Current PE',data:[lcPe,mcPe,scPe],backgroundColor:['rgba(59,130,246,.85)','rgba(139,92,246,.85)','rgba(236,72,153,.85)'],borderRadius:4,borderSkipped:false},
+        {label:'5Yr Median',data:[n50_5,mid_5,sc_5],backgroundColor:'rgba(255,255,255,.12)',borderColor:'rgba(255,255,255,.4)',borderWidth:1.5,borderRadius:4,borderSkipped:false},
+        {label:'10Yr Median',data:[n50_10,mid_10,sc_10],backgroundColor:'rgba(255,255,255,.06)',borderColor:'rgba(255,255,255,.2)',borderWidth:1,borderRadius:4,borderSkipped:false},
+      ]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{position:'top',labels:{font:{size:11},boxWidth:12,padding:10}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{font:{size:11}}},
+        y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{font:{size:11}},title:{display:true,text:'PE Ratio',font:{size:10}}}
+      }
+    }
+  });
+}
 
-  // US equity
-  document.getElementById('sp500').innerHTML = `${num(d.us_equity.sp500.close)} ${fmtPct(d.us_equity.sp500.pct_change)}` + (d.us_equity.sp500.approx ? ' <span class="manual-badge">approx</span>' : '');
-  document.getElementById('dow').innerHTML = `${num(d.us_equity.dow.close)} ${fmtPct(d.us_equity.dow.pct_change)}`;
-  document.getElementById('nasdaq').innerHTML = `${num(d.us_equity.nasdaq.close)} ${fmtPct(d.us_equity.nasdaq.pct_change)}`;
+function buildYieldChart(m,gsec10){
+  const labels=['T-Repo','3M CD','Call','1Y AA','1Y AAA','3Y AA','3Y AAA','5Y AAA','10Y G-Sec'];
+  const vals=[
+    m.t_repo?.value, m.cd_3m?.value, m.call_rate?.value,
+    m.aa_corp_1yr?.value, m.aaa_corp_1yr?.value,
+    m.aa_corp_3yr?.value, m.aaa_corp_3yr?.value,
+    m.aaa_corp_5yr?.value, gsec10
+  ];
+  const colors=vals.map((_,i)=>i===labels.length-1?'rgba(59,130,246,.9)':'rgba(100,180,130,.7)');
+  const ctx=document.getElementById('yieldChart').getContext('2d');
+  new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[{
+        data:vals,
+        backgroundColor:colors,
+        borderRadius:3,
+        borderSkipped:false,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.parsed.x?.toFixed(2)}%`}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{callback:v=>v+'%',font:{size:10}},min:4,max:9},
+        y:{grid:{display:false},ticks:{font:{size:10}}}
+      }
+    }
+  });
+}
+
+function buildBeerChart(ey,gsec){
+  const ctx=document.getElementById('beerChart').getContext('2d');
+  new Chart(ctx,{
+    type:'doughnut',
+    data:{
+      labels:['Earnings Yield','G-Sec 10Y'],
+      datasets:[{
+        data:[ey||0,gsec||0],
+        backgroundColor:[ey>=gsec?'rgba(22,163,74,.8)':'rgba(220,38,38,.7)','rgba(59,130,246,.7)'],
+        borderColor:['rgba(22,163,74,1)','rgba(59,130,246,1)'],
+        borderWidth:1.5,
+        cutout:'62%',
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{
+        legend:{position:'bottom',labels:{font:{size:11},boxWidth:12}},
+        tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed.toFixed(2)}%`}}
+      }
+    }
+  });
+}
+
+/* ── main render ── */
+function render(){
+  let d,m;
+  try{{({d,m}=getData())}
+  }catch(e){
+    document.getElementById('summary-text').textContent='Failed to load: '+e.message;
+    return;
+  }
+
+  // meta
+  document.getElementById('meta-line').innerHTML=`Data as of <b>${d.as_of_date}</b> (prev close) · Generated <b>${d.generated_at_ist}</b>`;
+  document.getElementById('summary-text').textContent=d.summary;
+
+  const ie=d.india_equity, v=d.valuation, ue=d.us_equity;
+  const debt=d.india_debt, com=d.commodities, cur=d.currency;
+  const vix=d.india_vix, bi=d.buffett_indicator, beer=d.beer_model;
+
+  // Ticker strip
+  const tk=(id,html)=>document.getElementById(id).innerHTML=html;
+  tk('tk-nifty',`${num(ie.nifty50.close,0)} ${fmtPct(ie.nifty50.pct_change)}`);
+  tk('tk-sensex',`${num(ie.sensex.close,0)} ${fmtPct(ie.sensex.pct_change)}`);
+  tk('tk-mid',`${num(ie.midcap150.close,0)} ${fmtPct(ie.midcap150.pct_change)}`);
+  tk('tk-small',`${num(ie.smallcap250.close,0)} ${fmtPct(ie.smallcap250.pct_change)}`);
+  tk('tk-vix',`${num(vix.value)} ${fmtPct(vix.pct_change)}`);
+  tk('tk-inr',`₹${num(cur.usd_inr.value,3)}`);
+  tk('tk-gold',`$${num(com.gold_comex_usd_oz.value,0)} ${fmtPct(com.gold_comex_usd_oz.pct_change)}`);
+  tk('tk-brent',`$${num(com.brent_usd_bbl.value)} ${fmtPct(com.brent_usd_bbl.pct_change)}`);
+  tk('tk-gsec',`${num(debt.gsec_10y.yield)}% ${fmtBps(debt.gsec_10y.bps_change)}`);
+  tk('tk-us10y',`${num(debt.us_10y.yield)}% ${fmtBps(debt.us_10y.bps_change)}`);
+
+  // India equity
+  const set=(id,html)=>document.getElementById(id).innerHTML=html;
+  set('nifty50',`${num(ie.nifty50.close)} ${fmtPct(ie.nifty50.pct_change)}`);
+  set('sensex',`${num(ie.sensex.close)} ${fmtPct(ie.sensex.pct_change)}`);
+  set('midcap150',`${num(ie.midcap150.close)} ${fmtPct(ie.midcap150.pct_change)}`);
+  set('smallcap250',`${num(ie.smallcap250.close)} ${fmtPct(ie.smallcap250.pct_change)}`);
+
+  // Valuation
+  set('lc-pe',num(v.large_cap.pe));
+  set('lc-pe5',`${num(m.nifty50_pe_5yr_median.value)} ${mBadge(m.nifty50_pe_5yr_median)}`);
+  set('lc-pe10',`${num(m.nifty50_pe_10yr_median.value)} ${mBadge(m.nifty50_pe_10yr_median)}`);
+  set('lc-pb',num(v.large_cap.pb));
+  set('lc-dy',(v.large_cap.div_yield!=null?num(v.large_cap.div_yield)+'%':'N/A'));
+  set('lc-verdict',chipHtml(v.large_cap.verdict));
+
+  set('mc-pe',num(v.mid_cap.pe));
+  set('mc-pe5',`${num(m.midcap150_pe_5yr_median.value)} ${mBadge(m.midcap150_pe_5yr_median)}`);
+  set('mc-pe10',`${num(m.midcap150_pe_10yr_median.value)} ${mBadge(m.midcap150_pe_10yr_median)}`);
+  set('mc-pb',num(v.mid_cap.pb));
+  set('mc-dy',(v.mid_cap.div_yield!=null?num(v.mid_cap.div_yield)+'%':'N/A'));
+  set('mc-verdict',chipHtml(v.mid_cap.verdict));
+
+  const scPe=v.small_cap.pe??m.smallcap250_current_pe?.value;
+  const scPb=v.small_cap.pb??m.smallcap250_pb?.value;
+  const scDy=v.small_cap.div_yield??m.smallcap250_div_yield?.value;
+  set('sc-pe',num(scPe));
+  set('sc-pe5',`${num(m.smallcap250_pe_5yr_median.value)} ${mBadge(m.smallcap250_pe_5yr_median)}`);
+  set('sc-pe10',`${num(m.smallcap250_pe_10yr_median.value)} ${mBadge(m.smallcap250_pe_10yr_median)}`);
+  set('sc-pb',num(scPb));
+  set('sc-dy',scDy!=null?num(scDy)+'%':'N/A');
+  set('sc-verdict',chipHtml(v.small_cap.verdict));
 
   // Debt
-  document.getElementById('gsec10').innerHTML = `${num(d.india_debt.gsec_10y.yield)}% ${fmtBps(d.india_debt.gsec_10y.bps_change)}`;
-  document.getElementById('aaa5').innerHTML = `${num(m.aaa_corp_5yr.value)}% ${mBadge(m.aaa_corp_5yr)}`;
-  document.getElementById('aaa3').innerHTML = `${num(m.aaa_corp_3yr.value)}% ${mBadge(m.aaa_corp_3yr)}`;
-  document.getElementById('aaa1').innerHTML = `${num(m.aaa_corp_1yr.value)}% ${mBadge(m.aaa_corp_1yr)}`;
-  document.getElementById('aa3').innerHTML = `${num(m.aa_corp_3yr.value)}% ${mBadge(m.aa_corp_3yr)}`;
-  document.getElementById('aa1').innerHTML = `${num(m.aa_corp_1yr.value)}% ${mBadge(m.aa_corp_1yr)}`;
-  document.getElementById('cd12').innerHTML = `${num(m.cd_12m.value)}% ${mBadge(m.cd_12m)}`;
-  document.getElementById('cd3').innerHTML = `${num(m.cd_3m.value)}% ${mBadge(m.cd_3m)}`;
-  document.getElementById('callrate').innerHTML = `${num(m.call_rate.value)}% ${mBadge(m.call_rate)}`;
-  document.getElementById('trepo').innerHTML = `${num(m.t_repo.value)}% ${mBadge(m.t_repo)}`;
+  set('gsec10',`${num(debt.gsec_10y.yield)}% ${fmtBps(debt.gsec_10y.bps_change)}`);
+  set('aaa5',`${num(m.aaa_corp_5yr?.value)}% ${mBadge(m.aaa_corp_5yr)}`);
+  set('aaa3',`${num(m.aaa_corp_3yr?.value)}% ${mBadge(m.aaa_corp_3yr)}`);
+  set('aaa1',`${num(m.aaa_corp_1yr?.value)}% ${mBadge(m.aaa_corp_1yr)}`);
+  set('aa3',`${num(m.aa_corp_3yr?.value)}% ${mBadge(m.aa_corp_3yr)}`);
+  set('aa1',`${num(m.aa_corp_1yr?.value)}% ${mBadge(m.aa_corp_1yr)}`);
+  set('cd12',`${num(m.cd_12m?.value)}% ${mBadge(m.cd_12m)}`);
+  set('cd3',`${num(m.cd_3m?.value)}% ${mBadge(m.cd_3m)}`);
+  set('callrate',`${num(m.call_rate?.value)}% ${mBadge(m.call_rate)}`);
+  set('trepo',`${num(m.t_repo?.value)}% ${mBadge(m.t_repo)}`);
+  set('us10y',`${num(debt.us_10y.yield)}% ${fmtBps(debt.us_10y.bps_change)}`);
 
-  document.getElementById('us10y').innerHTML = `${num(d.india_debt.us_10y.yield)}% ${fmtBps(d.india_debt.us_10y.bps_change)}`;
-
-  // Commodities
-  document.getElementById('gold-usd').innerHTML = `$${num(d.commodities.gold_comex_usd_oz.value)} ${fmtPct(d.commodities.gold_comex_usd_oz.pct_change)}`;
-  document.getElementById('gold-inr').innerHTML = `₹${num(d.commodities.gold_mcx_inr_10g.value, 0)} ${fmtPct(d.commodities.gold_mcx_inr_10g.pct_change)}`;
-  document.getElementById('silver-usd').innerHTML = `$${num(d.commodities.silver_comex_usd_oz.value)} ${fmtPct(d.commodities.silver_comex_usd_oz.pct_change)}`;
-  document.getElementById('silver-inr').innerHTML = `₹${num(d.commodities.silver_mcx_inr_kg.value, 0)} ${fmtPct(d.commodities.silver_mcx_inr_kg.pct_change)}`;
-  document.getElementById('brent-usd').innerHTML = `$${num(d.commodities.brent_usd_bbl.value)} ${fmtPct(d.commodities.brent_usd_bbl.pct_change)}`;
-  document.getElementById('brent-inr').innerHTML = `₹${num(d.commodities.brent_mcx_inr_bbl.value, 0)} ${fmtPct(d.commodities.brent_mcx_inr_bbl.pct_change)}`;
+  // Commodities section
+  const commodRows=[
+    ['Gold (COMEX $/oz)',`$${num(com.gold_comex_usd_oz.value,0)}`,com.gold_comex_usd_oz.pct_change],
+    ['Gold (MCX ₹/10g)',`₹${num(com.gold_mcx_inr_10g.value,0)}`,null],
+    ['Silver (COMEX $/oz)',`$${num(com.silver_comex_usd_oz.value,2)}`,com.silver_comex_usd_oz.pct_change],
+    ['Silver (MCX ₹/kg)',`₹${num(com.silver_mcx_inr_kg.value,0)}`,null],
+    ['Brent Crude ($/bbl)',`$${num(com.brent_usd_bbl.value)}`,com.brent_usd_bbl.pct_change],
+    ['Brent (₹/bbl approx)',`₹${num(com.brent_mcx_inr_bbl.value,0)}`,null],
+  ];
+  document.getElementById('commodity-rows').innerHTML=commodRows.map(([lbl,val,pct])=>
+    `<div class="row"><span class="label">${lbl}</span><span class="val">${val}${pct!=null?' '+fmtPct(pct):''}</span></div>`
+  ).join('');
 
   // Currency
-  document.getElementById('usdinr').textContent = '₹' + num(d.currency.usd_inr.value);
-  document.getElementById('usdinr-driver').textContent = d.currency.usd_inr.driver;
+  set('usdinr',`₹${num(cur.usd_inr.value,3)}`);
+  set('usdinr-driver',cur.usd_inr.driver||'—');
+
+  // US equity
+  set('sp500',`${num(ue.sp500.close)} ${fmtPct(ue.sp500.pct_change)}`);
+  set('dow',`${num(ue.dow.close)} ${fmtPct(ue.dow.pct_change)}`);
+  set('nasdaq',`${num(ue.nasdaq.close)} ${fmtPct(ue.nasdaq.pct_change)}`);
 
   // VIX
-  document.getElementById('vix').innerHTML = `${num(d.india_vix.value)} ${fmtPct(d.india_vix.pct_change)}`;
-  document.getElementById('vix-high').textContent = num(d.india_vix.wk52_high);
-  document.getElementById('vix-low').textContent = num(d.india_vix.wk52_low);
+  set('vix',`${num(vix.value)} ${fmtPct(vix.pct_change)}`);
+  set('vix-high',num(vix.wk52_high));
+  set('vix-low',num(vix.wk52_low));
 
-  // Buffett indicator
-  document.getElementById('bi-mcap-cr').textContent = num(d.buffett_indicator.bse_mcap_lakh_cr);
-  document.getElementById('bi-mcap-usd').textContent = num(d.buffett_indicator.bse_mcap_usd_tn);
-  document.getElementById('bi-gdp').textContent = num(d.buffett_indicator.india_gdp_usd_tn);
-  document.getElementById('bi-ratio').textContent = num(d.buffett_indicator.ratio_pct) + '%';
-  document.getElementById('bi-verdict').innerHTML = verdictHtml(d.buffett_indicator.verdict);
+  // Buffett
+  const ratioVal=bi.ratio_pct;
+  set('bi-mcap-cr',num(bi.bse_mcap_lakh_cr));
+  set('bi-mcap-usd',num(bi.bse_mcap_usd_tn));
+  set('bi-gdp',num(bi.india_gdp_usd_tn));
+  set('bi-ratio',(ratioVal!=null?num(ratioVal,1)+'%':'N/A'));
+  set('bi-verdict',chipHtml(bi.verdict));
+  set('bi-ratio-big',ratioVal!=null?ratioVal.toFixed(1)+'%':'—');
+  set('bi-verdict-sub',bi.verdict||'—');
+  set('bi-mcap-usd-s',num(bi.bse_mcap_usd_tn));
+  set('bi-gdp-s',num(bi.india_gdp_usd_tn));
 
-  // BEER model
-  document.getElementById('beer-ey').textContent = num(d.beer_model.earnings_yield_pct) + '%';
-  document.getElementById('beer-gsec').textContent = num(d.beer_model.gsec_10y_pct) + '%';
-  document.getElementById('beer-ratio').textContent = num(d.beer_model.beer_ratio);
-  document.getElementById('beer-erp').textContent = num(d.beer_model.erp_pct) + '%';
-  document.getElementById('beer-interp').textContent = d.beer_model.interpretation;
+  // BEER
+  set('beer-ey',beer.earnings_yield_pct!=null?num(beer.earnings_yield_pct)+'%':'N/A');
+  set('beer-gsec',beer.gsec_10y_pct!=null?num(beer.gsec_10y_pct)+'%':'N/A');
+  set('beer-ratio',num(beer.beer_ratio));
+  set('beer-erp',beer.erp_pct!=null?`<span class="${beer.erp_pct>=0?'up':'down'}">${beer.erp_pct>0?'+':''}${beer.erp_pct.toFixed(2)}%</span>`:'N/A');
+  set('beer-interp',beer.interpretation||'—');
+  set('beer-interp-s',beer.interpretation||'—');
+
+  /* ── build charts ── */
+  buildNiftyChart(d.nifty_history||[]);
+  buildBuffettGauge(bi.ratio_pct);
+  buildPeChart(
+    v.large_cap.pe, v.mid_cap.pe, scPe,
+    m.nifty50_pe_5yr_median?.value, m.nifty50_pe_10yr_median?.value,
+    m.midcap150_pe_5yr_median?.value, m.midcap150_pe_10yr_median?.value,
+    m.smallcap250_pe_5yr_median?.value, m.smallcap250_pe_10yr_median?.value
+  );
+  buildYieldChart(m, debt.gsec_10y.yield);
+  buildBeerChart(beer.earnings_yield_pct, beer.gsec_10y_pct);
 }
-load().catch(e => {
-  document.getElementById('summary-text').textContent = 'Failed to load data/latest.json — ' + e.message + ' (if opening this file directly via file://, some browsers block local fetch; try running a local server, e.g. `python3 -m http.server` in this folder).';
-});
+
+render();
 </script>
 
 </body>

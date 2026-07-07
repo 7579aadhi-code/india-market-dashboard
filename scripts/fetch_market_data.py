@@ -452,7 +452,21 @@ def main():
     )
 
     # ------------------------------------------------------------------ #
-    # 11. Auto-summary
+    # 11. Nifty 50 — 30-day price history for the chart
+    # ------------------------------------------------------------------ #
+    print("\n[30-day Nifty history]")
+    nifty_history = []
+    try:
+        hist_df = yf.Ticker("^NSEI").history(period="45d", interval="1d", auto_adjust=True)
+        for idx, row in hist_df.tail(30).iterrows():
+            dt = idx.date().isoformat() if hasattr(idx, "date") else str(idx)[:10]
+            nifty_history.append({"d": dt, "c": round(float(row["Close"]), 2)})
+        print(f"  Got {len(nifty_history)} days of history")
+    except Exception as e:
+        print(f"  [WARN] 30d history: {e}", file=sys.stderr)
+
+    # ------------------------------------------------------------------ #
+    # 13. Auto-summary  (was 11 before history step was added)
     # ------------------------------------------------------------------ #
     def pct_str(v):
         return f"{v:+.2f}%" if v is not None else "N/A"
@@ -550,6 +564,7 @@ def main():
             "interpretation":     beer_interp,
         },
         "summary": summary,
+        "nifty_history": nifty_history,
     }
 
     # ------------------------------------------------------------------ #
