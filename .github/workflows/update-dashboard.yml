@@ -32,8 +32,11 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Fetch market data → data/latest.json
+      - name: Fetch India market data → data/latest.json
         run: python scripts/fetch_market_data.py
+
+      - name: Fetch global market data → data/global_latest.json
+        run: python scripts/fetch_global_data.py
 
       - name: Inline JSON into HTML (sync_html.py)
         run: python sync_html.py

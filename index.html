@@ -188,6 +188,7 @@ footer{
     <button class="nav-tab" data-tab="global">Global Markets</button>
     <button class="nav-tab" data-tab="commodities">Commodities &amp; FX</button>
     <button class="nav-tab" data-tab="rates">Bonds &amp; Rates</button>
+    <button class="nav-tab" data-tab="news">News</button>
   </div>
   <div class="nav-meta" id="nav-date">Loading…</div>
 </nav>
@@ -261,6 +262,36 @@ footer{
     <div class="sector-grid" id="sector-grid"></div>
   </div>
 
+  <!-- FII/DII + 52w -->
+  <div class="grid g-2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-hd">💼 FII / DII Net Flows (₹ Cr) <span id="fii-date" style="font-weight:400;color:var(--muted)"></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px">
+        <div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">FII / FPI</div>
+          <div class="row"><span class="lbl">Net</span><span class="val" id="fii-net">—</span></div>
+          <div class="row"><span class="lbl">Buy</span><span class="val" id="fii-buy">—</span></div>
+          <div class="row"><span class="lbl">Sell</span><span class="val" id="fii-sell">—</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">DII</div>
+          <div class="row"><span class="lbl">Net</span><span class="val" id="dii-net">—</span></div>
+          <div class="row"><span class="lbl">Buy</span><span class="val" id="dii-buy">—</span></div>
+          <div class="row"><span class="lbl">Sell</span><span class="val" id="dii-sell">—</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd">📏 Nifty 50 — 52-Week Range</div>
+      <div id="nifty52w-bar" style="margin:12px 0 6px"></div>
+      <div class="row"><span class="lbl">52-Wk High</span><span class="val up" id="n52h">—</span></div>
+      <div class="row"><span class="lbl">Current</span><span class="val" id="n52c">—</span></div>
+      <div class="row"><span class="lbl">52-Wk Low</span><span class="val dn" id="n52l">—</span></div>
+      <div class="row"><span class="lbl">From High</span><span class="val" id="n52-from-high">—</span></div>
+      <div class="row"><span class="lbl">From Low</span><span class="val" id="n52-from-low">—</span></div>
+    </div>
+  </div>
+
   <!-- Valuation cards -->
   <div class="grid g-3" style="margin-bottom:16px">
     <div class="card">
@@ -317,9 +348,21 @@ footer{
 <section class="section" id="tab-global">
 <div class="page-wrap">
   <div class="grid g-3" style="margin-bottom:16px" id="global-cards"></div>
-  <div class="card">
-    <div class="card-hd">🌐 Global Bond Yields</div>
-    <div class="grid g-3" id="global-yields" style="margin:0"></div>
+  <div class="grid g-2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-hd">🌐 Global Bond Yields</div>
+      <div id="global-yields"></div>
+    </div>
+    <div class="card">
+      <div class="card-hd">😱 Fear &amp; Volatility</div>
+      <div class="row"><span class="lbl">CBOE VIX (S&amp;P 500)</span><span class="val" id="g-usvix">—</span></div>
+      <div class="row"><span class="lbl">Nasdaq VXN</span><span class="val" id="g-vxn">—</span></div>
+      <div class="row"><span class="lbl">India VIX</span><span class="val" id="g-indiavix">—</span></div>
+      <div style="margin-top:14px" class="card-hd">🔑 US Rates</div>
+      <div class="row"><span class="lbl">US 2Y Treasury</span><span class="val" id="g-us2y">—</span></div>
+      <div class="row"><span class="lbl">US 10Y Treasury</span><span class="val" id="g-us10y">—</span></div>
+      <div class="row"><span class="lbl">US 30Y Treasury</span><span class="val" id="g-us30y">—</span></div>
+    </div>
   </div>
 </div>
 </section>
@@ -328,14 +371,58 @@ footer{
 <section class="section" id="tab-commodities">
 <div class="page-wrap">
   <div class="grid g-auto-sm" style="margin-bottom:16px" id="commodity-kpi"></div>
-  <div class="grid g-2" style="margin-bottom:16px">
+  <div class="grid g-3" style="margin-bottom:16px">
     <div class="card">
-      <div class="card-hd">🪙 Commodities Detail</div>
+      <div class="card-hd">🪙 Precious Metals</div>
       <div id="commodity-detail"></div>
     </div>
     <div class="card">
-      <div class="card-hd">💱 Currencies</div>
-      <div id="fx-detail"></div>
+      <div class="card-hd">🛢️ Energy &amp; Base Metals</div>
+      <div id="commodity-energy"></div>
+    </div>
+    <div class="card">
+      <div class="card-hd">₿ Crypto</div>
+      <div id="crypto-detail"></div>
+    </div>
+  </div>
+  <div class="grid g-2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-hd">💱 INR Crosses</div>
+      <div id="fx-inr"></div>
+    </div>
+    <div class="card">
+      <div class="card-hd">🌍 Global FX</div>
+      <div id="fx-global"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════ NEWS TAB ══════════════════════ -->
+<section class="section" id="tab-news">
+<div class="page-wrap">
+  <div class="grid g-2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-hd">📰 Latest Market News</div>
+      <div id="news-feed-primary" style="font-size:13px;color:var(--muted)">Loading news…</div>
+    </div>
+    <div class="card">
+      <div class="card-hd">📊 Business Headlines</div>
+      <div id="news-feed-secondary" style="font-size:13px;color:var(--muted)">Loading…</div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-hd">🔗 Key Links</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;padding:4px 0">
+      <a href="https://www.nseindia.com" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.12);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--blue)">NSE India</a>
+      <a href="https://www.bseindia.com" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.12);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--blue)">BSE India</a>
+      <a href="https://www.rbi.org.in" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.12);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--blue)">RBI</a>
+      <a href="https://economictimes.indiatimes.com/markets" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.12);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--blue)">ET Markets</a>
+      <a href="https://www.moneycontrol.com/news/business/markets/" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.12);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--blue)">Moneycontrol</a>
+      <a href="https://www.livemint.com/market" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.12);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--blue)">Mint Markets</a>
+      <a href="https://finance.yahoo.com" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.12);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--blue)">Yahoo Finance</a>
+      <a href="https://www.screener.in" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.12);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--blue)">Screener.in</a>
+      <a href="https://www.tickertape.in" target="_blank" rel="noopener" style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.12);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--blue)">Tickertape</a>
     </div>
   </div>
 </div>
@@ -344,6 +431,18 @@ footer{
 <!-- ══════════════════════ BONDS & RATES TAB ══════════════════════ -->
 <section class="section" id="tab-rates">
 <div class="page-wrap">
+  <!-- RBI Policy Rates -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-hd">🏛️ RBI Policy Rates</div>
+    <div class="grid g-auto-sm" style="margin:0">
+      <div class="mkt-card"><div class="mkt-name">Repo Rate</div><div class="mkt-val" id="rbi-repo">—</div><div class="mkt-chg" style="color:var(--muted);font-size:11px">Key policy rate</div></div>
+      <div class="mkt-card"><div class="mkt-name">SDF Rate</div><div class="mkt-val" id="rbi-sdf">—</div><div class="mkt-chg" style="color:var(--muted);font-size:11px">Floor rate</div></div>
+      <div class="mkt-card"><div class="mkt-name">MSF Rate</div><div class="mkt-val" id="rbi-msf">—</div><div class="mkt-chg" style="color:var(--muted);font-size:11px">Ceiling rate</div></div>
+      <div class="mkt-card"><div class="mkt-name">CRR</div><div class="mkt-val" id="rbi-crr">—</div><div class="mkt-chg" style="color:var(--muted);font-size:11px">Cash reserve ratio</div></div>
+      <div class="mkt-card"><div class="mkt-name">SLR</div><div class="mkt-val" id="rbi-slr">—</div><div class="mkt-chg" style="color:var(--muted);font-size:11px">Statutory liquidity</div></div>
+    </div>
+  </div>
+
   <div class="grid g-2" style="margin-bottom:16px">
     <div class="card">
       <div class="card-hd">🏦 India Debt Market</div>
@@ -367,6 +466,7 @@ footer{
       <canvas id="yieldChart2" height="130"></canvas>
     </div>
   </div>
+  </div><!-- close rates grid -->
   <div class="grid g-2" style="margin-bottom:16px">
     <div class="card">
       <div class="card-hd">📈 Buffett Indicator</div>
@@ -403,22 +503,24 @@ footer{
 <script id="data-latest" type="application/json">
 {
   "as_of_date": "2026-07-07",
-  "generated_at_ist": "2026-07-07T12:01:43+05:30",
+  "generated_at_ist": "2026-07-07T12:15:53+05:30",
   "india_equity": {
     "nifty50": {
-      "close": 24527.5,
-      "pct_change": 0.4
+      "close": 24510.7,
+      "pct_change": 0.33,
+      "wk52_high": 26373.2,
+      "wk52_low": 22182.55
     },
     "sensex": {
-      "close": 78606.68,
-      "pct_change": 0.41
+      "close": 78660.62,
+      "pct_change": 0.48
     },
     "midcap150": {
-      "close": 22910.0,
-      "pct_change": -0.28
+      "close": 22892.5,
+      "pct_change": -0.35
     },
     "smallcap250": {
-      "close": 17970.9,
+      "close": 17957.3,
       "pct_change": null
     }
   },
@@ -469,48 +571,96 @@ footer{
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4138.0,
-      "pct_change": -0.41
+      "value": 4138.9,
+      "pct_change": -0.39
     },
     "gold_mcx_inr_10g": {
-      "value": 126787,
-      "pct_change": -0.41,
+      "value": 126817,
+      "pct_change": -0.39,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 61.29,
-      "pct_change": -1.02
+      "value": 61.415,
+      "pct_change": -0.82
     },
     "silver_mcx_inr_kg": {
-      "value": 187790,
-      "pct_change": -1.02,
+      "value": 188177,
+      "pct_change": -0.82,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
-      "value": 72.82,
-      "pct_change": 1.15
+      "value": 72.75,
+      "pct_change": 1.06
     },
     "brent_mcx_inr_bbl": {
-      "value": 6940,
-      "pct_change": 1.15,
+      "value": 6933,
+      "pct_change": 1.06,
       "note": "approx conversion"
+    },
+    "wti_usd_bbl": {
+      "value": 69.23,
+      "pct_change": 0.99
+    },
+    "natgas_usd_mmbtu": {
+      "value": 3.272,
+      "pct_change": 0.83
+    },
+    "copper_usd_lb": {
+      "value": 6.218,
+      "pct_change": 0.65
+    }
+  },
+  "crypto": {
+    "bitcoin": {
+      "value": 63213.0,
+      "pct_change": -1.22,
+      "pair": "BTC/USD"
+    },
+    "ethereum": {
+      "value": 1773.97,
+      "pct_change": -1.31,
+      "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
-      "value": 95.3,
-      "change": 0.0,
-      "driver": "Auto-fetched via yfinance; narrative driver not available in automated mode"
+      "value": 95.302,
+      "change": 0.0
+    },
+    "eur_inr": {
+      "value": 108.93,
+      "pct_change": 0.08
+    },
+    "gbp_inr": {
+      "value": 127.53,
+      "pct_change": 0.34
     }
   },
+  "rbi_policy": {
+    "repo_rate": 6.0,
+    "sdf_rate": 5.75,
+    "msf_rate": 6.25,
+    "crr": 4.0,
+    "slr": 18.0,
+    "_source": "fallback"
+  },
+  "fii_dii": {
+    "date": "06-Jul-2026",
+    "fii_net_cr": 243.03,
+    "fii_buy_cr": 11686.1,
+    "fii_sell_cr": 11443.07,
+    "dii_net_cr": 3791.42,
+    "dii_buy_cr": 19727.56,
+    "dii_sell_cr": 15936.14
+  },
   "india_vix": {
-    "value": 11.75,
-    "pct_change": -0.59,
+    "value": 11.71,
+    "pct_change": -0.93,
     "wk52_high": 28.91,
     "wk52_low": 8.86
   },
   "buffett_indicator": {
-    "bse_mcap_lakh_cr": 481.42,
+    "bse_mcap_lakh_cr": 481.09,
     "bse_mcap_usd_tn": 5.05,
     "india_gdp_usd_tn": 4.15,
     "ratio_pct": 121.7,
@@ -524,7 +674,7 @@ footer{
     "erp_pct": -1.94,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 rose +0.40% to 24,527.50 on 2026-07-07; India 10Y G-Sec at 6.69%; rupee weakened to 95.300; Gold $4138.0/oz -0.41%; ERP -1.94% — bonds more attractive.",
+  "summary": "Nifty 50 rose +0.33% to 24,510.70 on 2026-07-07; India 10Y G-Sec at 6.69%; rupee weakened to 95.302; Gold $4138.9/oz -0.39%; ERP -1.94% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-05-25",
@@ -644,45 +794,45 @@ footer{
     },
     {
       "d": "2026-07-07",
-      "c": 24529.25
+      "c": 24509.55
     }
   ],
   "india_sectors": {
     "bank_nifty": {
-      "close": 58471.6,
-      "pct_change": 0.31
+      "close": 58421.55,
+      "pct_change": 0.22
     },
     "nifty_it": {
-      "close": 28120.8,
-      "pct_change": 3.1
+      "close": 28084.45,
+      "pct_change": 2.96
     },
     "nifty_auto": {
-      "close": 27383.25,
-      "pct_change": 1.46
+      "close": 27365.95,
+      "pct_change": 1.4
     },
     "nifty_fmcg": {
-      "close": 50030.4,
-      "pct_change": -0.13
+      "close": 50042.5,
+      "pct_change": -0.11
     },
     "nifty_pharma": {
-      "close": 25828.85,
-      "pct_change": -0.14
+      "close": 25833.95,
+      "pct_change": -0.12
     },
     "nifty_metal": {
-      "close": 12612.6,
-      "pct_change": 0.11
+      "close": 12603.6,
+      "pct_change": 0.04
     },
     "nifty_realty": {
-      "close": 894.6,
-      "pct_change": 0.43
+      "close": 891.9,
+      "pct_change": 0.12
     },
     "nifty_energy": {
-      "close": 39238.65,
-      "pct_change": 0.15
+      "close": 39220.75,
+      "pct_change": 0.11
     },
     "nifty_infra": {
-      "close": 9508.15,
-      "pct_change": 0.37
+      "close": 9498.2,
+      "pct_change": 0.26
     }
   }
 }
@@ -789,129 +939,252 @@ footer{
 </script>
 <script id="data-global" type="application/json">
 {
-  "generated_at_ist": "2026-07-03T08:30:00+05:30",
-  "note": "Snapshot meant to be checked around/after India's 3:30pm IST close. Asia-Pacific markets shown are same-day closes (they close before/around India); Europe/US markets may still be mid-session or pre-open depending on when this was generated — check each region's own local session status below.",
+  "generated_at_ist": "2026-07-07T12:14:57+05:30",
+  "as_of_date": "2026-07-07",
+  "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
     "asia_pacific": {
-      "session_status": "Most Asia-Pac markets close before or around India's 3:30pm IST close",
+      "session_status": "closed",
       "indices": [
         {
           "name": "Nikkei 225",
           "country": "Japan",
-          "close": 69744.07,
-          "pct_change": 1.47
+          "ticker": "^N225",
+          "close": 68410.0,
+          "pct_change": -1.9
         },
         {
           "name": "Hang Seng",
           "country": "Hong Kong",
-          "close": 23351.68,
-          "pct_change": 1.29
+          "ticker": "^HSI",
+          "close": 23437.0,
+          "pct_change": -0.76
         },
         {
           "name": "Shanghai Composite",
           "country": "China",
-          "close": 4044.12,
-          "pct_change": 0.38
+          "ticker": "000001.SS",
+          "close": 3980.9,
+          "pct_change": -1.49
         },
         {
-          "name": "KOSPI Composite",
+          "name": "KOSPI",
           "country": "South Korea",
-          "close": 7890.57,
-          "pct_change": 3.17,
-          "note": "conflicting figures found in search — verify next run"
+          "ticker": "^KS11",
+          "close": 7612.78,
+          "pct_change": -5.45
         },
         {
           "name": "S&P/ASX 200",
           "country": "Australia",
-          "close": 8844.4,
-          "pct_change": 1.37
+          "ticker": "^AXJO",
+          "close": 8803.9,
+          "pct_change": -0.31
         },
         {
-          "name": "Straits Times Index (STI)",
+          "name": "Straits Times Index",
           "country": "Singapore",
-          "close": 5232.27,
-          "pct_change": 0.29
+          "ticker": "^STI",
+          "close": 5309.73,
+          "pct_change": 0.95
+        },
+        {
+          "name": "Taiwan TAIEX",
+          "country": "Taiwan",
+          "ticker": "^TWII",
+          "close": 45479.11,
+          "pct_change": -2.31
+        },
+        {
+          "name": "Jakarta Composite",
+          "country": "Indonesia",
+          "ticker": "^JKSE",
+          "close": 5955.0,
+          "pct_change": 0.66
         }
       ]
     },
     "europe": {
-      "session_status": "UK/Europe markets are typically mid-session when India closes at 3:30pm IST (UK opens ~1:30pm IST, closes ~9:30pm IST)",
+      "session_status": "closed",
       "indices": [
         {
           "name": "FTSE 100",
           "country": "United Kingdom",
-          "close": 10652.87,
-          "pct_change": 1.67
+          "ticker": "^FTSE",
+          "close": 10652.0,
+          "pct_change": -0.25
         },
         {
           "name": "DAX 40",
           "country": "Germany",
-          "close": 25634.88,
-          "pct_change": null,
-          "note": "% change not confidently sourced this run"
+          "ticker": "^GDAXI",
+          "close": 25817.89,
+          "pct_change": 0.15
         },
         {
           "name": "CAC 40",
           "country": "France",
-          "close": 8498.0,
-          "pct_change": -0.79
+          "ticker": "^FCHI",
+          "close": 8479.87,
+          "pct_change": -0.33
+        },
+        {
+          "name": "Euro Stoxx 50",
+          "country": "Europe",
+          "ticker": "^STOXX50E",
+          "close": 6398.01,
+          "pct_change": -0.23
+        },
+        {
+          "name": "IBEX 35",
+          "country": "Spain",
+          "ticker": "^IBEX",
+          "close": 19684.0,
+          "pct_change": -0.85
+        },
+        {
+          "name": "SMI",
+          "country": "Switzerland",
+          "ticker": "^SSMI",
+          "close": 14302.0,
+          "pct_change": -0.85
         }
       ]
     },
     "us": {
-      "session_status": "US markets open ~7:00pm IST and close ~1:30am IST — at India's 3:30pm close, US shows the PRIOR session's close (or futures, if available)",
+      "session_status": "closed",
       "indices": [
         {
           "name": "S&P 500",
-          "close": 7483.24,
-          "pct_change": 0.0
+          "country": "USA",
+          "ticker": "^GSPC",
+          "close": 7537.43,
+          "pct_change": 0.72
         },
         {
           "name": "Dow Jones",
-          "close": 52900.07,
-          "pct_change": 1.14
+          "country": "USA",
+          "ticker": "^DJI",
+          "close": 53056.0,
+          "pct_change": 0.29
         },
         {
           "name": "Nasdaq Composite",
-          "close": 25832.67,
-          "pct_change": -0.8
+          "country": "USA",
+          "ticker": "^IXIC",
+          "close": 26121.16,
+          "pct_change": 1.12
+        },
+        {
+          "name": "Russell 2000",
+          "country": "USA",
+          "ticker": "^RUT",
+          "close": 3009.54,
+          "pct_change": 0.45
+        },
+        {
+          "name": "S&P/TSX",
+          "country": "Canada",
+          "ticker": "^GSPTSE",
+          "close": 35212.3,
+          "pct_change": -0.1
+        },
+        {
+          "name": "Bovespa",
+          "country": "Brazil",
+          "ticker": "^BVSP",
+          "close": 172448.0,
+          "pct_change": -1.04
         }
       ]
     }
   },
   "currencies": {
-    "gbp_usd": {
-      "value": 1.3359,
-      "pct_change": 0.08
+    "eurusd": {
+      "pair": "EUR/USD",
+      "rate": 1.1432,
+      "pct_change": -0.05
     },
-    "eur_usd": {
-      "value": 1.1451,
-      "pct_change": 0.13
+    "gbpusd": {
+      "pair": "GBP/USD",
+      "rate": 1.3382,
+      "pct_change": 0.22
     },
-    "usd_sgd": {
-      "value": 1.2957,
+    "usdjpy": {
+      "pair": "USD/JPY",
+      "rate": 161.99,
+      "pct_change": 0.33
+    },
+    "usdsgd": {
+      "pair": "USD/SGD",
+      "rate": 1.2924,
+      "pct_change": 0.05
+    },
+    "audusd": {
+      "pair": "AUD/USD",
+      "rate": 0.6944,
+      "pct_change": 0.1
+    },
+    "usdcny": {
+      "pair": "USD/CNY",
+      "rate": 6.7856,
+      "pct_change": -0.04
+    },
+    "usdkrw": {
+      "pair": "USD/KRW",
+      "rate": 1527.08,
+      "pct_change": -0.26
+    },
+    "eurinr": {
+      "pair": "EUR/INR",
+      "rate": 108.92,
       "pct_change": 0.07
     },
-    "usd_jpy": {
-      "value": 161.11,
-      "pct_change": 0.06
+    "gbpinr": {
+      "pair": "GBP/INR",
+      "rate": 127.53,
+      "pct_change": 0.34
+    },
+    "jpyinr": {
+      "pair": "JPY/INR",
+      "rate": 0.588,
+      "pct_change": -0.61
+    },
+    "audinr": {
+      "pair": "AUD/INR",
+      "rate": 66.16,
+      "pct_change": 0.23
     }
   },
   "bond_yields": {
-    "uk_10y_gilt": {
-      "yield": 4.8,
-      "as_of": "2026-07-02"
+    "us_2y": {
+      "name": "US 2Y Treasury",
+      "yield": 3.67,
+      "bps_change": null
     },
-    "singapore_10y": {
-      "yield": 2.04,
-      "as_of": "2026-06-29"
+    "us_10y": {
+      "name": "US 10Y Treasury",
+      "yield": 4.49,
+      "bps_change": null
     },
-    "us_10y_treasury": {
-      "yield": 4.46,
-      "as_of": "2026-07-02"
+    "us_30y": {
+      "name": "US 30Y Treasury",
+      "yield": 4.99,
+      "bps_change": null
     }
   },
-  "summary": "Asia-Pacific closed broadly higher (Nikkei +1.47%, ASX +1.37%, Hang Seng +1.29%), Europe is rallying into its afternoon session led by the FTSE 100 (+1.67%) on defensive/pharma/defence strength, while the US carries forward a mixed prior close (Dow +1.14%, Nasdaq -0.80%) into its evening IST session."
+  "volatility": {
+    "us_vix": {
+      "value": 15.57,
+      "pct_change": -3.59,
+      "name": "CBOE VIX"
+    },
+    "us_vxn": {
+      "value": 26.81,
+      "pct_change": -4.18,
+      "name": "Nasdaq VXN"
+    }
+  }
 }
 </script>
 
@@ -1097,6 +1370,9 @@ function render() {
   const debt = d.india_debt, com = d.commodities, cur = d.currency;
   const vix = d.india_vix, bi = d.buffett_indicator, beer = d.beer_model;
   const sectors = d.india_sectors || {};
+  const crypto = d.crypto || {};
+  const rbi = d.rbi_policy || {};
+  const fiiDii = d.fii_dii || {};
 
   /* Nav date */
   set('nav-date', `Data: ${d.as_of_date} (EOD)`);
@@ -1156,6 +1432,38 @@ function render() {
   set('bi-verdict-lbl', bi?.verdict || '—');
   set('bi-mcap-s', n(bi?.bse_mcap_usd_tn));
   set('bi-gdp-s', n(bi?.india_gdp_usd_tn));
+
+  /* ── FII/DII ──────────────────────────────────── */
+  set('fii-date', fiiDii.date ? `(${fiiDii.date})` : '');
+  const crFmt = v => v!=null ? `<b style="color:${v>=0?'var(--green)':'var(--red)'}">${v>=0?'+':''}${n(v)} Cr</b>` : '—';
+  set('fii-net',  crFmt(fiiDii.fii_net_cr));
+  set('fii-buy',  fiiDii.fii_buy_cr  != null ? `₹${n(fiiDii.fii_buy_cr)} Cr`  : '—');
+  set('fii-sell', fiiDii.fii_sell_cr != null ? `₹${n(fiiDii.fii_sell_cr)} Cr` : '—');
+  set('dii-net',  crFmt(fiiDii.dii_net_cr));
+  set('dii-buy',  fiiDii.dii_buy_cr  != null ? `₹${n(fiiDii.dii_buy_cr)} Cr`  : '—');
+  set('dii-sell', fiiDii.dii_sell_cr != null ? `₹${n(fiiDii.dii_sell_cr)} Cr` : '—');
+
+  /* ── Nifty 52-week range ──────────────────────── */
+  const nHigh = ie.nifty50?.wk52_high, nLow = ie.nifty50?.wk52_low, nCur = ie.nifty50?.close;
+  set('n52h', nHigh ? n(nHigh) : '—');
+  set('n52c', nCur ? n(nCur) : '—');
+  set('n52l', nLow ? n(nLow) : '—');
+  if (nHigh && nLow && nCur) {
+    const fromHigh = ((nCur - nHigh) / nHigh * 100).toFixed(1);
+    const fromLow  = ((nCur - nLow)  / nLow  * 100).toFixed(1);
+    set('n52-from-high', `<span class="dn">${fromHigh}%</span>`);
+    set('n52-from-low',  `<span class="up">+${fromLow}%</span>`);
+    // Progress bar
+    const pos = ((nCur - nLow) / (nHigh - nLow) * 100).toFixed(1);
+    $('nifty52w-bar').innerHTML = `
+      <div style="background:var(--border);border-radius:4px;height:8px;position:relative">
+        <div style="background:linear-gradient(90deg,var(--green),var(--amber),var(--red));border-radius:4px;height:100%;width:${pos}%"></div>
+        <div style="position:absolute;top:-16px;left:calc(${pos}% - 4px);font-size:10px;color:var(--text)">▲</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px">
+        <span>52W Low</span><span>${pos}% of range</span><span>52W High</span>
+      </div>`;
+  }
 
   /* ── Overview: Global snap row ────────────────── */
   if (g?.regions) {
@@ -1272,36 +1580,80 @@ function render() {
   /* ── Commodities & FX tab ─────────────────────── */
   const commodKpi = [
     {name:'Gold',unit:'COMEX $/oz',val:com?.gold_comex_usd_oz?.value,pct:com?.gold_comex_usd_oz?.pct_change},
-    {name:'Gold',unit:'MCX ₹/10g',val:com?.gold_mcx_inr_10g?.value,pct:null},
+    {name:'Gold MCX',unit:'₹/10g',val:com?.gold_mcx_inr_10g?.value,pct:com?.gold_comex_usd_oz?.pct_change},
     {name:'Silver',unit:'COMEX $/oz',val:com?.silver_comex_usd_oz?.value,pct:com?.silver_comex_usd_oz?.pct_change},
-    {name:'Silver',unit:'MCX ₹/kg',val:com?.silver_mcx_inr_kg?.value,pct:null},
-    {name:'Brent Crude',unit:'$/bbl',val:com?.brent_usd_bbl?.value,pct:com?.brent_usd_bbl?.pct_change},
-    {name:'Brent Crude',unit:'₹/bbl approx',val:com?.brent_mcx_inr_bbl?.value,pct:null},
+    {name:'Brent',unit:'$/bbl',val:com?.brent_usd_bbl?.value,pct:com?.brent_usd_bbl?.pct_change},
+    {name:'WTI Crude',unit:'$/bbl',val:com?.wti_usd_bbl?.value,pct:com?.wti_usd_bbl?.pct_change},
+    {name:'Bitcoin',unit:'USD',val:crypto?.bitcoin?.value,pct:crypto?.bitcoin?.pct_change},
   ];
   $('commodity-kpi').innerHTML = commodKpi.map(({name,unit,val,pct})=>`
     <div class="mkt-card">
       <div class="mkt-name">${name} <span style="color:var(--muted);font-weight:400">${unit}</span></div>
-      <div class="mkt-val" style="font-size:17px">${val!=null?(unit.includes('₹')?'₹':'$')+n(val,unit.includes('/oz')&&val<200?2:0):'—'}</div>
-      <div class="mkt-chg">${pct!=null?pctHtml(pct):'<span class="flat">approx</span>'}</div>
+      <div class="mkt-val" style="font-size:17px">${val!=null?(unit.startsWith('₹')?'₹':'$')+n(val, val>999?0:2):'—'}</div>
+      <div class="mkt-chg">${pct!=null?pctHtml(pct):'<span class="flat">—</span>'}</div>
     </div>`).join('');
 
-  $('commodity-detail').innerHTML = commodKpi.map(({name,unit,val,pct})=>`
-    <div class="row">
-      <span class="lbl">${name} (${unit})</span>
-      <span class="val">${val!=null?(unit.includes('₹')?'₹':'$')+n(val,unit.includes('/oz')&&val<200?2:0):'N/A'}${pct!=null?' '+pctHtml(pct):''}</span>
-    </div>`).join('');
+  $('commodity-detail').innerHTML = [
+    ['Gold COMEX', com?.gold_comex_usd_oz?.value, com?.gold_comex_usd_oz?.pct_change, '$', 2],
+    ['Gold MCX', com?.gold_mcx_inr_10g?.value, null, '₹', 0],
+    ['Silver COMEX', com?.silver_comex_usd_oz?.value, com?.silver_comex_usd_oz?.pct_change, '$', 3],
+    ['Silver MCX', com?.silver_mcx_inr_kg?.value, null, '₹', 0],
+  ].map(([label,val,pct,sym,dec])=>`
+    <div class="row"><span class="lbl">${label}</span>
+    <span class="val">${val!=null?sym+n(val,dec):'N/A'}${pct!=null?' '+pctHtml(pct):' <span class="flat">approx</span>'}</span></div>`).join('');
 
-  const fxSources = [
-    ['USD/INR', cur?.usd_inr?.value, null],
-    ...(g?.currencies ? Object.entries(g.currencies).map(([k,v])=>[k.toUpperCase().replace('_','/'),v?.rate,v?.pct_change]) : [])
+  $('commodity-energy').innerHTML = [
+    ['Brent Crude', com?.brent_usd_bbl?.value, com?.brent_usd_bbl?.pct_change, '$', 2, '$/bbl'],
+    ['WTI Crude',   com?.wti_usd_bbl?.value,   com?.wti_usd_bbl?.pct_change,   '$', 2, '$/bbl'],
+    ['Natural Gas', com?.natgas_usd_mmbtu?.value, com?.natgas_usd_mmbtu?.pct_change, '$', 3, '$/MMBtu'],
+    ['Copper',      com?.copper_usd_lb?.value,  com?.copper_usd_lb?.pct_change, '$', 3, '$/lb'],
+    ['Brent MCX',   com?.brent_mcx_inr_bbl?.value, null, '₹', 0, '₹/bbl'],
+  ].map(([label,val,pct,sym,dec,unit])=>`
+    <div class="row"><span class="lbl">${label} <span style="color:var(--muted);font-size:10px">${unit}</span></span>
+    <span class="val">${val!=null?sym+n(val,dec):'N/A'}${pct!=null?' '+pctHtml(pct):''}</span></div>`).join('');
+
+  $('crypto-detail').innerHTML = [
+    ['Bitcoin (BTC)', crypto?.bitcoin?.value, crypto?.bitcoin?.pct_change, '$', 0],
+    ['Ethereum (ETH)', crypto?.ethereum?.value, crypto?.ethereum?.pct_change, '$', 2],
+  ].map(([label,val,pct,sym,dec])=>`
+    <div class="row"><span class="lbl">${label}</span>
+    <span class="val">${val!=null?sym+n(val,dec):'N/A'}${pct!=null?' '+pctHtml(pct):''}</span></div>`).join('');
+
+  // INR crosses
+  const inrPairs = [
+    ['USD/INR', cur?.usd_inr?.value, null, 3],
+    ['EUR/INR', cur?.eur_inr?.value, cur?.eur_inr?.pct_change, 2],
+    ['GBP/INR', cur?.gbp_inr?.value, cur?.gbp_inr?.pct_change, 2],
+    ...(g?.currencies?.eurinr ? [['EUR/INR (g)', g.currencies.eurinr?.rate, g.currencies.eurinr?.pct_change, 2]] : []),
+    ...(g?.currencies?.gbpinr ? [['GBP/INR (g)', g.currencies.gbpinr?.rate, g.currencies.gbpinr?.pct_change, 2]] : []),
+    ...(g?.currencies?.audinr ? [['AUD/INR', g.currencies.audinr?.rate, g.currencies.audinr?.pct_change, 2]] : []),
+    ...(g?.currencies?.jpyinr ? [['JPY/INR', g.currencies.jpyinr?.rate, g.currencies.jpyinr?.pct_change, 4]] : []),
   ];
-  $('fx-detail').innerHTML = fxSources.map(([pair,rate,pct])=>`
-    <div class="row">
-      <span class="lbl">${pair}</span>
-      <span class="val">${rate!=null?n(rate,4):'N/A'}${pct!=null?' '+pctHtml(pct):''}</span>
-    </div>`).join('');
+  // deduplicate by pair label
+  const seenPairs = new Set();
+  $('fx-inr').innerHTML = inrPairs.filter(([p])=>{ if(seenPairs.has(p.split(' ')[0])) return false; seenPairs.add(p.split(' ')[0]); return true; })
+    .map(([pair,rate,pct,dec])=>`
+    <div class="row"><span class="lbl">${pair.split(' ')[0]}</span>
+    <span class="val">${rate!=null?n(rate,dec):'N/A'}${pct!=null?' '+pctHtml(pct):''}</span></div>`).join('');
+
+  if (g?.currencies) {
+    const globalFxPairs = [['eurusd','EUR/USD'],['gbpusd','GBP/USD'],['usdjpy','USD/JPY'],
+      ['usdsgd','USD/SGD'],['audusd','AUD/USD'],['usdcny','USD/CNY'],['usdkrw','USD/KRW']];
+    $('fx-global').innerHTML = globalFxPairs.map(([key,label])=>{
+      const c = g.currencies[key];
+      return `<div class="row"><span class="lbl">${label}</span>
+        <span class="val">${c?.rate!=null?n(c.rate,4):'N/A'}${c?.pct_change!=null?' '+pctHtml(c.pct_change):''}</span></div>`;
+    }).join('');
+  }
 
   /* ── Bonds & Rates tab ────────────────────────── */
+  /* ── RBI rates ────────────────────────────────── */
+  set('rbi-repo', rbi.repo_rate ? rbi.repo_rate + '%' : '6.00%');
+  set('rbi-sdf',  rbi.sdf_rate  ? rbi.sdf_rate  + '%' : '5.75%');
+  set('rbi-msf',  rbi.msf_rate  ? rbi.msf_rate  + '%' : '6.25%');
+  set('rbi-crr',  rbi.crr       ? rbi.crr       + '%' : '4.00%');
+  set('rbi-slr',  rbi.slr       ? rbi.slr       + '%' : '18.00%');
+
   set('r-gsec10', `${n(debt?.gsec_10y?.yield)}% ${bpsHtml(debt?.gsec_10y?.bps_change)}`);
   set('r-aaa5',  `${n(m.aaa_corp_5yr?.value)}% ${mBadge(m.aaa_corp_5yr)}`);
   set('r-aaa3',  `${n(m.aaa_corp_3yr?.value)}% ${mBadge(m.aaa_corp_3yr)}`);
@@ -1315,9 +1667,23 @@ function render() {
   set('r-india10',`${n(debt?.gsec_10y?.yield)}% ${bpsHtml(debt?.gsec_10y?.bps_change)}`);
   set('r-us10',   `${n(debt?.us_10y?.yield)}% ${bpsHtml(debt?.us_10y?.bps_change)}`);
   if (g?.bond_yields) {
-    $('r-global-yields').innerHTML = Object.entries(g.bond_yields).map(([k,y])=>`
+    const byHtml = Object.entries(g.bond_yields).map(([k,y])=>`
       <div class="row"><span class="lbl">${y.name||k}</span>
       <span class="val">${y.yield!=null?y.yield.toFixed(2)+'%':'N/A'} ${bpsHtml(y.bps_change)}</span></div>`).join('');
+    $('r-global-yields').innerHTML = byHtml;
+    $('global-yields').innerHTML   = byHtml;
+  }
+  /* ── Global VIX ────────────────────────────────── */
+  if (g?.volatility) {
+    const gv = g.volatility;
+    set('g-usvix',    `${n(gv.us_vix?.value)} ${pctHtml(gv.us_vix?.pct_change)}`);
+    set('g-vxn',      `${n(gv.us_vxn?.value)} ${pctHtml(gv.us_vxn?.pct_change)}`);
+  }
+  set('g-indiavix', `${n(vix?.value)} ${pctHtml(vix?.pct_change)}`);
+  if (g?.bond_yields) {
+    set('g-us2y',  g.bond_yields.us_2y?.yield != null ? g.bond_yields.us_2y.yield.toFixed(2)+'%' : '—');
+    set('g-us10y', g.bond_yields.us_10y?.yield != null ? g.bond_yields.us_10y.yield.toFixed(2)+'%' : '—');
+    set('g-us30y', g.bond_yields.us_30y?.yield != null ? g.bond_yields.us_30y.yield.toFixed(2)+'%' : '—');
   }
   set('r-mcap-cr',   n(bi?.bse_mcap_lakh_cr));
   set('r-mcap-usd',  n(bi?.bse_mcap_usd_tn));
@@ -1335,6 +1701,55 @@ function render() {
 }
 
 render();
+
+/* ══════════════════════════════════════════════════════════
+   News Feed (client-side RSS via rss2json.com — free tier)
+══════════════════════════════════════════════════════════ */
+function timeAgo(dateStr) {
+  const diff = (Date.now() - new Date(dateStr)) / 60000;
+  if (diff < 60)   return `${Math.round(diff)}m ago`;
+  if (diff < 1440) return `${Math.round(diff/60)}h ago`;
+  return `${Math.round(diff/1440)}d ago`;
+}
+
+function renderNewsFeed(elId, items) {
+  const el = $(elId);
+  if (!el) return;
+  if (!items || !items.length) { el.innerHTML = '<span style="color:var(--muted)">No headlines available.</span>'; return; }
+  el.innerHTML = items.slice(0, 12).map(item => `
+    <div style="padding:8px 0;border-bottom:1px solid var(--border);line-height:1.4">
+      <a href="${item.link}" target="_blank" rel="noopener"
+         style="color:var(--text);font-size:13px;font-weight:500;display:block;margin-bottom:3px"
+         onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color='var(--text)'"
+      >${item.title}</a>
+      <span style="font-size:10px;color:var(--muted)">${timeAgo(item.pubDate)} · ${item.author||'ET Markets'}</span>
+    </div>`).join('');
+}
+
+async function loadNews() {
+  const feeds = [
+    { url: 'https://economictimes.indiatimes.com/markets/rss.cms', el: 'news-feed-primary' },
+    { url: 'https://www.livemint.com/rss/markets', el: 'news-feed-secondary' },
+  ];
+  for (const { url, el } of feeds) {
+    try {
+      const resp = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&count=15`);
+      const json = await resp.json();
+      if (json.status === 'ok') renderNewsFeed(el, json.items);
+      else $(el).innerHTML = `<span style="color:var(--muted)">Feed unavailable.</span>`;
+    } catch {
+      $(el).innerHTML = `<span style="color:var(--muted)">Unable to load. <a href="https://economictimes.indiatimes.com/markets" target="_blank">Open ET Markets →</a></span>`;
+    }
+  }
+}
+
+// Load news when News tab is first clicked
+document.querySelector('[data-tab="news"]').addEventListener('click', () => {
+  if (!document.querySelector('[data-tab="news"]')._newsLoaded) {
+    document.querySelector('[data-tab="news"]')._newsLoaded = true;
+    loadNews();
+  }
+}, { once: false });
 </script>
 </body>
 </html>

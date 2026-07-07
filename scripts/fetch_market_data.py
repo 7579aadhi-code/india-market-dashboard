@@ -364,9 +364,24 @@ def main():
     _, gold_usd,   gold_pct   = yf_last("GC=F", precision=2)
     _, silver_usd, silver_pct = yf_last("SI=F", precision=3)
     _, brent_usd,  brent_pct  = yf_last("BZ=F", precision=2)
-    print(f"  Gold   : ${gold_usd}/oz  ({gold_pct}%)")
-    print(f"  Silver : ${silver_usd}/oz  ({silver_pct}%)")
-    print(f"  Brent  : ${brent_usd}/bbl ({brent_pct}%)")
+    _, wti_usd,    wti_pct    = yf_last("CL=F", precision=2)
+    _, natgas_usd, natgas_pct = yf_last("NG=F", precision=3)
+    _, copper_usd, copper_pct = yf_last("HG=F", precision=3)
+    print(f"  Gold      : ${gold_usd}/oz  ({gold_pct}%)")
+    print(f"  Silver    : ${silver_usd}/oz  ({silver_pct}%)")
+    print(f"  Brent     : ${brent_usd}/bbl ({brent_pct}%)")
+    print(f"  WTI       : ${wti_usd}/bbl  ({wti_pct}%)")
+    print(f"  Nat. Gas  : ${natgas_usd}/MMBtu ({natgas_pct}%)")
+    print(f"  Copper    : ${copper_usd}/lb ({copper_pct}%)")
+
+    # ------------------------------------------------------------------ #
+    # 4b. Crypto
+    # ------------------------------------------------------------------ #
+    print("\n[Crypto]")
+    _, btc_usd, btc_pct = yf_last("BTC-USD", precision=0)
+    _, eth_usd, eth_pct = yf_last("ETH-USD", precision=2)
+    print(f"  BTC: ${btc_usd}  ({btc_pct}%)")
+    print(f"  ETH: ${eth_usd}  ({eth_pct}%)")
 
     # ------------------------------------------------------------------ #
     # 5. Currency
@@ -375,9 +390,13 @@ def main():
     _, usd_inr, _ = yf_last("USDINR=X", precision=3)
     if usd_inr is None:
         _, usd_inr, _ = yf_last("INR=X", precision=3)
+    _, eur_inr, eur_inr_pct = yf_last("EURINR=X", precision=2)
+    _, gbp_inr, gbp_inr_pct = yf_last("GBPINR=X", precision=2)
     prior_usd_inr = (prior.get("currency") or {}).get("usd_inr", {}).get("value")
     usd_inr_change = round(usd_inr - prior_usd_inr, 3) if (usd_inr and prior_usd_inr) else None
     print(f"  USD/INR : {usd_inr}  (Δ {usd_inr_change})")
+    print(f"  EUR/INR : {eur_inr}  ({eur_inr_pct}%)")
+    print(f"  GBP/INR : {gbp_inr}  ({gbp_inr_pct}%)")
 
     # ------------------------------------------------------------------ #
     # 6. India VIX
@@ -391,6 +410,76 @@ def main():
     if vix_52l is None:
         vix_52l = (prior.get("india_vix") or {}).get("wk52_low")
     print(f"  VIX : {vix_val}  ({vix_pct}%)  52w {vix_52l}–{vix_52h}")
+
+    # ------------------------------------------------------------------ #
+    # 6b. RBI Policy Rates — scrape rbi.org.in
+    # ------------------------------------------------------------------ #
+    print("\n[RBI Policy Rates]")
+    rbi_rates = {}
+    try:
+        r = requests.get("https://www.rbi.org.in/scripts/bs_viewcontent.aspx?Id=4165",
+                         headers=HEADERS, timeout=12)
+        text = BeautifulSoup(r.text, "lxml").get_text(" ")
+        m = re.search(r'(?:Repo\s+Rate|Policy\s+Repo)[:\s]+(\d+\.\d+)', text, re.IGNORECASE)
+        if m:
+            rbi_rates["repo_rate"] = float(m.group(1))
+        m = re.search(r'(?:Standing\s+Deposit\s+Facility|SDF)[:\s]+(\d+\.\d+)', text, re.IGNORECASE)
+        if m:
+            rbi_rates["sdf_rate"] = float(m.group(1))
+        m = re.search(r'(?:Marginal\s+Standing\s+Facility|MSF)[:\s]+(\d+\.\d+)', text, re.IGNORECASE)
+        if m:
+            rbi_rates["msf_rate"] = float(m.group(1))
+        m = re.search(r'CRR[:\s]+(\d+\.\d+)', text, re.IGNORECASE)
+        if m:
+            rbi_rates["crr"] = float(m.group(1))
+        m = re.search(r'SLR[:\s]+(\d+\.\d+)', text, re.IGNORECASE)
+        if m:
+            rbi_rates["slr"] = float(m.group(1))
+        print(f"  RBI rates: {rbi_rates}")
+    except Exception as e:
+        print(f"  [WARN] RBI rates: {e}", file=sys.stderr)
+    # Fall back to prior, then known-good hardcoded rates (updated June 2025 cut)
+    prior_rbi = prior.get("rbi_policy") or {}
+    if not rbi_rates.get("repo_rate"):
+        if prior_rbi.get("repo_rate"):
+            rbi_rates = prior_rbi
+        else:
+            rbi_rates = {
+                "repo_rate": 6.0, "sdf_rate": 5.75, "msf_rate": 6.25,
+                "crr": 4.0, "slr": 18.0,
+                "_source": "hardcoded_fallback_Jun2025"
+            }
+
+    # ------------------------------------------------------------------ #
+    # 6c. NSE FII / DII net flows
+    # ------------------------------------------------------------------ #
+    print("\n[FII/DII flows]")
+    fii_dii = {}
+    try:
+        url = "https://www.nseindia.com/api/fiidiiTradeReact"
+        r = requests.get(url, headers={**HEADERS,
+            "Referer": "https://www.nseindia.com/",
+            "Accept": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+        }, timeout=12)
+        rows = r.json()
+        # Rows: list of dicts with 'category', 'date', 'buyValue', 'sellValue', 'netValue'
+        latest_row = {row["category"]: row for row in rows}
+        fii = latest_row.get("FII/FPI", {})
+        dii = latest_row.get("DII", {})
+        fii_dii = {
+            "date": fii.get("date") or dii.get("date"),
+            "fii_net_cr":  round(float(fii.get("netValue", 0)), 2) if fii.get("netValue") else None,
+            "fii_buy_cr":  round(float(fii.get("buyValue", 0)), 2) if fii.get("buyValue") else None,
+            "fii_sell_cr": round(float(fii.get("sellValue", 0)), 2) if fii.get("sellValue") else None,
+            "dii_net_cr":  round(float(dii.get("netValue", 0)), 2) if dii.get("netValue") else None,
+            "dii_buy_cr":  round(float(dii.get("buyValue", 0)), 2) if dii.get("buyValue") else None,
+            "dii_sell_cr": round(float(dii.get("sellValue", 0)), 2) if dii.get("sellValue") else None,
+        }
+        print(f"  FII net: ₹{fii_dii.get('fii_net_cr')} Cr | DII net: ₹{fii_dii.get('dii_net_cr')} Cr")
+    except Exception as e:
+        print(f"  [WARN] FII/DII: {e}", file=sys.stderr)
+        fii_dii = prior.get("fii_dii") or {}
 
     # ------------------------------------------------------------------ #
     # 7. Valuation (PE / PB / DY)
@@ -473,6 +562,11 @@ def main():
     )
 
     # ------------------------------------------------------------------ #
+    # 10b. Nifty 52-week High / Low
+    # ------------------------------------------------------------------ #
+    nifty_52h, nifty_52l = yf_52w("^NSEI")
+
+    # ------------------------------------------------------------------ #
     # 11. Nifty 50 — 30-day price history for the chart
     # ------------------------------------------------------------------ #
     print("\n[30-day Nifty history]")
@@ -512,7 +606,8 @@ def main():
         "as_of_date": session_date,
         "generated_at_ist": generated_at,
         "india_equity": {
-            "nifty50":    {"close": nifty_close,   "pct_change": nifty_pct},
+            "nifty50":    {"close": nifty_close,   "pct_change": nifty_pct,
+                           "wk52_high": nifty_52h, "wk52_low": nifty_52l},
             "sensex":     {"close": sensex_close,  "pct_change": sensex_pct},
             "midcap150":  {"close": mid150_close,  "pct_change": mid150_pct},
             "smallcap250":{"close": small250_close,"pct_change": small250_pct},
@@ -552,19 +647,26 @@ def main():
                 "value": silver_mcx(silver_usd, usd_inr), "pct_change": silver_pct,
                 "note": "approx conversion, not exact MCX settlement",
             },
-            "brent_usd_bbl": {"value": brent_usd, "pct_change": brent_pct},
-            "brent_mcx_inr_bbl": {
+            "brent_usd_bbl":       {"value": brent_usd,  "pct_change": brent_pct},
+            "brent_mcx_inr_bbl":   {
                 "value": brent_inr_conv(brent_usd, usd_inr), "pct_change": brent_pct,
                 "note": "approx conversion",
             },
+            "wti_usd_bbl":         {"value": wti_usd,    "pct_change": wti_pct},
+            "natgas_usd_mmbtu":    {"value": natgas_usd, "pct_change": natgas_pct},
+            "copper_usd_lb":       {"value": copper_usd, "pct_change": copper_pct},
+        },
+        "crypto": {
+            "bitcoin":  {"value": btc_usd, "pct_change": btc_pct, "pair": "BTC/USD"},
+            "ethereum": {"value": eth_usd, "pct_change": eth_pct, "pair": "ETH/USD"},
         },
         "currency": {
-            "usd_inr": {
-                "value": usd_inr,
-                "change": usd_inr_change,
-                "driver": "Auto-fetched via yfinance; narrative driver not available in automated mode",
-            }
+            "usd_inr": {"value": usd_inr, "change": usd_inr_change},
+            "eur_inr": {"value": eur_inr, "pct_change": eur_inr_pct},
+            "gbp_inr": {"value": gbp_inr, "pct_change": gbp_inr_pct},
         },
+        "rbi_policy": rbi_rates,
+        "fii_dii": fii_dii,
         "india_vix": {
             "value": vix_val, "pct_change": vix_pct,
             "wk52_high": vix_52h, "wk52_low": vix_52l,

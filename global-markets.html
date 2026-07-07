@@ -90,129 +90,252 @@
 
 <script id="data-global" type="application/json">
 {
-  "generated_at_ist": "2026-07-03T08:30:00+05:30",
-  "note": "Snapshot meant to be checked around/after India's 3:30pm IST close. Asia-Pacific markets shown are same-day closes (they close before/around India); Europe/US markets may still be mid-session or pre-open depending on when this was generated — check each region's own local session status below.",
+  "generated_at_ist": "2026-07-07T12:14:57+05:30",
+  "as_of_date": "2026-07-07",
+  "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
     "asia_pacific": {
-      "session_status": "Most Asia-Pac markets close before or around India's 3:30pm IST close",
+      "session_status": "closed",
       "indices": [
         {
           "name": "Nikkei 225",
           "country": "Japan",
-          "close": 69744.07,
-          "pct_change": 1.47
+          "ticker": "^N225",
+          "close": 68410.0,
+          "pct_change": -1.9
         },
         {
           "name": "Hang Seng",
           "country": "Hong Kong",
-          "close": 23351.68,
-          "pct_change": 1.29
+          "ticker": "^HSI",
+          "close": 23437.0,
+          "pct_change": -0.76
         },
         {
           "name": "Shanghai Composite",
           "country": "China",
-          "close": 4044.12,
-          "pct_change": 0.38
+          "ticker": "000001.SS",
+          "close": 3980.9,
+          "pct_change": -1.49
         },
         {
-          "name": "KOSPI Composite",
+          "name": "KOSPI",
           "country": "South Korea",
-          "close": 7890.57,
-          "pct_change": 3.17,
-          "note": "conflicting figures found in search — verify next run"
+          "ticker": "^KS11",
+          "close": 7612.78,
+          "pct_change": -5.45
         },
         {
           "name": "S&P/ASX 200",
           "country": "Australia",
-          "close": 8844.4,
-          "pct_change": 1.37
+          "ticker": "^AXJO",
+          "close": 8803.9,
+          "pct_change": -0.31
         },
         {
-          "name": "Straits Times Index (STI)",
+          "name": "Straits Times Index",
           "country": "Singapore",
-          "close": 5232.27,
-          "pct_change": 0.29
+          "ticker": "^STI",
+          "close": 5309.73,
+          "pct_change": 0.95
+        },
+        {
+          "name": "Taiwan TAIEX",
+          "country": "Taiwan",
+          "ticker": "^TWII",
+          "close": 45479.11,
+          "pct_change": -2.31
+        },
+        {
+          "name": "Jakarta Composite",
+          "country": "Indonesia",
+          "ticker": "^JKSE",
+          "close": 5955.0,
+          "pct_change": 0.66
         }
       ]
     },
     "europe": {
-      "session_status": "UK/Europe markets are typically mid-session when India closes at 3:30pm IST (UK opens ~1:30pm IST, closes ~9:30pm IST)",
+      "session_status": "closed",
       "indices": [
         {
           "name": "FTSE 100",
           "country": "United Kingdom",
-          "close": 10652.87,
-          "pct_change": 1.67
+          "ticker": "^FTSE",
+          "close": 10652.0,
+          "pct_change": -0.25
         },
         {
           "name": "DAX 40",
           "country": "Germany",
-          "close": 25634.88,
-          "pct_change": null,
-          "note": "% change not confidently sourced this run"
+          "ticker": "^GDAXI",
+          "close": 25817.89,
+          "pct_change": 0.15
         },
         {
           "name": "CAC 40",
           "country": "France",
-          "close": 8498.0,
-          "pct_change": -0.79
+          "ticker": "^FCHI",
+          "close": 8479.87,
+          "pct_change": -0.33
+        },
+        {
+          "name": "Euro Stoxx 50",
+          "country": "Europe",
+          "ticker": "^STOXX50E",
+          "close": 6398.01,
+          "pct_change": -0.23
+        },
+        {
+          "name": "IBEX 35",
+          "country": "Spain",
+          "ticker": "^IBEX",
+          "close": 19684.0,
+          "pct_change": -0.85
+        },
+        {
+          "name": "SMI",
+          "country": "Switzerland",
+          "ticker": "^SSMI",
+          "close": 14302.0,
+          "pct_change": -0.85
         }
       ]
     },
     "us": {
-      "session_status": "US markets open ~7:00pm IST and close ~1:30am IST — at India's 3:30pm close, US shows the PRIOR session's close (or futures, if available)",
+      "session_status": "closed",
       "indices": [
         {
           "name": "S&P 500",
-          "close": 7483.24,
-          "pct_change": 0.0
+          "country": "USA",
+          "ticker": "^GSPC",
+          "close": 7537.43,
+          "pct_change": 0.72
         },
         {
           "name": "Dow Jones",
-          "close": 52900.07,
-          "pct_change": 1.14
+          "country": "USA",
+          "ticker": "^DJI",
+          "close": 53056.0,
+          "pct_change": 0.29
         },
         {
           "name": "Nasdaq Composite",
-          "close": 25832.67,
-          "pct_change": -0.8
+          "country": "USA",
+          "ticker": "^IXIC",
+          "close": 26121.16,
+          "pct_change": 1.12
+        },
+        {
+          "name": "Russell 2000",
+          "country": "USA",
+          "ticker": "^RUT",
+          "close": 3009.54,
+          "pct_change": 0.45
+        },
+        {
+          "name": "S&P/TSX",
+          "country": "Canada",
+          "ticker": "^GSPTSE",
+          "close": 35212.3,
+          "pct_change": -0.1
+        },
+        {
+          "name": "Bovespa",
+          "country": "Brazil",
+          "ticker": "^BVSP",
+          "close": 172448.0,
+          "pct_change": -1.04
         }
       ]
     }
   },
   "currencies": {
-    "gbp_usd": {
-      "value": 1.3359,
-      "pct_change": 0.08
+    "eurusd": {
+      "pair": "EUR/USD",
+      "rate": 1.1432,
+      "pct_change": -0.05
     },
-    "eur_usd": {
-      "value": 1.1451,
-      "pct_change": 0.13
+    "gbpusd": {
+      "pair": "GBP/USD",
+      "rate": 1.3382,
+      "pct_change": 0.22
     },
-    "usd_sgd": {
-      "value": 1.2957,
+    "usdjpy": {
+      "pair": "USD/JPY",
+      "rate": 161.99,
+      "pct_change": 0.33
+    },
+    "usdsgd": {
+      "pair": "USD/SGD",
+      "rate": 1.2924,
+      "pct_change": 0.05
+    },
+    "audusd": {
+      "pair": "AUD/USD",
+      "rate": 0.6944,
+      "pct_change": 0.1
+    },
+    "usdcny": {
+      "pair": "USD/CNY",
+      "rate": 6.7856,
+      "pct_change": -0.04
+    },
+    "usdkrw": {
+      "pair": "USD/KRW",
+      "rate": 1527.08,
+      "pct_change": -0.26
+    },
+    "eurinr": {
+      "pair": "EUR/INR",
+      "rate": 108.92,
       "pct_change": 0.07
     },
-    "usd_jpy": {
-      "value": 161.11,
-      "pct_change": 0.06
+    "gbpinr": {
+      "pair": "GBP/INR",
+      "rate": 127.53,
+      "pct_change": 0.34
+    },
+    "jpyinr": {
+      "pair": "JPY/INR",
+      "rate": 0.588,
+      "pct_change": -0.61
+    },
+    "audinr": {
+      "pair": "AUD/INR",
+      "rate": 66.16,
+      "pct_change": 0.23
     }
   },
   "bond_yields": {
-    "uk_10y_gilt": {
-      "yield": 4.8,
-      "as_of": "2026-07-02"
+    "us_2y": {
+      "name": "US 2Y Treasury",
+      "yield": 3.67,
+      "bps_change": null
     },
-    "singapore_10y": {
-      "yield": 2.04,
-      "as_of": "2026-06-29"
+    "us_10y": {
+      "name": "US 10Y Treasury",
+      "yield": 4.49,
+      "bps_change": null
     },
-    "us_10y_treasury": {
-      "yield": 4.46,
-      "as_of": "2026-07-02"
+    "us_30y": {
+      "name": "US 30Y Treasury",
+      "yield": 4.99,
+      "bps_change": null
     }
   },
-  "summary": "Asia-Pacific closed broadly higher (Nikkei +1.47%, ASX +1.37%, Hang Seng +1.29%), Europe is rallying into its afternoon session led by the FTSE 100 (+1.67%) on defensive/pharma/defence strength, while the US carries forward a mixed prior close (Dow +1.14%, Nasdaq -0.80%) into its evening IST session."
+  "volatility": {
+    "us_vix": {
+      "value": 15.57,
+      "pct_change": -3.59,
+      "name": "CBOE VIX"
+    },
+    "us_vxn": {
+      "value": 26.81,
+      "pct_change": -4.18,
+      "name": "Nasdaq VXN"
+    }
+  }
 }
 </script>
 <script>
