@@ -33,6 +33,7 @@
   .up { color: var(--green); } .down { color: var(--red); } .flat { color: var(--muted); }
   .summary { background: linear-gradient(135deg, #1a2540, #131a2c); border: 1px solid var(--accent); border-radius: 10px; padding: 18px 20px; font-size: 15px; margin-bottom: 20px; }
   .note-badge { font-size: 10px; background: #3a2f14; color: #e0a92e; padding: 1px 6px; border-radius: 4px; margin-left: 6px; }
+  .err-banner { background: #3a1414; border: 1px solid var(--red); color: #ff9d9d; border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 16px; display: none; }
   footer { color: var(--muted); font-size: 12px; margin-top: 30px; }
 </style>
 </head>
@@ -42,9 +43,10 @@
   <div class="nav"><a href="index.html">← India Market Dashboard</a> <a href="global-markets.html">Global Markets Snapshot</a></div>
   <h1>Global Markets Snapshot (ex-India)</h1>
   <div class="meta" id="meta-line">Generated <b>—</b> IST</div>
-  <div class="manual-flag">🟡 Meant for checking right after India's 3:30pm IST close — auto-refreshes on a schedule, not truly real-time. See each region's session-status note for what "today's" figure actually means for that market.</div>
+  <div class="manual-flag">🟡 Meant for checking right after India's 3:30pm IST close — auto-refreshes daily via GitHub Actions. All index/currency/yield data sourced via yfinance; prices reflect each market's last completed session.</div>
 </header>
 
+<div class="err-banner" id="err-banner"></div>
 <div class="summary" id="summary-text">Loading…</div>
 
 <div class="grid">
@@ -62,24 +64,24 @@
   </div>
 
   <div class="card">
-    <h2>United States</h2>
+    <h2>United States &amp; Americas</h2>
     <span class="session-status" id="us-status">—</span>
     <div id="us-rows"></div>
   </div>
 
   <div class="card">
     <h2>Currencies</h2>
-    <div class="row"><span class="label">GBP/USD</span><span class="val" id="gbpusd">—</span></div>
-    <div class="row"><span class="label">EUR/USD</span><span class="val" id="eurusd">—</span></div>
-    <div class="row"><span class="label">USD/SGD</span><span class="val" id="usdsgd">—</span></div>
-    <div class="row"><span class="label">USD/JPY</span><span class="val" id="usdjpy">—</span></div>
+    <div id="currency-rows"></div>
   </div>
 
   <div class="card">
-    <h2>Global Bond Yields (10Y)</h2>
-    <div class="row"><span class="label">UK Gilt</span><span class="val" id="uk10y">—</span></div>
-    <div class="row"><span class="label">Singapore</span><span class="val" id="sg10y">—</span></div>
-    <div class="row"><span class="label">US Treasury</span><span class="val" id="us10y">—</span></div>
+    <h2>US Treasury Yields</h2>
+    <div id="bond-rows"></div>
+  </div>
+
+  <div class="card">
+    <h2>Volatility</h2>
+    <div id="vol-rows"></div>
   </div>
 
 </div>
@@ -353,7 +355,7 @@ function fmtPct(v, digits=2) {
   return `<span class="${cls}">${arrow} ${v > 0 ? '+' : ''}${v.toFixed(digits)}%</span>`;
 }
 function num(v, digits=2) {
-  return v === null || v === undefined ? 'N/A' : v.toLocaleString('en-IN', {maximumFractionDigits: digits});
+  return v === null || v === undefined ? 'N/A' : Number(v).toLocaleString('en-IN', {maximumFractionDigits: digits});
 }
 function indexRow(idx) {
   const noteHtml = idx.note ? `<span class="note-badge">check</span>` : '';
@@ -362,33 +364,65 @@ function indexRow(idx) {
     <span class="val">${num(idx.close)} ${fmtPct(idx.pct_change)} ${noteHtml}</span>
   </div>`;
 }
+function currencyRow(c) {
+  const digits = (c.rate && c.rate > 20) ? 2 : 4;
+  return `<div class="row"><span class="label">${c.pair}</span><span class="val">${num(c.rate, digits)} ${fmtPct(c.pct_change)}</span></div>`;
+}
+function bondRow(b) {
+  return `<div class="row"><span class="label">${b.name}</span><span class="val">${num(b.yield)}%</span></div>`;
+}
+function volRow(v) {
+  return `<div class="row"><span class="label">${v.name}</span><span class="val">${num(v.value)} ${fmtPct(v.pct_change)}</span></div>`;
+}
+
+function buildSummary(d) {
+  // Data has no precomputed narrative — build a short one client-side from what's present.
+  const parts = [];
+  const us = (d.regions && d.regions.us && d.regions.us.indices) || [];
+  const apac = (d.regions && d.regions.asia_pacific && d.regions.asia_pacific.indices) || [];
+  const eu = (d.regions && d.regions.europe && d.regions.europe.indices) || [];
+  const avg = (arr) => arr.length ? arr.reduce((s, i) => s + (i.pct_change || 0), 0) / arr.length : null;
+  const a = avg(apac), e = avg(eu), u = avg(us);
+  const tone = (v) => v === null ? 'flat' : v > 0.3 ? 'higher' : v < -0.3 ? 'lower' : 'flat';
+  if (a !== null) parts.push(`Asia-Pacific broadly ${tone(a)}`);
+  if (e !== null) parts.push(`Europe ${tone(e)}`);
+  if (u !== null) parts.push(`US/Americas ${tone(u)}`);
+  return parts.length ? parts.join(', ') + ' in the last completed sessions.' : 'No summary available.';
+}
 
 async function load() {
   const d = await loadData();
 
-  document.getElementById('meta-line').innerHTML = `Generated <b>${d.generated_at_ist}</b>`;
-  document.getElementById('summary-text').textContent = d.summary;
+  document.getElementById('meta-line').innerHTML = `Generated <b>${d.generated_at_ist || d.as_of_date || '—'}</b>${d.note ? ' · ' + d.note : ''}`;
+  document.getElementById('summary-text').textContent = d.summary || buildSummary(d);
 
-  document.getElementById('apac-status').textContent = d.regions.asia_pacific.session_status;
-  document.getElementById('apac-rows').innerHTML = d.regions.asia_pacific.indices.map(indexRow).join('');
+  const apac = d.regions && d.regions.asia_pacific;
+  const europe = d.regions && d.regions.europe;
+  const us = d.regions && d.regions.us;
 
-  document.getElementById('europe-status').textContent = d.regions.europe.session_status;
-  document.getElementById('europe-rows').innerHTML = d.regions.europe.indices.map(indexRow).join('');
+  document.getElementById('apac-status').textContent = (apac && apac.session_status) || 'unknown';
+  document.getElementById('apac-rows').innerHTML = ((apac && apac.indices) || []).map(indexRow).join('') || '<div class="row">No data</div>';
 
-  document.getElementById('us-status').textContent = d.regions.us.session_status;
-  document.getElementById('us-rows').innerHTML = d.regions.us.indices.map(indexRow).join('');
+  document.getElementById('europe-status').textContent = (europe && europe.session_status) || 'unknown';
+  document.getElementById('europe-rows').innerHTML = ((europe && europe.indices) || []).map(indexRow).join('') || '<div class="row">No data</div>';
 
-  document.getElementById('gbpusd').innerHTML = `${num(d.currencies.gbp_usd.value, 4)} ${fmtPct(d.currencies.gbp_usd.pct_change)}`;
-  document.getElementById('eurusd').innerHTML = `${num(d.currencies.eur_usd.value, 4)} ${fmtPct(d.currencies.eur_usd.pct_change)}`;
-  document.getElementById('usdsgd').innerHTML = `${num(d.currencies.usd_sgd.value, 4)} ${fmtPct(d.currencies.usd_sgd.pct_change)}`;
-  document.getElementById('usdjpy').innerHTML = `${num(d.currencies.usd_jpy.value, 2)} ${fmtPct(d.currencies.usd_jpy.pct_change)}`;
+  document.getElementById('us-status').textContent = (us && us.session_status) || 'unknown';
+  document.getElementById('us-rows').innerHTML = ((us && us.indices) || []).map(indexRow).join('') || '<div class="row">No data</div>';
 
-  document.getElementById('uk10y').innerHTML = `${num(d.bond_yields.uk_10y_gilt.yield)}% <span class="country">as of ${d.bond_yields.uk_10y_gilt.as_of}</span>`;
-  document.getElementById('sg10y').innerHTML = `${num(d.bond_yields.singapore_10y.yield)}% <span class="country">as of ${d.bond_yields.singapore_10y.as_of}</span>`;
-  document.getElementById('us10y').innerHTML = `${num(d.bond_yields.us_10y_treasury.yield)}% <span class="country">as of ${d.bond_yields.us_10y_treasury.as_of}</span>`;
+  const currencies = d.currencies ? Object.values(d.currencies) : [];
+  document.getElementById('currency-rows').innerHTML = currencies.map(currencyRow).join('') || '<div class="row">No data</div>';
+
+  const bonds = d.bond_yields ? Object.values(d.bond_yields) : [];
+  document.getElementById('bond-rows').innerHTML = bonds.map(bondRow).join('') || '<div class="row">No data</div>';
+
+  const vols = d.volatility ? Object.values(d.volatility) : [];
+  document.getElementById('vol-rows').innerHTML = vols.map(volRow).join('') || '<div class="row">No data</div>';
 }
 load().catch(e => {
-  document.getElementById('summary-text').textContent = 'Failed to load data — ' + e.message;
+  const banner = document.getElementById('err-banner');
+  banner.style.display = 'block';
+  banner.textContent = 'Error rendering page: ' + e.message + ' — data file shape may have changed; check data/global_latest.json against this page\'s script.';
+  document.getElementById('summary-text').textContent = 'Partial data shown below where available.';
 });
 </script>
 
