@@ -1392,7 +1392,7 @@ let _chartsBuilt = false;
 function buildCharts() {
   if (_chartsBuilt) return;
   _chartsBuilt = true;
-  try { const { d, m } = getData(); _buildAll(d, m); } catch(e) {}
+  try { const { d, m } = getData(); _buildAll(d, m); } catch(e) { console.error('buildCharts failed:', e); }
 }
 
 function _buildAll(d, m) {

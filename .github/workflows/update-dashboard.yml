@@ -41,6 +41,12 @@ jobs:
       - name: Inline JSON into HTML (sync_html.py)
         run: python sync_html.py
 
+      - name: Install headless browser for validation
+        run: playwright install --with-deps chromium
+
+      - name: Validate pages actually render without errors
+        run: python scripts/validate_pages.py
+
       - name: Commit and push (skip if nothing changed)
         run: |
           git config user.name  "github-actions[bot]"
