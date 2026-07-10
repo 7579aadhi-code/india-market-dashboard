@@ -51,10 +51,27 @@ HEADERS = {
 # yfinance helpers
 # ---------------------------------------------------------------------------
 
-def yf_last(ticker: str, precision: int = 2):
+def _nse_is_open(now_ist: datetime.datetime) -> bool:
+    """NSE regular session: 9:15-15:30 IST, Mon-Fri (holidays not accounted for,
+    but that only makes this over-cautious, never under-cautious)."""
+    if now_ist.weekday() >= 5:
+        return False
+    t = now_ist.time()
+    return datetime.time(9, 15) <= t <= datetime.time(15, 30)
+
+
+def yf_last(ticker: str, precision: int = 2, is_india_market: bool = False):
     """
     Return (session_date, close, pct_change) for the most recently completed session.
     Uses period="5d" so it always gets at least two rows for the % change calculation.
+
+    If is_india_market=True and NSE is currently in its trading session, the most
+    recent daily bar from yfinance is an in-progress/intraday snapshot, not a final
+    close — using it would mislabel a live price as "today's close" (this happened
+    for real when the workflow was manually triggered mid-session). In that case we
+    drop the incomplete bar and use the prior completed session instead, so "close"
+    always means an actual close regardless of what time this script runs.
+
     Returns (None, None, None) on any error.
     """
     try:
@@ -62,6 +79,10 @@ def yf_last(ticker: str, precision: int = 2):
         if hist is None or hist.empty:
             print(f"  [WARN] No data for {ticker}", file=sys.stderr)
             return None, None, None
+
+        if is_india_market and _nse_is_open(datetime.datetime.now(IST)) and len(hist) >= 2:
+            hist = hist.iloc[:-1]  # drop the in-progress session's bar
+
         close = round(float(hist["Close"].iloc[-1]), precision)
         dt = hist.index[-1]
         if hasattr(dt, "date"):
@@ -295,17 +316,17 @@ def main():
     # 1. India equity indices
     # ------------------------------------------------------------------ #
     print("\n[India equity]")
-    nifty_dt, nifty_close, nifty_pct = yf_last("^NSEI")
-    _, sensex_close, sensex_pct = yf_last("^BSESN")
+    nifty_dt, nifty_close, nifty_pct = yf_last("^NSEI", is_india_market=True)
+    _, sensex_close, sensex_pct = yf_last("^BSESN", is_india_market=True)
 
     # Try both Yahoo Finance ticker variants for mid/small cap
-    _, mid150_close, mid150_pct = yf_last("NIFTYMIDCAP150.NS")
+    _, mid150_close, mid150_pct = yf_last("NIFTYMIDCAP150.NS", is_india_market=True)
     if mid150_close is None:
-        _, mid150_close, mid150_pct = yf_last("^NIFMDCP150")
+        _, mid150_close, mid150_pct = yf_last("^NIFMDCP150", is_india_market=True)
 
-    _, small250_close, small250_pct = yf_last("NIFTYSMLCAP250.NS")
+    _, small250_close, small250_pct = yf_last("NIFTYSMLCAP250.NS", is_india_market=True)
     if small250_close is None:
-        _, small250_close, small250_pct = yf_last("^NIFSMCP250")
+        _, small250_close, small250_pct = yf_last("^NIFSMCP250", is_india_market=True)
 
     # Determine session date from Nifty
     session_date = nifty_dt.isoformat() if nifty_dt else now_ist.date().isoformat()
@@ -332,7 +353,7 @@ def main():
     }
     india_sectors = {}
     for key, ticker in SECTOR_TICKERS.items():
-        _, close, pct = yf_last(ticker)
+        _, close, pct = yf_last(ticker, is_india_market=True)
         india_sectors[key] = {"close": close, "pct_change": pct}
         print(f"  {key}: {close} ({pct}%)")
 
@@ -418,7 +439,7 @@ def main():
     # 6. India VIX
     # ------------------------------------------------------------------ #
     print("\n[India VIX]")
-    _, vix_val, vix_pct = yf_last("^INDIAVIX", precision=2)
+    _, vix_val, vix_pct = yf_last("^INDIAVIX", precision=2, is_india_market=True)
     vix_52h, vix_52l = yf_52w("^INDIAVIX")
     # Fall back to prior if yfinance doesn't return 52w
     if vix_52h is None:
