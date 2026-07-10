@@ -38,11 +38,15 @@ jobs:
       - name: Fetch global market data → data/global_latest.json
         run: python scripts/fetch_global_data.py
 
+      - name: Install headless browser (used by validation + Morningstar cross-check)
+        run: playwright install --with-deps chromium
+
+      - name: Fetch Morningstar secondary cross-check (best-effort, never fails the build)
+        run: python scripts/fetch_morningstar_crosscheck.py
+        continue-on-error: true
+
       - name: Inline JSON into HTML (sync_html.py)
         run: python sync_html.py
-
-      - name: Install headless browser for validation
-        run: playwright install --with-deps chromium
 
       - name: Validate pages actually render without errors
         run: python scripts/validate_pages.py

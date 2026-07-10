@@ -19,6 +19,7 @@ PAGES = [
         ("data-latest", ROOT / "data" / "latest.json"),
         ("data-manual", ROOT / "data" / "manual_overrides.json"),
         ("data-global", ROOT / "data" / "global_latest.json"),
+        ("data-morningstar", ROOT / "data" / "morningstar_crosscheck.json"),
     ]),
     (ROOT / "global-markets.html", [
         ("data-global", ROOT / "data" / "global_latest.json"),
@@ -29,7 +30,14 @@ PAGES = [
 def sync_page(html_path: Path, blocks):
     html = html_path.read_text()
     for marker_id, json_path in blocks:
-        data = json.loads(json_path.read_text())
+        if json_path.exists():
+            data = json.loads(json_path.read_text())
+        else:
+            # Best-effort data files (e.g. morningstar_crosscheck.json) may not
+            # exist yet on a fresh checkout or if that script hasn't run —
+            # degrade to an empty object rather than failing the whole build.
+            print(f"  [note] {json_path.name} not found, using empty placeholder for '{marker_id}'", file=sys.stderr)
+            data = {}
         payload = json.dumps(data, indent=2, ensure_ascii=False)
         pattern = rf'(<script id="{marker_id}" type="application/json">\n).*?(\n</script>)'
         html, n = re.subn(pattern, lambda m: m.group(1) + payload + m.group(2), html, count=1, flags=re.DOTALL)
