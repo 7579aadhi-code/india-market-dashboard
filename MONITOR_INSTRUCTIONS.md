@@ -51,3 +51,14 @@ despite that gate — infra failures, stale data, GitHub Pages issues.
 
 6. Do not use destructive git operations (`push --force`, `reset --hard`, deleting branches).
    Normal commits and pushes only.
+
+7. **`scripts/fetch_morningstar_crosscheck.py` failing or showing `"status": "blocked"` for
+   some/all tickers is NORMAL, not a bug.** Morningstar actively CAPTCHA-challenges automated
+   traffic; that step runs with `continue-on-error: true` in the workflow specifically because
+   this is expected. Do NOT spend effort "fixing" Morningstar blocks, do NOT treat that step's
+   failure/skip as a reason to flag the overall run as broken, and do NOT try to work around
+   Morningstar's bot-detection (e.g. rotating user agents, adding delays/retries beyond what's
+   already there, proxies) — that would cross from "best-effort scraping" into "deliberately
+   evading anti-bot measures," which is a different and worse thing to automate. If Morningstar
+   changes its page structure entirely (not blocking, but `status: "not_found"` for a ticker
+   that used to work) that's a legitimate thing to fix in the scraper's price-extraction regex.

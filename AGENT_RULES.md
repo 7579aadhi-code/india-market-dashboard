@@ -36,6 +36,11 @@ These rules exist to stop that class of failure from recurring, silently or othe
 - `data/latest.json` — India dashboard data, updated by `scripts/fetch_market_data.py`
 - `data/global_latest.json` — Global markets data, updated by `scripts/fetch_global_data.py`
 - `data/manual_overrides.json` — fields with no reliable free API (see its own `_comment`)
+- `data/morningstar_crosscheck.json` — best-effort secondary price check, updated by
+  `scripts/fetch_morningstar_crosscheck.py`. This one is explicitly allowed to fail/return
+  partial data (Morningstar CAPTCHA-blocks automated requests by design) — see that script's
+  docstring and `MONITOR_INSTRUCTIONS.md` rule 7 before "fixing" a block. Do not add retry
+  logic, proxies, or anti-bot evasion to work around the blocking — that changes what this is.
 - `sync_html.py` — inlines the JSON files into `index.html` / `global-markets.html`
 - `scripts/validate_pages.py` — the safety net; run it after any change touching data shape
   or the HTML/JS that reads it
