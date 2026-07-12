@@ -1,6 +1,6 @@
 {
-  "generated_at_ist": "2026-07-11T14:38:42+05:30",
-  "as_of_date": "2026-07-11",
+  "generated_at_ist": "2026-07-12T15:00:27+05:30",
+  "as_of_date": "2026-07-12",
   "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
     "asia_pacific": {
@@ -167,8 +167,8 @@
     },
     "gbpusd": {
       "pair": "GBP/USD",
-      "rate": 1.3398,
-      "pct_change": 0.01
+      "rate": 1.3401,
+      "pct_change": -0.11
     },
     "usdjpy": {
       "pair": "USD/JPY",
@@ -187,13 +187,13 @@
     },
     "usdcny": {
       "pair": "USD/CNY",
-      "rate": 6.7731,
-      "pct_change": -0.28
+      "rate": 6.7667,
+      "pct_change": -0.37
     },
     "usdkrw": {
       "pair": "USD/KRW",
-      "rate": 1498.7,
-      "pct_change": -0.48
+      "rate": 1498.87,
+      "pct_change": -0.3
     },
     "eurinr": {
       "pair": "EUR/INR",

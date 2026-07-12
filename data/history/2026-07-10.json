@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-07-10",
-  "generated_at_ist": "2026-07-11T14:38:42+05:30",
+  "generated_at_ist": "2026-07-12T15:00:26+05:30",
   "india_equity": {
     "nifty50": {
       "close": 24206.9,
@@ -63,26 +63,26 @@
     },
     "us_10y": {
       "yield": 4.57,
-      "bps_change": 3
+      "bps_change": 0
     }
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4104.1,
-      "pct_change": -0.64
+      "value": 4113.7,
+      "pct_change": -0.41
     },
     "gold_mcx_inr_10g": {
-      "value": 125841,
-      "pct_change": -0.64,
+      "value": 126135,
+      "pct_change": -0.41,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 59.809,
-      "pct_change": -0.94
+      "value": 60.165,
+      "pct_change": -0.35
     },
     "silver_mcx_inr_kg": {
-      "value": 183387,
-      "pct_change": -0.94,
+      "value": 184479,
+      "pct_change": -0.35,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
@@ -103,26 +103,26 @@
       "pct_change": -2.39
     },
     "copper_usd_lb": {
-      "value": 6.234,
-      "pct_change": 0.31
+      "value": 6.282,
+      "pct_change": 1.08
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 64210.0,
-      "pct_change": 0.13,
+      "value": 63790.0,
+      "pct_change": -0.02,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 1799.96,
-      "pct_change": 0.24,
+      "value": 1798.44,
+      "pct_change": 0.58,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
       "value": 95.37,
-      "change": 0.055
+      "change": 0.0
     },
     "eur_inr": {
       "value": 108.88,
@@ -171,7 +171,7 @@
     "erp_pct": -1.95,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 rose +1.02% to 24,206.90 on 2026-07-10; India 10Y G-Sec at 6.74%; rupee weakened to 95.370; Gold $4104.1/oz -0.64%; ERP -1.95% — bonds more attractive.",
+  "summary": "Nifty 50 rose +1.02% to 24,206.90 on 2026-07-10; India 10Y G-Sec at 6.74%; rupee weakened to 95.370; Gold $4113.7/oz -0.41%; ERP -1.95% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-05-29",
@@ -305,11 +305,11 @@
     },
     "nifty_auto": {
       "close": 26860.75,
-      "pct_change": null
+      "pct_change": 0.69
     },
     "nifty_fmcg": {
       "close": 49310.6,
-      "pct_change": null
+      "pct_change": -0.08
     },
     "nifty_pharma": {
       "close": 25674.1,
@@ -317,19 +317,19 @@
     },
     "nifty_metal": {
       "close": 12688.9,
-      "pct_change": null
+      "pct_change": 1.48
     },
     "nifty_realty": {
       "close": 938.6,
-      "pct_change": null
+      "pct_change": 3.49
     },
     "nifty_energy": {
       "close": 39242.05,
-      "pct_change": null
+      "pct_change": 1.04
     },
     "nifty_infra": {
       "close": 9429.45,
-      "pct_change": null
+      "pct_change": 1.11
     }
   }
 }
