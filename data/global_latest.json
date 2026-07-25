@@ -1,6 +1,6 @@
 {
-  "generated_at_ist": "2026-07-24T11:39:02+05:30",
-  "as_of_date": "2026-07-24",
+  "generated_at_ist": "2026-07-25T11:30:31+05:30",
+  "as_of_date": "2026-07-25",
   "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
     "asia_pacific": {
@@ -10,43 +10,43 @@
           "name": "Nikkei 225",
           "country": "Japan",
           "ticker": "^N225",
-          "close": 64509.0,
-          "pct_change": -2.88
+          "close": 64611.0,
+          "pct_change": -2.73
         },
         {
           "name": "Hang Seng",
           "country": "Hong Kong",
           "ticker": "^HSI",
-          "close": 24853.0,
-          "pct_change": -1.42
+          "close": 24963.0,
+          "pct_change": -0.98
         },
         {
           "name": "Shanghai Composite",
           "country": "China",
           "ticker": "000001.SS",
-          "close": 3822.62,
-          "pct_change": -1.4
+          "close": 3814.2,
+          "pct_change": -1.61
         },
         {
           "name": "KOSPI",
           "country": "South Korea",
           "ticker": "^KS11",
-          "close": 6750.34,
-          "pct_change": -4.88
+          "close": 6690.62,
+          "pct_change": -5.72
         },
         {
           "name": "S&P/ASX 200",
           "country": "Australia",
           "ticker": "^AXJO",
-          "close": 8775.2,
-          "pct_change": -0.72
+          "close": 8772.3,
+          "pct_change": -0.75
         },
         {
           "name": "Straits Times Index",
           "country": "Singapore",
           "ticker": "^STI",
-          "close": 5560.9,
-          "pct_change": -0.37
+          "close": 5588.34,
+          "pct_change": 0.12
         },
         {
           "name": "Taiwan TAIEX",
@@ -59,8 +59,8 @@
           "name": "Jakarta Composite",
           "country": "Indonesia",
           "ticker": "^JKSE",
-          "close": 6205.0,
-          "pct_change": -1.75
+          "close": 6196.0,
+          "pct_change": -1.89
         }
       ]
     },
@@ -71,43 +71,43 @@
           "name": "FTSE 100",
           "country": "United Kingdom",
           "ticker": "^FTSE",
-          "close": 10639.0,
-          "pct_change": -0.73
+          "close": 10736.0,
+          "pct_change": 0.91
         },
         {
           "name": "DAX 40",
           "country": "Germany",
           "ticker": "^GDAXI",
-          "close": 24763.12,
-          "pct_change": -1.56
+          "close": 25099.0,
+          "pct_change": 1.36
         },
         {
           "name": "CAC 40",
           "country": "France",
           "ticker": "^FCHI",
-          "close": 8299.09,
-          "pct_change": -1.64
+          "close": 8372.28,
+          "pct_change": 0.88
         },
         {
           "name": "Euro Stoxx 50",
           "country": "Europe",
           "ticker": "^STOXX50E",
-          "close": 6210.17,
-          "pct_change": -1.69
+          "close": 6280.94,
+          "pct_change": 1.14
         },
         {
           "name": "IBEX 35",
           "country": "Spain",
           "ticker": "^IBEX",
-          "close": 19267.0,
-          "pct_change": -1.55
+          "close": 19585.0,
+          "pct_change": 1.65
         },
         {
           "name": "SMI",
           "country": "Switzerland",
           "ticker": "^SSMI",
-          "close": 14215.0,
-          "pct_change": -0.7
+          "close": 14327.0,
+          "pct_change": 0.79
         }
       ]
     },
@@ -118,43 +118,43 @@
           "name": "S&P 500",
           "country": "USA",
           "ticker": "^GSPC",
-          "close": 7408.3,
-          "pct_change": -1.21
+          "close": 7411.98,
+          "pct_change": 0.05
         },
         {
           "name": "Dow Jones",
           "country": "USA",
           "ticker": "^DJI",
-          "close": 51712.0,
-          "pct_change": -0.97
+          "close": 51947.0,
+          "pct_change": 0.46
         },
         {
           "name": "Nasdaq Composite",
           "country": "USA",
           "ticker": "^IXIC",
-          "close": 25137.69,
-          "pct_change": -2.15
+          "close": 24975.82,
+          "pct_change": -0.64
         },
         {
           "name": "Russell 2000",
           "country": "USA",
           "ticker": "^RUT",
-          "close": 2940.16,
-          "pct_change": -0.67
+          "close": 2930.0,
+          "pct_change": -0.35
         },
         {
           "name": "S&P/TSX",
           "country": "Canada",
           "ticker": "^GSPTSE",
-          "close": 35192.7,
-          "pct_change": -0.82
+          "close": 35369.1,
+          "pct_change": 0.5
         },
         {
           "name": "Bovespa",
           "country": "Brazil",
           "ticker": "^BVSP",
-          "close": 176724.0,
-          "pct_change": -0.46
+          "close": 174042.0,
+          "pct_change": -1.52
         }
       ]
     }
@@ -162,86 +162,86 @@
   "currencies": {
     "eurusd": {
       "pair": "EUR/USD",
-      "rate": 1.1382,
-      "pct_change": -0.26
+      "rate": 1.1375,
+      "pct_change": -0.32
     },
     "gbpusd": {
       "pair": "GBP/USD",
-      "rate": 1.3312,
-      "pct_change": -0.47
+      "rate": 1.3319,
+      "pct_change": -0.42
     },
     "usdjpy": {
       "pair": "USD/JPY",
-      "rate": 163.81,
-      "pct_change": 0.45
+      "rate": 163.79,
+      "pct_change": 0.43
     },
     "usdsgd": {
       "pair": "USD/SGD",
-      "rate": 1.2919,
-      "pct_change": 0.07
+      "rate": 1.2901,
+      "pct_change": -0.21
     },
     "audusd": {
       "pair": "AUD/USD",
-      "rate": 0.6977,
-      "pct_change": -0.18
+      "rate": 0.6983,
+      "pct_change": 0.23
     },
     "usdcny": {
       "pair": "USD/CNY",
-      "rate": 6.7754,
-      "pct_change": 0.04
+      "rate": 6.7718,
+      "pct_change": -0.01
     },
     "usdkrw": {
       "pair": "USD/KRW",
-      "rate": 1465.68,
-      "pct_change": -0.67
+      "rate": 1462.1,
+      "pct_change": -0.81
     },
     "eurinr": {
       "pair": "EUR/INR",
-      "rate": 109.84,
-      "pct_change": -0.25
+      "rate": 109.74,
+      "pct_change": -0.05
     },
     "gbpinr": {
       "pair": "GBP/INR",
-      "rate": 128.49,
-      "pct_change": -0.47
+      "rate": 128.61,
+      "pct_change": -0.31
     },
     "jpyinr": {
       "pair": "JPY/INR",
-      "rate": 0.5891,
-      "pct_change": -0.43
+      "rate": 0.5892,
+      "pct_change": -0.41
     },
     "audinr": {
       "pair": "AUD/INR",
-      "rate": 67.33,
-      "pct_change": -0.16
+      "rate": 67.39,
+      "pct_change": 0.23
     }
   },
   "bond_yields": {
     "us_2y": {
       "name": "US 2Y Treasury",
-      "yield": 3.8,
+      "yield": 3.81,
       "bps_change": null
     },
     "us_10y": {
       "name": "US 10Y Treasury",
-      "yield": 4.7,
+      "yield": 4.68,
       "bps_change": null
     },
     "us_30y": {
       "name": "US 30Y Treasury",
-      "yield": 5.17,
+      "yield": 5.16,
       "bps_change": null
     }
   },
   "volatility": {
     "us_vix": {
-      "value": 18.7,
-      "pct_change": 12.38,
+      "value": 18.58,
+      "pct_change": -0.64,
       "name": "CBOE VIX"
     },
     "us_vxn": {
-      "value": 28.06,
-      "pct_change": 4.94,
+      "value": 28.39,
+      "pct_change": 1.18,
       "name": "Nasdaq VXN"
     }
   }
