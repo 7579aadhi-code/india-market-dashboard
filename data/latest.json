@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-07-24",
-  "generated_at_ist": "2026-07-25T11:30:31+05:30",
+  "generated_at_ist": "2026-07-26T11:39:53+05:30",
   "india_equity": {
     "nifty50": {
       "close": 23767.45,
@@ -63,26 +63,26 @@
     },
     "us_10y": {
       "yield": 4.68,
-      "bps_change": -2
+      "bps_change": 0
     }
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4067.6,
-      "pct_change": 0.52
+      "value": 4070.8,
+      "pct_change": 0.6
     },
     "gold_mcx_inr_10g": {
-      "value": 126278,
-      "pct_change": 0.52,
+      "value": 126377,
+      "pct_change": 0.6,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 58.656,
-      "pct_change": 1.48
+      "value": 58.906,
+      "pct_change": 1.92
     },
     "silver_mcx_inr_kg": {
-      "value": 182096,
-      "pct_change": 1.48,
+      "value": 182872,
+      "pct_change": 1.92,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
@@ -99,30 +99,30 @@
       "pct_change": -3.12
     },
     "natgas_usd_mmbtu": {
-      "value": 2.871,
-      "pct_change": -1.54
+      "value": 2.888,
+      "pct_change": -0.96
     },
     "copper_usd_lb": {
-      "value": 6.32,
-      "pct_change": 0.24
+      "value": 6.358,
+      "pct_change": 0.84
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 63957.0,
-      "pct_change": -1.67,
+      "value": 64323.0,
+      "pct_change": 0.35,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 1856.98,
-      "pct_change": -1.07,
+      "value": 1881.45,
+      "pct_change": 1.14,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
       "value": 96.56,
-      "change": 0.025
+      "change": 0.0
     },
     "eur_inr": {
       "value": 109.74,
@@ -171,7 +171,7 @@
     "erp_pct": -1.89,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 fell -0.43% to 23,767.45 on 2026-07-24; India 10Y G-Sec at 6.82%; rupee weakened to 96.560; Gold $4067.6/oz +0.52%; ERP -1.89% — bonds more attractive.",
+  "summary": "Nifty 50 fell -0.43% to 23,767.45 on 2026-07-24; India 10Y G-Sec at 6.82%; rupee weakened to 96.560; Gold $4070.8/oz +0.60%; ERP -1.89% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-06-12",
