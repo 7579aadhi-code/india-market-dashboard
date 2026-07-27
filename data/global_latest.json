@@ -1,6 +1,6 @@
 {
-  "generated_at_ist": "2026-07-26T11:39:53+05:30",
-  "as_of_date": "2026-07-26",
+  "generated_at_ist": "2026-07-27T12:04:44+05:30",
+  "as_of_date": "2026-07-27",
   "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
     "asia_pacific": {
@@ -10,57 +10,57 @@
           "name": "Nikkei 225",
           "country": "Japan",
           "ticker": "^N225",
-          "close": 64611.0,
-          "pct_change": -2.73
+          "close": 64948.0,
+          "pct_change": 0.52
         },
         {
           "name": "Hang Seng",
           "country": "Hong Kong",
           "ticker": "^HSI",
-          "close": 24963.0,
-          "pct_change": -0.98
+          "close": 25214.0,
+          "pct_change": 1.0
         },
         {
           "name": "Shanghai Composite",
           "country": "China",
           "ticker": "000001.SS",
-          "close": 3814.2,
-          "pct_change": -1.61
+          "close": 3835.46,
+          "pct_change": 0.56
         },
         {
           "name": "KOSPI",
           "country": "South Korea",
           "ticker": "^KS11",
-          "close": 6690.62,
-          "pct_change": -5.72
+          "close": 6747.15,
+          "pct_change": 0.84
         },
         {
           "name": "S&P/ASX 200",
           "country": "Australia",
           "ticker": "^AXJO",
-          "close": 8772.3,
-          "pct_change": -0.75
+          "close": 8894.0,
+          "pct_change": 1.39
         },
         {
           "name": "Straits Times Index",
           "country": "Singapore",
           "ticker": "^STI",
-          "close": 5588.34,
-          "pct_change": 0.12
+          "close": 5613.65,
+          "pct_change": 0.45
         },
         {
           "name": "Taiwan TAIEX",
           "country": "Taiwan",
           "ticker": "^TWII",
-          "close": 43654.84,
-          "pct_change": -2.67
+          "close": 43634.19,
+          "pct_change": -0.05
         },
         {
           "name": "Jakarta Composite",
           "country": "Indonesia",
           "ticker": "^JKSE",
-          "close": 6196.0,
-          "pct_change": -1.89
+          "close": 6174.0,
+          "pct_change": -0.36
         }
       ]
     },
@@ -162,64 +162,64 @@
   "currencies": {
     "eurusd": {
       "pair": "EUR/USD",
-      "rate": 1.1375,
-      "pct_change": -0.32
+      "rate": 1.1414,
+      "pct_change": 0.33
     },
     "gbpusd": {
       "pair": "GBP/USD",
-      "rate": 1.3321,
-      "pct_change": 0.06
+      "rate": 1.3356,
+      "pct_change": 0.32
     },
     "usdjpy": {
       "pair": "USD/JPY",
-      "rate": 163.79,
-      "pct_change": 0.43
+      "rate": 163.57,
+      "pct_change": -0.16
     },
     "usdsgd": {
       "pair": "USD/SGD",
-      "rate": 1.2901,
-      "pct_change": -0.21
+      "rate": 1.2896,
+      "pct_change": -0.24
     },
     "audusd": {
       "pair": "AUD/USD",
-      "rate": 0.6983,
-      "pct_change": 0.23
+      "rate": 0.7009,
+      "pct_change": 0.6
     },
     "usdcny": {
       "pair": "USD/CNY",
-      "rate": 6.7718,
-      "pct_change": -0.01
+      "rate": 6.7673,
+      "pct_change": -0.08
     },
     "usdkrw": {
       "pair": "USD/KRW",
-      "rate": 1462.1,
-      "pct_change": -0.81
+      "rate": 1468.78,
+      "pct_change": -0.36
     },
     "eurinr": {
       "pair": "EUR/INR",
-      "rate": 109.74,
-      "pct_change": -0.05
+      "rate": 109.76,
+      "pct_change": -0.03
     },
     "gbpinr": {
       "pair": "GBP/INR",
-      "rate": 128.61,
-      "pct_change": -0.31
+      "rate": 128.46,
+      "pct_change": -0.42
     },
     "jpyinr": {
       "pair": "JPY/INR",
-      "rate": 0.5892,
-      "pct_change": -0.41
+      "rate": 0.5878,
+      "pct_change": -0.21
     },
     "audinr": {
       "pair": "AUD/INR",
-      "rate": 67.39,
-      "pct_change": 0.23
+      "rate": 67.4,
+      "pct_change": 0.25
     }
   },
   "bond_yields": {
     "us_2y": {
       "name": "US 2Y Treasury",
-      "yield": 3.8,
+      "yield": 3.81,
       "bps_change": null
     },
     "us_10y": {
