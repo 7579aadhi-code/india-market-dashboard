@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-27T06:35:34.957073+00:00",
+  "generated_at_utc": "2026-07-27T06:49:19.677414+00:00",
   "source": "morningstar.com (scraped, best-effort secondary check \u2014 see script docstring for known limitations)",
   "results": {
     "sp500": {
@@ -20,11 +20,11 @@
     },
     "nasdaq": {
       "label": "Nasdaq Composite",
-      "morningstar_price": 24975.82,
-      "status": "ok",
+      "morningstar_price": null,
+      "status": "not_found",
       "primary_value": 24975.82,
-      "delta_pct_vs_primary": 0.0,
-      "flag": "consistent"
+      "delta_pct_vs_primary": null,
+      "flag": null
     },
     "ftse100": {
       "label": "FTSE 100",
