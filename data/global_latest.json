@@ -1,6 +1,6 @@
 {
-  "generated_at_ist": "2026-08-01T11:44:05+05:30",
-  "as_of_date": "2026-08-01",
+  "generated_at_ist": "2026-08-02T11:36:57+05:30",
+  "as_of_date": "2026-08-02",
   "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
     "asia_pacific": {
@@ -167,8 +167,8 @@
     },
     "gbpusd": {
       "pair": "GBP/USD",
-      "rate": 1.3487,
-      "pct_change": 0.9
+      "rate": 1.3482,
+      "pct_change": 0.16
     },
     "usdjpy": {
       "pair": "USD/JPY",
@@ -207,8 +207,8 @@
     },
     "jpyinr": {
       "pair": "JPY/INR",
-      "rate": 0.5997,
-      "pct_change": 2.46
+      "rate": 0.6,
+      "pct_change": 2.52
     },
     "audinr": {
       "pair": "AUD/INR",
