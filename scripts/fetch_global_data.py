@@ -10,6 +10,7 @@ Run:
 
 import datetime
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -19,6 +20,25 @@ import yfinance as yf
 ROOT = Path(__file__).resolve().parent.parent
 GLOBAL_JSON = ROOT / "data" / "global_latest.json"
 IST = pytz.timezone("Asia/Kolkata")
+
+
+def _clean_nans(obj):
+    """Recursively replace non-finite floats (NaN/Infinity) with None.
+
+    yfinance occasionally returns a NaN Close for a thinly-traded session,
+    which flows straight through round()/float() untouched (NaN is not
+    None, so the existing `is not None` guards don't catch it). Python's
+    json.dumps then emits a bare `NaN` token, which is invalid JSON and
+    breaks JSON.parse() in the browser — this is what caused the
+    intermittent "Failed to load" validation failures.
+    """
+    if isinstance(obj, float):
+        return obj if math.isfinite(obj) else None
+    if isinstance(obj, dict):
+        return {k: _clean_nans(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_clean_nans(v) for v in obj]
+    return obj
 
 
 def yf_last(ticker: str, precision: int = 2):
@@ -168,6 +188,7 @@ def main():
         },
     }
 
+    data = _clean_nans(data)
     GLOBAL_JSON.write_text(json.dumps(data, indent=2, ensure_ascii=False))
     print(f"\nWrote {GLOBAL_JSON}")
 

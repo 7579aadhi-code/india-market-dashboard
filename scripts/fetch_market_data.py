@@ -17,6 +17,7 @@ Run:
 
 import datetime
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -45,6 +46,25 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
+
+
+def _clean_nans(obj):
+    """Recursively replace non-finite floats (NaN/Infinity) with None.
+
+    yfinance occasionally returns a NaN Close for a thinly-traded session,
+    which flows straight through round()/float() untouched (NaN is not
+    None, so the existing `is not None` guards don't catch it). Python's
+    json.dumps then emits a bare `NaN` token, which is invalid JSON and
+    breaks JSON.parse() in the browser — this is what caused the
+    intermittent "Failed to load" validation failures.
+    """
+    if isinstance(obj, float):
+        return obj if math.isfinite(obj) else None
+    if isinstance(obj, dict):
+        return {k: _clean_nans(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_clean_nans(v) for v in obj]
+    return obj
 
 
 # ---------------------------------------------------------------------------
@@ -734,6 +754,7 @@ def main():
     # ------------------------------------------------------------------ #
     # 13. Write outputs
     # ------------------------------------------------------------------ #
+    data = _clean_nans(data)
     LATEST_JSON.write_text(json.dumps(data, indent=2, ensure_ascii=False))
     print(f"\nWrote {LATEST_JSON}")
 
