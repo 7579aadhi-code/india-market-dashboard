@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-08-07",
-  "generated_at_ist": "2026-08-08T10:04:14+05:30",
+  "generated_at_ist": "2026-08-09T09:50:52+05:30",
   "india_equity": {
     "nifty50": {
       "close": 24570.65,
@@ -68,21 +68,21 @@
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4340.7,
-      "pct_change": 2.33
+      "value": 4399.7,
+      "pct_change": 3.72
     },
     "gold_mcx_inr_10g": {
-      "value": 132858,
-      "pct_change": 2.33,
+      "value": 134664,
+      "pct_change": 3.72,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 63.332,
-      "pct_change": 3.08
+      "value": 63.499,
+      "pct_change": 3.35
     },
     "silver_mcx_inr_kg": {
-      "value": 193843,
-      "pct_change": 3.08,
+      "value": 194354,
+      "pct_change": 3.35,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
@@ -103,19 +103,19 @@
       "pct_change": 0.83
     },
     "copper_usd_lb": {
-      "value": 6.57,
-      "pct_change": -1.75
+      "value": 6.591,
+      "pct_change": -1.44
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 64993.0,
-      "pct_change": 1.14,
+      "value": 64754.0,
+      "pct_change": -0.19,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 1916.63,
-      "pct_change": 0.77,
+      "value": 1913.11,
+      "pct_change": -0.01,
       "pair": "ETH/USD"
     }
   },
@@ -171,7 +171,7 @@
     "erp_pct": -1.99,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 fell -0.27% to 24,570.65 on 2026-08-07; India 10Y G-Sec at 6.78%; rupee weakened to 95.200; Gold $4340.7/oz +2.33%; ERP -1.99% — bonds more attractive.",
+  "summary": "Nifty 50 fell -0.27% to 24,570.65 on 2026-08-07; India 10Y G-Sec at 6.78%; rupee weakened to 95.200; Gold $4399.7/oz +3.72%; ERP -1.99% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-06-29",
