@@ -1,5 +1,5 @@
 {
-  "generated_at_ist": "2026-08-10T10:12:12+05:30",
+  "generated_at_ist": "2026-08-10T10:35:14+05:30",
   "as_of_date": "2026-08-10",
   "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
@@ -10,8 +10,8 @@
           "name": "Nikkei 225",
           "country": "Japan",
           "ticker": "^N225",
-          "close": 66919.0,
-          "pct_change": 2.0
+          "close": 66813.0,
+          "pct_change": 1.84
         },
         {
           "name": "Hang Seng",
@@ -31,15 +31,15 @@
           "name": "KOSPI",
           "country": "South Korea",
           "ticker": "^KS11",
-          "close": 6295.8,
-          "pct_change": 0.59
+          "close": 6264.18,
+          "pct_change": 0.09
         },
         {
           "name": "S&P/ASX 200",
           "country": "Australia",
           "ticker": "^AXJO",
-          "close": 9225.7,
-          "pct_change": -0.41
+          "close": 9223.3,
+          "pct_change": -0.44
         },
         {
           "name": "Straits Times Index",
@@ -52,15 +52,15 @@
           "name": "Taiwan TAIEX",
           "country": "Taiwan",
           "ticker": "^TWII",
-          "close": 44960.36,
-          "pct_change": 1.66
+          "close": 44931.91,
+          "pct_change": 1.6
         },
         {
           "name": "Jakarta Composite",
           "country": "Indonesia",
           "ticker": "^JKSE",
-          "close": 6410.0,
-          "pct_change": 0.01
+          "close": 6377.0,
+          "pct_change": -0.51
         }
       ]
     },
@@ -162,58 +162,58 @@
   "currencies": {
     "eurusd": {
       "pair": "EUR/USD",
-      "rate": 1.1553,
-      "pct_change": 0.25
+      "rate": 1.1555,
+      "pct_change": 0.26
     },
     "gbpusd": {
       "pair": "GBP/USD",
-      "rate": 1.3486,
-      "pct_change": 0.23
+      "rate": 1.349,
+      "pct_change": 0.26
     },
     "usdjpy": {
       "pair": "USD/JPY",
-      "rate": 158.27,
-      "pct_change": -0.09
+      "rate": 158.31,
+      "pct_change": -0.06
     },
     "usdsgd": {
       "pair": "USD/SGD",
-      "rate": 1.2794,
-      "pct_change": -0.31
+      "rate": 1.2792,
+      "pct_change": -0.33
     },
     "audusd": {
       "pair": "AUD/USD",
-      "rate": 0.7061,
-      "pct_change": 0.39
+      "rate": 0.7064,
+      "pct_change": 0.44
     },
     "usdcny": {
       "pair": "USD/CNY",
-      "rate": 6.7456,
+      "rate": 6.7455,
       "pct_change": -0.05
     },
     "usdkrw": {
       "pair": "USD/KRW",
-      "rate": 1415.19,
-      "pct_change": -0.5
+      "rate": 1415.73,
+      "pct_change": -0.46
     },
     "eurinr": {
       "pair": "EUR/INR",
-      "rate": 109.98,
-      "pct_change": 0.36
+      "rate": 110.01,
+      "pct_change": 0.39
     },
     "gbpinr": {
       "pair": "GBP/INR",
-      "rate": 128.42,
-      "pct_change": 0.17
+      "rate": 128.45,
+      "pct_change": 0.19
     },
     "jpyinr": {
       "pair": "JPY/INR",
-      "rate": 0.6014,
-      "pct_change": 0.19
+      "rate": 0.6012,
+      "pct_change": 0.16
     },
     "audinr": {
       "pair": "AUD/INR",
-      "rate": 67.21,
-      "pct_change": 0.49
+      "rate": 67.26,
+      "pct_change": 0.57
     }
   },
   "bond_yields": {
