@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-08-14",
-  "generated_at_ist": "2026-08-17T09:40:41+05:30",
+  "generated_at_ist": "2026-08-18T09:18:48+05:30",
   "india_equity": {
     "nifty50": {
       "close": 24366.0,
@@ -9,8 +9,8 @@
       "wk52_low": 22182.55
     },
     "sensex": {
-      "close": 78009.25,
-      "pct_change": -0.09
+      "close": 78079.96,
+      "pct_change": 0.15
     },
     "midcap150": {
       "close": 23420.0,
@@ -23,19 +23,19 @@
   },
   "valuation": {
     "large_cap": {
-      "pe": 20.56,
+      "pe": 20.53,
       "pb": 3.17,
       "div_yield": 1.39,
       "verdict": "Undervalued"
     },
     "mid_cap": {
-      "pe": 29.91,
+      "pe": 29.9,
       "pb": 4.78,
       "div_yield": 0.66,
       "verdict": "Overvalued"
     },
     "small_cap": {
-      "pe": 34.05,
+      "pe": 33.93,
       "pb": 3.68,
       "div_yield": null,
       "verdict": "Overvalued",
@@ -44,93 +44,93 @@
   },
   "us_equity": {
     "sp500": {
-      "close": 7785.76,
-      "pct_change": -0.17
+      "close": 7745.06,
+      "pct_change": -0.52
     },
     "dow": {
-      "close": 53732.41,
-      "pct_change": -0.2
+      "close": 53459.78,
+      "pct_change": -0.51
     },
     "nasdaq": {
-      "close": 26729.16,
-      "pct_change": -0.28
+      "close": 26644.91,
+      "pct_change": -0.32
     }
   },
   "india_debt": {
     "gsec_10y": {
-      "yield": 6.75,
-      "bps_change": 0
+      "yield": 6.81,
+      "bps_change": 6
     },
     "us_10y": {
-      "yield": 4.7,
-      "bps_change": 0
+      "yield": 4.72,
+      "bps_change": 2
     }
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4453.2,
-      "pct_change": 1.66
+      "value": 4451.4,
+      "pct_change": 1.62
     },
     "gold_mcx_inr_10g": {
-      "value": 136835,
-      "pct_change": 1.66,
+      "value": 136890,
+      "pct_change": 1.62,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 64.988,
-      "pct_change": 0.18
+      "value": 65.35,
+      "pct_change": 0.56
     },
     "silver_mcx_inr_kg": {
-      "value": 199691,
-      "pct_change": 0.18,
+      "value": 200965,
+      "pct_change": 0.56,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
-      "value": 88.52,
-      "pct_change": 1.67
+      "value": 91.35,
+      "pct_change": 3.2
     },
     "brent_mcx_inr_bbl": {
-      "value": 8460,
-      "pct_change": 1.67,
+      "value": 8738,
+      "pct_change": 3.2,
       "note": "approx conversion"
     },
     "wti_usd_bbl": {
-      "value": 82.2,
-      "pct_change": -0.24
+      "value": 85.08,
+      "pct_change": 3.25
     },
     "natgas_usd_mmbtu": {
-      "value": 2.669,
-      "pct_change": -2.34
+      "value": 2.699,
+      "pct_change": -1.24
     },
     "copper_usd_lb": {
-      "value": 6.727,
-      "pct_change": 1.93
+      "value": 6.561,
+      "pct_change": -0.58
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 63421.0,
-      "pct_change": 0.63,
+      "value": 64079.0,
+      "pct_change": 2.01,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 1900.9,
-      "pct_change": 1.06,
+      "value": 1892.69,
+      "pct_change": 1.0,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
-      "value": 95.573,
-      "change": 0.0
+      "value": 95.65,
+      "change": 0.077
     },
     "eur_inr": {
-      "value": 110.74,
-      "pct_change": 0.83
+      "value": 110.68,
+      "pct_change": 3.49
     },
     "gbp_inr": {
-      "value": 129.57,
-      "pct_change": 0.69
+      "value": 129.45,
+      "pct_change": 0.13
     }
   },
   "rbi_policy": {
@@ -142,13 +142,13 @@
     "_source": "hardcoded_fallback_Jun2026"
   },
   "fii_dii": {
-    "date": "14-Aug-2026",
-    "fii_net_cr": 508.12,
-    "fii_buy_cr": 12854.44,
-    "fii_sell_cr": 12346.32,
-    "dii_net_cr": 356.4,
-    "dii_buy_cr": 14295.49,
-    "dii_sell_cr": 13939.09
+    "date": "17-Aug-2026",
+    "fii_net_cr": -2535.1,
+    "fii_buy_cr": 11546.16,
+    "fii_sell_cr": 14081.26,
+    "dii_net_cr": 5101.46,
+    "dii_buy_cr": 16654.08,
+    "dii_sell_cr": 11552.62
   },
   "india_vix": {
     "value": 11.31,
@@ -165,13 +165,13 @@
     "note": "BSE mcap estimated proportionally from prior session scaled by Nifty move; India GDP carried from last manual figure"
   },
   "beer_model": {
-    "earnings_yield_pct": 4.86,
-    "gsec_10y_pct": 6.75,
-    "beer_ratio": 1.39,
-    "erp_pct": -1.89,
+    "earnings_yield_pct": 4.87,
+    "gsec_10y_pct": 6.81,
+    "beer_ratio": 1.4,
+    "erp_pct": -1.94,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 fell -0.12% to 24,366.00 on 2026-08-14; India 10Y G-Sec at 6.75%; rupee weakened to 95.573; Gold $4453.2/oz +1.66%; ERP -1.89% — bonds more attractive.",
+  "summary": "Nifty 50 fell -0.12% to 24,366.00 on 2026-08-14; India 10Y G-Sec at 6.81%; rupee weakened to 95.650; Gold $4451.4/oz +1.62%; ERP -1.94% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-07-02",
@@ -290,8 +290,8 @@
       "c": 24366.0
     },
     {
-      "d": "2026-08-17",
-      "c": 24296.0
+      "d": "2026-08-18",
+      "c": 24234.0
     }
   ],
   "india_sectors": {
@@ -304,11 +304,11 @@
       "pct_change": -0.31
     },
     "nifty_auto": {
-      "close": 29308.7,
+      "close": 29275.15,
       "pct_change": null
     },
     "nifty_fmcg": {
-      "close": 48386.2,
+      "close": 48046.75,
       "pct_change": null
     },
     "nifty_pharma": {
@@ -316,19 +316,19 @@
       "pct_change": -0.9
     },
     "nifty_metal": {
-      "close": 12933.75,
+      "close": 13104.95,
       "pct_change": null
     },
     "nifty_realty": {
-      "close": 889.15,
+      "close": 903.55,
       "pct_change": null
     },
     "nifty_energy": {
-      "close": 38581.95,
+      "close": 38738.5,
       "pct_change": null
     },
     "nifty_infra": {
-      "close": 9400.4,
+      "close": 9388.8,
       "pct_change": null
     }
   }
