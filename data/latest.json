@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-08-21",
-  "generated_at_ist": "2026-08-23T09:24:20+05:30",
+  "generated_at_ist": "2026-08-23T09:38:25+05:30",
   "india_equity": {
     "nifty50": {
       "close": 24252.0,
@@ -68,21 +68,21 @@
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4624.1,
-      "pct_change": 2.39
+      "value": 4680.6,
+      "pct_change": 3.64
     },
     "gold_mcx_inr_10g": {
-      "value": 142290,
-      "pct_change": 2.39,
+      "value": 144029,
+      "pct_change": 3.64,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 69.466,
-      "pct_change": 2.12
+      "value": 69.53,
+      "pct_change": 2.21
     },
     "silver_mcx_inr_kg": {
-      "value": 213757,
-      "pct_change": 2.12,
+      "value": 213954,
+      "pct_change": 2.21,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
@@ -99,23 +99,23 @@
       "pct_change": -0.88
     },
     "natgas_usd_mmbtu": {
-      "value": 2.773,
-      "pct_change": 1.46
+      "value": 2.811,
+      "pct_change": 2.85
     },
     "copper_usd_lb": {
-      "value": 6.58,
-      "pct_change": 1.86
+      "value": 6.587,
+      "pct_change": 1.97
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 76945.0,
-      "pct_change": -1.77,
+      "value": 76845.0,
+      "pct_change": -1.9,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2414.31,
-      "pct_change": -4.01,
+      "value": 2408.02,
+      "pct_change": -4.26,
       "pair": "ETH/USD"
     }
   },
@@ -171,7 +171,7 @@
     "erp_pct": -1.99,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 rose +0.08% to 24,252.00 on 2026-08-21; India 10Y G-Sec at 6.87%; rupee weakened to 95.710; Gold $4624.1/oz +2.39%; ERP -1.99% — bonds more attractive.",
+  "summary": "Nifty 50 rose +0.08% to 24,252.00 on 2026-08-21; India 10Y G-Sec at 6.87%; rupee weakened to 95.710; Gold $4680.6/oz +3.64%; ERP -1.99% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-07-13",
