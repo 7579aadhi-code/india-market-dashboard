@@ -1,6 +1,6 @@
 {
-  "generated_at_ist": "2026-08-23T09:38:26+05:30",
-  "as_of_date": "2026-08-23",
+  "generated_at_ist": "2026-08-24T09:27:49+05:30",
+  "as_of_date": "2026-08-24",
   "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
     "asia_pacific": {
@@ -10,57 +10,57 @@
           "name": "Nikkei 225",
           "country": "Japan",
           "ticker": "^N225",
-          "close": 66016.0,
-          "pct_change": -0.3
+          "close": 65677.0,
+          "pct_change": -0.51
         },
         {
           "name": "Hang Seng",
           "country": "Hong Kong",
           "ticker": "^HSI",
-          "close": 26009.0,
-          "pct_change": 1.21
+          "close": 25458.0,
+          "pct_change": -2.12
         },
         {
           "name": "Shanghai Composite",
           "country": "China",
           "ticker": "000001.SS",
-          "close": 3905.2,
-          "pct_change": 0.04
+          "close": 3877.3,
+          "pct_change": -0.71
         },
         {
           "name": "KOSPI",
           "country": "South Korea",
           "ticker": "^KS11",
-          "close": 6912.95,
-          "pct_change": 0.88
+          "close": 6685.92,
+          "pct_change": -3.28
         },
         {
           "name": "S&P/ASX 200",
           "country": "Australia",
           "ticker": "^AXJO",
-          "close": 9058.9,
-          "pct_change": -0.27
+          "close": 9110.9,
+          "pct_change": 0.57
         },
         {
           "name": "Straits Times Index",
           "country": "Singapore",
           "ticker": "^STI",
-          "close": 5688.96,
-          "pct_change": 0.3
+          "close": 5676.3,
+          "pct_change": -0.22
         },
         {
           "name": "Taiwan TAIEX",
           "country": "Taiwan",
           "ticker": "^TWII",
-          "close": 45224.29,
-          "pct_change": 0.65
+          "close": 45043.82,
+          "pct_change": -0.4
         },
         {
           "name": "Jakarta Composite",
           "country": "Indonesia",
           "ticker": "^JKSE",
-          "close": 6526.0,
-          "pct_change": 0.38
+          "close": 6496.0,
+          "pct_change": -0.45
         }
       ]
     },
@@ -153,8 +153,8 @@
           "name": "Bovespa",
           "country": "Brazil",
           "ticker": "^BVSP",
-          "close": 171032.0,
-          "pct_change": 1.85
+          "close": 170449.0,
+          "pct_change": 1.5
         }
       ]
     }
@@ -162,18 +162,18 @@
   "currencies": {
     "eurusd": {
       "pair": "EUR/USD",
-      "rate": 1.1678,
-      "pct_change": 0.04
+      "rate": 1.1684,
+      "pct_change": -0.03
     },
     "gbpusd": {
       "pair": "GBP/USD",
-      "rate": 1.3648,
+      "rate": 1.3647,
       "pct_change": 0.03
     },
     "usdjpy": {
       "pair": "USD/JPY",
-      "rate": 158.94,
-      "pct_change": 0.42
+      "rate": 158.91,
+      "pct_change": 0.02
     },
     "usdsgd": {
       "pair": "USD/SGD",
@@ -182,38 +182,38 @@
     },
     "audusd": {
       "pair": "AUD/USD",
-      "rate": 0.7175,
-      "pct_change": 0.78
+      "rate": 0.7167,
+      "pct_change": 0.67
     },
     "usdcny": {
       "pair": "USD/CNY",
-      "rate": 6.7205,
-      "pct_change": -0.03
+      "rate": 6.7224,
+      "pct_change": -0.0
     },
     "usdkrw": {
       "pair": "USD/KRW",
-      "rate": 1383.9,
-      "pct_change": -0.5
+      "rate": 1379.92,
+      "pct_change": -0.78
     },
     "eurinr": {
       "pair": "EUR/INR",
-      "rate": 111.77,
-      "pct_change": -0.01
+      "rate": 111.74,
+      "pct_change": -0.04
     },
     "gbpinr": {
       "pair": "GBP/INR",
-      "rate": 130.59,
-      "pct_change": 0.1
+      "rate": 130.5,
+      "pct_change": 0.03
     },
     "jpyinr": {
       "pair": "JPY/INR",
-      "rate": 0.6018,
-      "pct_change": 0.0
+      "rate": 0.6017,
+      "pct_change": -0.01
     },
     "audinr": {
       "pair": "AUD/INR",
-      "rate": 68.61,
-      "pct_change": 0.77
+      "rate": 68.54,
+      "pct_change": 0.66
     }
   },
   "bond_yields": {
