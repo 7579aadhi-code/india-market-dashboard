@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-08-24",
-  "generated_at_ist": "2026-08-25T09:22:13+05:30",
+  "generated_at_ist": "2026-08-25T09:37:30+05:30",
   "india_equity": {
     "nifty50": {
       "close": 24219.05,
@@ -9,8 +9,8 @@
       "wk52_low": 22182.55
     },
     "sensex": {
-      "close": 77540.83,
-      "pct_change": 0.0
+      "close": 77369.11,
+      "pct_change": -0.22
     },
     "midcap150": {
       "close": 23423.7,
@@ -48,7 +48,7 @@
       "pct_change": -0.28
     },
     "dow": {
-      "close": 53417.2,
+      "close": 53417.16,
       "pct_change": 0.26
     },
     "nasdaq": {
@@ -63,74 +63,74 @@
     },
     "us_10y": {
       "yield": 4.7,
-      "bps_change": -4
+      "bps_change": 0
     }
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4692.2,
-      "pct_change": 1.47
+      "value": 4640.8,
+      "pct_change": 0.36
     },
     "gold_mcx_inr_10g": {
-      "value": 144401,
-      "pct_change": 1.47,
+      "value": 142804,
+      "pct_change": 0.36,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 67.91,
-      "pct_change": -2.24
+      "value": 68.541,
+      "pct_change": -1.33
     },
     "silver_mcx_inr_kg": {
-      "value": 208991,
-      "pct_change": -2.24,
+      "value": 210911,
+      "pct_change": -1.33,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
-      "value": 92.38,
-      "pct_change": -2.13
+      "value": 92.17,
+      "pct_change": -2.35
     },
     "brent_mcx_inr_bbl": {
-      "value": 8843,
-      "pct_change": -2.13,
+      "value": 8822,
+      "pct_change": -2.35,
       "note": "approx conversion"
     },
     "wti_usd_bbl": {
-      "value": 85.38,
-      "pct_change": -1.93
+      "value": 85.01,
+      "pct_change": -2.35
     },
     "natgas_usd_mmbtu": {
-      "value": 2.816,
-      "pct_change": 1.55
+      "value": 2.782,
+      "pct_change": 0.32
     },
     "copper_usd_lb": {
-      "value": 6.589,
-      "pct_change": 0.14
+      "value": 6.599,
+      "pct_change": 0.3
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 80573.0,
-      "pct_change": 3.62,
+      "value": 80330.0,
+      "pct_change": 3.31,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2497.05,
-      "pct_change": 1.35,
+      "value": 2495.06,
+      "pct_change": 1.27,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
-      "value": 95.72,
-      "change": 0.068
+      "value": 95.71,
+      "change": -0.01
     },
     "eur_inr": {
-      "value": 111.62,
-      "pct_change": -0.04
+      "value": 111.59,
+      "pct_change": -0.06
     },
     "gbp_inr": {
-      "value": 130.47,
-      "pct_change": -0.09
+      "value": 130.42,
+      "pct_change": -0.13
     }
   },
   "rbi_policy": {
@@ -171,7 +171,7 @@
     "erp_pct": -1.98,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 fell -0.14% to 24,219.05 on 2026-08-24; India 10Y G-Sec at 6.87%; rupee weakened to 95.720; Gold $4692.2/oz +1.47%; ERP -1.98% — bonds more attractive.",
+  "summary": "Nifty 50 fell -0.14% to 24,219.05 on 2026-08-24; India 10Y G-Sec at 6.87%; rupee firmed to 95.710; Gold $4640.8/oz +0.36%; ERP -1.98% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-07-15",
@@ -291,7 +291,7 @@
     },
     {
       "d": "2026-08-25",
-      "c": 24188.15
+      "c": 24181.5
     }
   ],
   "india_sectors": {
@@ -304,11 +304,11 @@
       "pct_change": 0.21
     },
     "nifty_auto": {
-      "close": 28984.95,
+      "close": 29001.2,
       "pct_change": null
     },
     "nifty_fmcg": {
-      "close": 47409.3,
+      "close": 47398.85,
       "pct_change": null
     },
     "nifty_pharma": {
@@ -316,19 +316,19 @@
       "pct_change": -0.08
     },
     "nifty_metal": {
-      "close": 13314.4,
+      "close": 13319.65,
       "pct_change": null
     },
     "nifty_realty": {
-      "close": 915.0,
+      "close": 913.0,
       "pct_change": null
     },
     "nifty_energy": {
-      "close": 38199.75,
+      "close": 38163.75,
       "pct_change": null
     },
     "nifty_infra": {
-      "close": 9326.7,
+      "close": 9325.6,
       "pct_change": null
     }
   }
