@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-09-04",
-  "generated_at_ist": "2026-09-05T13:02:22+05:30",
+  "generated_at_ist": "2026-09-05T13:17:31+05:30",
   "india_equity": {
     "nifty50": {
       "close": 23897.7,
@@ -63,7 +63,7 @@
     },
     "us_10y": {
       "yield": 4.78,
-      "bps_change": 2
+      "bps_change": 0
     }
   },
   "commodities": {
@@ -109,20 +109,20 @@
   },
   "crypto": {
     "bitcoin": {
-      "value": 79723.0,
-      "pct_change": 0.06,
+      "value": 79776.0,
+      "pct_change": 0.13,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2456.52,
-      "pct_change": 0.02,
+      "value": 2458.9,
+      "pct_change": 0.11,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
       "value": 94.49,
-      "change": 0.005
+      "change": 0.0
     },
     "eur_inr": {
       "value": 109.73,
