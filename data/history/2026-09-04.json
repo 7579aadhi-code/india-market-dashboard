@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-09-04",
-  "generated_at_ist": "2026-09-07T13:35:54+05:30",
+  "generated_at_ist": "2026-09-07T14:02:43+05:30",
   "india_equity": {
     "nifty50": {
       "close": 23897.7,
@@ -59,7 +59,7 @@
   "india_debt": {
     "gsec_10y": {
       "yield": 6.97,
-      "bps_change": 2
+      "bps_change": 0
     },
     "us_10y": {
       "yield": 4.78,
@@ -72,7 +72,7 @@
       "pct_change": 1.06
     },
     "gold_mcx_inr_10g": {
-      "value": 135945,
+      "value": 135941,
       "pct_change": 1.06,
       "note": "approx conversion, not exact MCX settlement"
     },
@@ -81,7 +81,7 @@
       "pct_change": 1.06
     },
     "silver_mcx_inr_kg": {
-      "value": 202700,
+      "value": 202694,
       "pct_change": 1.06,
       "note": "approx conversion, not exact MCX settlement"
     },
@@ -109,28 +109,28 @@
   },
   "crypto": {
     "bitcoin": {
-      "value": 79438.0,
-      "pct_change": -1.14,
+      "value": 79471.0,
+      "pct_change": -1.09,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2490.5,
-      "pct_change": -0.96,
+      "value": 2491.07,
+      "pct_change": -0.93,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
-      "value": 94.455,
-      "change": -0.035
+      "value": 94.452,
+      "change": -0.003
     },
     "eur_inr": {
-      "value": 109.79,
-      "pct_change": 0.01
+      "value": 109.91,
+      "pct_change": 0.12
     },
     "gbp_inr": {
-      "value": 127.8,
-      "pct_change": -0.03
+      "value": 127.89,
+      "pct_change": 0.04
     }
   },
   "rbi_policy": {
@@ -171,7 +171,7 @@
     "erp_pct": -2.02,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 rose +0.10% to 23,897.70 on 2026-09-04; India 10Y G-Sec at 6.97%; rupee firmed to 94.455; Gold $4476.6/oz +1.06%; ERP -2.02% — bonds more attractive.",
+  "summary": "Nifty 50 rose +0.10% to 23,897.70 on 2026-09-04; India 10Y G-Sec at 6.97%; rupee firmed to 94.452; Gold $4476.6/oz +1.06%; ERP -2.02% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-07-28",
@@ -291,7 +291,7 @@
     },
     {
       "d": "2026-09-07",
-      "c": 23755.4
+      "c": 23784.5
     }
   ],
   "india_sectors": {
@@ -304,11 +304,11 @@
       "pct_change": -0.47
     },
     "nifty_auto": {
-      "close": 27753.45,
+      "close": 27745.0,
       "pct_change": null
     },
     "nifty_fmcg": {
-      "close": 45609.0,
+      "close": 45640.1,
       "pct_change": null
     },
     "nifty_pharma": {
@@ -316,19 +316,19 @@
       "pct_change": -0.68
     },
     "nifty_metal": {
-      "close": 13149.95,
+      "close": 13161.8,
       "pct_change": null
     },
     "nifty_realty": {
-      "close": 895.55,
+      "close": 896.1,
       "pct_change": null
     },
     "nifty_energy": {
-      "close": 37966.55,
+      "close": 38003.95,
       "pct_change": null
     },
     "nifty_infra": {
-      "close": 9172.6,
+      "close": 9189.0,
       "pct_change": null
     }
   }
