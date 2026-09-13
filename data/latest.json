@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-09-11",
-  "generated_at_ist": "2026-09-12T13:33:18+05:30",
+  "generated_at_ist": "2026-09-13T13:38:52+05:30",
   "india_equity": {
     "nifty50": {
       "close": 23398.1,
@@ -68,21 +68,21 @@
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4366.2,
-      "pct_change": 0.04
+      "value": 4408.9,
+      "pct_change": 1.02
     },
     "gold_mcx_inr_10g": {
-      "value": 134116,
-      "pct_change": 0.04,
+      "value": 135441,
+      "pct_change": 1.02,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 64.554,
-      "pct_change": 0.42
+      "value": 65.188,
+      "pct_change": 1.41
     },
     "silver_mcx_inr_kg": {
-      "value": 198289,
-      "pct_change": 0.42,
+      "value": 200258,
+      "pct_change": 1.41,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
@@ -90,7 +90,7 @@
       "pct_change": -2.81
     },
     "brent_mcx_inr_bbl": {
-      "value": 9994,
+      "value": 9995,
       "pct_change": -2.81,
       "note": "approx conversion"
     },
@@ -103,26 +103,26 @@
       "pct_change": -0.11
     },
     "copper_usd_lb": {
-      "value": 6.47,
-      "pct_change": 0.05
+      "value": 6.548,
+      "pct_change": 1.25
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 77258.0,
-      "pct_change": 0.11,
+      "value": 77117.0,
+      "pct_change": -0.2,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2522.68,
-      "pct_change": 0.32,
+      "value": 2517.41,
+      "pct_change": -0.34,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
-      "value": 95.54,
-      "change": 0.0
+      "value": 95.55,
+      "change": 0.01
     },
     "eur_inr": {
       "value": 110.8,
@@ -171,7 +171,7 @@
     "erp_pct": -1.95,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 fell -0.34% to 23,398.10 on 2026-09-11; India 10Y G-Sec at 7.01%; rupee weakened to 95.540; Gold $4366.2/oz +0.04%; ERP -1.95% — bonds more attractive.",
+  "summary": "Nifty 50 fell -0.34% to 23,398.10 on 2026-09-11; India 10Y G-Sec at 7.01%; rupee weakened to 95.550; Gold $4408.9/oz +1.02%; ERP -1.95% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-08-03",
