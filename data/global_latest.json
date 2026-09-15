@@ -1,5 +1,5 @@
 {
-  "generated_at_ist": "2026-09-15T14:01:10+05:30",
+  "generated_at_ist": "2026-09-15T14:21:46+05:30",
   "as_of_date": "2026-09-15",
   "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
@@ -45,8 +45,8 @@
           "name": "Straits Times Index",
           "country": "Singapore",
           "ticker": "^STI",
-          "close": 5633.77,
-          "pct_change": -1.47
+          "close": 5639.07,
+          "pct_change": -1.38
         },
         {
           "name": "Taiwan TAIEX",
@@ -59,8 +59,8 @@
           "name": "Jakarta Composite",
           "country": "Indonesia",
           "ticker": "^JKSE",
-          "close": 6469.0,
-          "pct_change": -1.01
+          "close": 6482.0,
+          "pct_change": -0.81
         }
       ]
     },
@@ -71,43 +71,43 @@
           "name": "FTSE 100",
           "country": "United Kingdom",
           "ticker": "^FTSE",
-          "close": 10608.0,
-          "pct_change": -0.84
+          "close": 10624.0,
+          "pct_change": -0.69
         },
         {
           "name": "DAX 40",
           "country": "Germany",
           "ticker": "^GDAXI",
-          "close": 25225.85,
-          "pct_change": -0.84
+          "close": 25266.83,
+          "pct_change": -0.68
         },
         {
           "name": "CAC 40",
           "country": "France",
           "ticker": "^FCHI",
-          "close": 8047.31,
-          "pct_change": -0.87
+          "close": 8059.02,
+          "pct_change": -0.72
         },
         {
           "name": "Euro Stoxx 50",
           "country": "Europe",
           "ticker": "^STOXX50E",
-          "close": 6208.75,
-          "pct_change": -0.82
+          "close": 6219.55,
+          "pct_change": -0.65
         },
         {
           "name": "IBEX 35",
           "country": "Spain",
           "ticker": "^IBEX",
-          "close": 19450.0,
-          "pct_change": -0.59
+          "close": 19511.0,
+          "pct_change": -0.28
         },
         {
           "name": "SMI",
           "country": "Switzerland",
           "ticker": "^SSMI",
-          "close": 13703.0,
-          "pct_change": -1.26
+          "close": 13711.0,
+          "pct_change": -1.21
         }
       ]
     },
@@ -162,38 +162,38 @@
   "currencies": {
     "eurusd": {
       "pair": "EUR/USD",
-      "rate": 1.1541,
-      "pct_change": -0.46
+      "rate": 1.1538,
+      "pct_change": -0.48
     },
     "gbpusd": {
       "pair": "GBP/USD",
-      "rate": 1.3477,
-      "pct_change": -0.36
+      "rate": 1.3476,
+      "pct_change": -0.37
     },
     "usdjpy": {
       "pair": "USD/JPY",
-      "rate": 154.9,
-      "pct_change": 0.96
+      "rate": 154.98,
+      "pct_change": 1.01
     },
     "usdsgd": {
       "pair": "USD/SGD",
-      "rate": 1.2725,
-      "pct_change": 0.42
+      "rate": 1.2726,
+      "pct_change": 0.43
     },
     "audusd": {
       "pair": "AUD/USD",
-      "rate": 0.713,
-      "pct_change": -0.31
+      "rate": 0.7129,
+      "pct_change": -0.32
     },
     "usdcny": {
       "pair": "USD/CNY",
-      "rate": 6.7127,
-      "pct_change": 0.07
+      "rate": 6.7122,
+      "pct_change": 0.06
     },
     "usdkrw": {
       "pair": "USD/KRW",
-      "rate": 1362.02,
-      "pct_change": 1.29
+      "rate": 1362.57,
+      "pct_change": 1.33
     },
     "eurinr": {
       "pair": "EUR/INR",
@@ -202,18 +202,18 @@
     },
     "gbpinr": {
       "pair": "GBP/INR",
-      "rate": 129.24,
-      "pct_change": 0.58
+      "rate": 129.27,
+      "pct_change": 0.6
     },
     "jpyinr": {
       "pair": "JPY/INR",
-      "rate": 0.6192,
-      "pct_change": 1.79
+      "rate": 0.6188,
+      "pct_change": 1.73
     },
     "audinr": {
       "pair": "AUD/INR",
-      "rate": 68.35,
-      "pct_change": 2.88
+      "rate": 68.36,
+      "pct_change": 2.89
     }
   },
   "bond_yields": {
@@ -235,8 +235,8 @@
   },
   "volatility": {
     "us_vix": {
-      "value": 17.83,
-      "pct_change": 4.27,
+      "value": 17.81,
+      "pct_change": 4.15,
       "name": "CBOE VIX"
     },
     "us_vxn": {
