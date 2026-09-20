@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-09-18",
-  "generated_at_ist": "2026-09-19T13:42:34+05:30",
+  "generated_at_ist": "2026-09-20T13:55:49+05:30",
   "india_equity": {
     "nifty50": {
       "close": 23346.4,
@@ -77,45 +77,45 @@
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 66.556,
-      "pct_change": 1.66
+      "value": 67.149,
+      "pct_change": 2.56
     },
     "silver_mcx_inr_kg": {
-      "value": 205166,
-      "pct_change": 1.66,
+      "value": 206994,
+      "pct_change": 2.56,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
-      "value": 103.87,
-      "pct_change": -0.91
+      "value": 99.29,
+      "pct_change": -5.28
     },
     "brent_mcx_inr_bbl": {
-      "value": 9959,
-      "pct_change": -0.91,
+      "value": 9520,
+      "pct_change": -5.28,
       "note": "approx conversion"
     },
     "wti_usd_bbl": {
-      "value": 100.3,
-      "pct_change": -1.58
+      "value": 96.08,
+      "pct_change": -5.72
     },
     "natgas_usd_mmbtu": {
       "value": 2.912,
       "pct_change": 0.38
     },
     "copper_usd_lb": {
-      "value": 6.615,
-      "pct_change": 0.43
+      "value": 6.692,
+      "pct_change": 1.6
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 81188.0,
-      "pct_change": 0.35,
+      "value": 80376.0,
+      "pct_change": -1.06,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2633.32,
-      "pct_change": 0.84,
+      "value": 2577.47,
+      "pct_change": -2.07,
       "pair": "ETH/USD"
     }
   },
@@ -129,8 +129,8 @@
       "pct_change": 0.08
     },
     "gbp_inr": {
-      "value": 128.41,
-      "pct_change": 0.35
+      "value": 128.39,
+      "pct_change": 0.34
     }
   },
   "rbi_policy": {
