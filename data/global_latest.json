@@ -1,5 +1,5 @@
 {
-  "generated_at_ist": "2026-09-24T13:47:06+05:30",
+  "generated_at_ist": "2026-09-24T14:08:19+05:30",
   "as_of_date": "2026-09-24",
   "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
@@ -17,8 +17,8 @@
           "name": "Hang Seng",
           "country": "Hong Kong",
           "ticker": "^HSI",
-          "close": 24764.0,
-          "pct_change": -0.28
+          "close": 24761.0,
+          "pct_change": -0.29
         },
         {
           "name": "Shanghai Composite",
@@ -45,8 +45,8 @@
           "name": "Straits Times Index",
           "country": "Singapore",
           "ticker": "^STI",
-          "close": 5689.46,
-          "pct_change": -0.36
+          "close": 5681.69,
+          "pct_change": -0.49
         },
         {
           "name": "Taiwan TAIEX",
@@ -59,8 +59,8 @@
           "name": "Jakarta Composite",
           "country": "Indonesia",
           "ticker": "^JKSE",
-          "close": 6295.0,
-          "pct_change": -1.25
+          "close": 6298.0,
+          "pct_change": -1.21
         }
       ]
     },
@@ -71,43 +71,43 @@
           "name": "FTSE 100",
           "country": "United Kingdom",
           "ticker": "^FTSE",
-          "close": 10712.0,
-          "pct_change": 0.06
+          "close": 10689.0,
+          "pct_change": -0.15
         },
         {
           "name": "DAX 40",
           "country": "Germany",
           "ticker": "^GDAXI",
-          "close": 25313.67,
-          "pct_change": -0.38
+          "close": 25201.54,
+          "pct_change": -0.82
         },
         {
           "name": "CAC 40",
           "country": "France",
           "ticker": "^FCHI",
-          "close": 8091.17,
-          "pct_change": -0.4
+          "close": 8062.25,
+          "pct_change": -0.75
         },
         {
           "name": "Euro Stoxx 50",
           "country": "Europe",
           "ticker": "^STOXX50E",
-          "close": 6282.18,
-          "pct_change": -0.28
+          "close": 6257.38,
+          "pct_change": -0.67
         },
         {
           "name": "IBEX 35",
           "country": "Spain",
           "ticker": "^IBEX",
-          "close": 19662.0,
-          "pct_change": 0.15
+          "close": 19573.0,
+          "pct_change": -0.3
         },
         {
           "name": "SMI",
           "country": "Switzerland",
           "ticker": "^SSMI",
-          "close": 13894.0,
-          "pct_change": -0.2
+          "close": 13872.0,
+          "pct_change": -0.36
         }
       ]
     },
@@ -162,18 +162,18 @@
   "currencies": {
     "eurusd": {
       "pair": "EUR/USD",
-      "rate": 1.1393,
-      "pct_change": -0.48
+      "rate": 1.1392,
+      "pct_change": -0.49
     },
     "gbpusd": {
       "pair": "GBP/USD",
-      "rate": 1.3246,
-      "pct_change": -0.73
+      "rate": 1.3244,
+      "pct_change": -0.74
     },
     "usdjpy": {
       "pair": "USD/JPY",
-      "rate": 158.33,
-      "pct_change": 0.55
+      "rate": 158.36,
+      "pct_change": 0.57
     },
     "usdsgd": {
       "pair": "USD/SGD",
@@ -182,38 +182,38 @@
     },
     "audusd": {
       "pair": "AUD/USD",
-      "rate": 0.7039,
-      "pct_change": -1.03
+      "rate": 0.7036,
+      "pct_change": -1.07
     },
     "usdcny": {
       "pair": "USD/CNY",
-      "rate": 6.7119,
-      "pct_change": 0.18
+      "rate": 6.7126,
+      "pct_change": 0.19
     },
     "usdkrw": {
       "pair": "USD/KRW",
-      "rate": 1368.15,
-      "pct_change": 1.32
+      "rate": 1368.82,
+      "pct_change": 1.37
     },
     "eurinr": {
       "pair": "EUR/INR",
-      "rate": 109.24,
-      "pct_change": -0.11
+      "rate": 109.26,
+      "pct_change": -0.09
     },
     "gbpinr": {
       "pair": "GBP/INR",
-      "rate": 127.02,
-      "pct_change": -0.51
+      "rate": 127.04,
+      "pct_change": -0.5
     },
     "jpyinr": {
       "pair": "JPY/INR",
-      "rate": 0.6058,
-      "pct_change": -0.14
+      "rate": 0.6056,
+      "pct_change": -0.17
     },
     "audinr": {
       "pair": "AUD/INR",
-      "rate": 67.49,
-      "pct_change": -0.65
+      "rate": 67.47,
+      "pct_change": -0.68
     }
   },
   "bond_yields": {
@@ -235,8 +235,8 @@
   },
   "volatility": {
     "us_vix": {
-      "value": 15.91,
-      "pct_change": 4.81,
+      "value": 16.23,
+      "pct_change": 6.92,
       "name": "CBOE VIX"
     },
     "us_vxn": {
