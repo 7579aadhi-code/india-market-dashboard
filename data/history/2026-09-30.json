@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-09-30",
-  "generated_at_ist": "2026-10-01T15:25:51+05:30",
+  "generated_at_ist": "2026-10-02T15:02:22+05:30",
   "india_equity": {
     "nifty50": {
       "close": 22620.45,
@@ -23,19 +23,19 @@
   },
   "valuation": {
     "large_cap": {
-      "pe": 19.36,
+      "pe": 19.19,
       "pb": 3.17,
       "div_yield": 1.39,
       "verdict": "Undervalued"
     },
     "mid_cap": {
-      "pe": 28.4,
+      "pe": 28.1,
       "pb": 4.78,
       "div_yield": 0.66,
       "verdict": "Fairly Valued"
     },
     "small_cap": {
-      "pe": 34.45,
+      "pe": 34.05,
       "pb": 3.68,
       "div_yield": null,
       "verdict": "Overvalued",
@@ -44,93 +44,93 @@
   },
   "us_equity": {
     "sp500": {
-      "close": 7651.54,
-      "pct_change": -0.25
+      "close": 7666.45,
+      "pct_change": 0.19
     },
     "dow": {
-      "close": 50906.05,
-      "pct_change": -0.86
+      "close": 50926.56,
+      "pct_change": 0.04
     },
     "nasdaq": {
-      "close": 26861.06,
-      "pct_change": 0.24
+      "close": 26871.6,
+      "pct_change": 0.04
     }
   },
   "india_debt": {
     "gsec_10y": {
       "yield": 7.21,
-      "bps_change": 6
+      "bps_change": 0
     },
     "us_10y": {
-      "yield": 5.29,
-      "bps_change": 4
+      "yield": 5.24,
+      "bps_change": -5
     }
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4191.0,
-      "pct_change": 0.1
+      "value": 4215.0,
+      "pct_change": 0.3
     },
     "gold_mcx_inr_10g": {
-      "value": 129711,
-      "pct_change": 0.1,
+      "value": 130501,
+      "pct_change": 0.3,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 60.81,
-      "pct_change": 1.18
+      "value": 61.495,
+      "pct_change": 1.27
     },
     "silver_mcx_inr_kg": {
-      "value": 188206,
-      "pct_change": 1.18,
+      "value": 190396,
+      "pct_change": 1.27,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
-      "value": 100.73,
-      "pct_change": -2.7
+      "value": 99.21,
+      "pct_change": -3.03
     },
     "brent_mcx_inr_bbl": {
-      "value": 9697,
-      "pct_change": -2.7,
+      "value": 9554,
+      "pct_change": -3.03,
       "note": "approx conversion"
     },
     "wti_usd_bbl": {
-      "value": 92.39,
-      "pct_change": 2.18
+      "value": 89.15,
+      "pct_change": -4.01
     },
     "natgas_usd_mmbtu": {
-      "value": 2.95,
-      "pct_change": -2.51
+      "value": 2.933,
+      "pct_change": -1.15
     },
     "copper_usd_lb": {
-      "value": 6.534,
-      "pct_change": -0.38
+      "value": 6.561,
+      "pct_change": 1.22
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 83728.0,
-      "pct_change": 0.21,
+      "value": 86315.0,
+      "pct_change": 1.72,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2688.77,
-      "pct_change": 0.19,
+      "value": 2745.66,
+      "pct_change": 1.48,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
-      "value": 96.265,
-      "change": 0.455
+      "value": 96.3,
+      "change": -0.015
     },
     "eur_inr": {
-      "value": 108.59,
-      "pct_change": -0.16
+      "value": 108.38,
+      "pct_change": -0.24
     },
     "gbp_inr": {
-      "value": 127.17,
-      "pct_change": 0.09
+      "value": 127.18,
+      "pct_change": -0.04
     }
   },
   "rbi_policy": {
@@ -142,13 +142,13 @@
     "_source": "hardcoded_fallback_Jun2026"
   },
   "fii_dii": {
-    "date": "30-Sep-2026",
-    "fii_net_cr": -10148.41,
-    "fii_buy_cr": 14967.82,
-    "fii_sell_cr": 25116.23,
-    "dii_net_cr": 11271.73,
-    "dii_buy_cr": 24413.76,
-    "dii_sell_cr": 13142.03
+    "date": "01-Oct-2026",
+    "fii_net_cr": -9484.22,
+    "fii_buy_cr": 12260.26,
+    "fii_sell_cr": 21744.48,
+    "dii_net_cr": 10041.84,
+    "dii_buy_cr": 25420.04,
+    "dii_sell_cr": 15378.2
   },
   "india_vix": {
     "value": 13.49,
@@ -165,13 +165,13 @@
     "note": "BSE mcap estimated proportionally from prior session scaled by Nifty move; India GDP carried from last manual figure"
   },
   "beer_model": {
-    "earnings_yield_pct": 5.17,
+    "earnings_yield_pct": 5.21,
     "gsec_10y_pct": 7.21,
-    "beer_ratio": 1.39,
-    "erp_pct": -2.04,
+    "beer_ratio": 1.38,
+    "erp_pct": -2.0,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 fell -0.42% to 22,620.45 on 2026-09-30; India 10Y G-Sec at 7.21%; rupee weakened to 96.265; Gold $4191.0/oz +0.10%; ERP -2.04% — bonds more attractive.",
+  "summary": "Nifty 50 fell -0.42% to 22,620.45 on 2026-09-30; India 10Y G-Sec at 7.21%; rupee firmed to 96.300; Gold $4215.0/oz +0.30%; ERP -2.00% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-08-20",
@@ -291,7 +291,7 @@
     },
     {
       "d": "2026-10-01",
-      "c": 22446.0
+      "c": 22421.95
     }
   ],
   "india_sectors": {
@@ -304,11 +304,11 @@
       "pct_change": 0.13
     },
     "nifty_auto": {
-      "close": 25372.25,
+      "close": 25384.95,
       "pct_change": null
     },
     "nifty_fmcg": {
-      "close": 43787.55,
+      "close": 43789.85,
       "pct_change": null
     },
     "nifty_pharma": {
@@ -316,19 +316,19 @@
       "pct_change": -1.84
     },
     "nifty_metal": {
-      "close": 12452.55,
+      "close": 12460.7,
       "pct_change": null
     },
     "nifty_realty": {
-      "close": 837.3,
+      "close": 835.0,
       "pct_change": null
     },
     "nifty_energy": {
-      "close": 36439.05,
+      "close": 36388.15,
       "pct_change": null
     },
     "nifty_infra": {
-      "close": 8626.05,
+      "close": 8605.15,
       "pct_change": null
     }
   }
