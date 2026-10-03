@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-10-01",
-  "generated_at_ist": "2026-10-03T14:29:37+05:30",
+  "generated_at_ist": "2026-10-03T14:50:47+05:30",
   "india_equity": {
     "nifty50": {
       "close": 22421.95,
@@ -63,7 +63,7 @@
     },
     "us_10y": {
       "yield": 5.28,
-      "bps_change": -1
+      "bps_change": 0
     }
   },
   "commodities": {
@@ -109,20 +109,20 @@
   },
   "crypto": {
     "bitcoin": {
-      "value": 84612.0,
-      "pct_change": 0.14,
+      "value": 84589.0,
+      "pct_change": 0.11,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2683.12,
-      "pct_change": 0.56,
+      "value": 2683.93,
+      "pct_change": 0.59,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
       "value": 96.3,
-      "change": -0.015
+      "change": 0.0
     },
     "eur_inr": {
       "value": 108.35,
@@ -171,7 +171,7 @@
     "erp_pct": -2.0,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 fell -0.88% to 22,421.95 on 2026-10-01; India 10Y G-Sec at 7.21%; rupee firmed to 96.300; Gold $4162.3/oz -0.95%; ERP -2.00% — bonds more attractive.",
+  "summary": "Nifty 50 fell -0.88% to 22,421.95 on 2026-10-01; India 10Y G-Sec at 7.21%; rupee weakened to 96.300; Gold $4162.3/oz -0.95%; ERP -2.00% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-08-20",
