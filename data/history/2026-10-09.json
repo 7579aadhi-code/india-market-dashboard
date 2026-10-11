@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-10-09",
-  "generated_at_ist": "2026-10-10T15:32:47+05:30",
+  "generated_at_ist": "2026-10-11T15:19:24+05:30",
   "india_equity": {
     "nifty50": {
       "close": 22520.45,
@@ -77,12 +77,12 @@
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 60.67,
-      "pct_change": 2.72
+      "value": 61.048,
+      "pct_change": 3.36
     },
     "silver_mcx_inr_kg": {
-      "value": 188680,
-      "pct_change": 2.72,
+      "value": 189856,
+      "pct_change": 3.36,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
@@ -103,19 +103,19 @@
       "pct_change": 1.64
     },
     "copper_usd_lb": {
-      "value": 6.642,
-      "pct_change": 1.89
+      "value": 6.692,
+      "pct_change": 2.65
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 82773.0,
-      "pct_change": 0.27,
+      "value": 82944.0,
+      "pct_change": 0.04,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2493.24,
-      "pct_change": 0.31,
+      "value": 2498.56,
+      "pct_change": -0.22,
       "pair": "ETH/USD"
     }
   },
