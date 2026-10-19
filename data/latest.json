@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-10-16",
-  "generated_at_ist": "2026-10-19T14:09:00+05:30",
+  "generated_at_ist": "2026-10-19T14:41:08+05:30",
   "india_equity": {
     "nifty50": {
       "close": 23146.15,
@@ -59,7 +59,7 @@
   "india_debt": {
     "gsec_10y": {
       "yield": 7.36,
-      "bps_change": -2
+      "bps_change": 0
     },
     "us_10y": {
       "yield": 5.1,
@@ -68,69 +68,69 @@
   },
   "commodities": {
     "gold_comex_usd_oz": {
-      "value": 4197.7,
-      "pct_change": 0.4
+      "value": 4190.1,
+      "pct_change": 0.22
     },
     "gold_mcx_inr_10g": {
-      "value": 128123,
-      "pct_change": 0.4,
+      "value": 127912,
+      "pct_change": 0.22,
       "note": "approx conversion, not exact MCX settlement"
     },
     "silver_comex_usd_oz": {
-      "value": 57.645,
-      "pct_change": 1.14
+      "value": 57.575,
+      "pct_change": 1.02
     },
     "silver_mcx_inr_kg": {
-      "value": 175946,
-      "pct_change": 1.14,
+      "value": 175760,
+      "pct_change": 1.02,
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
-      "value": 107.16,
-      "pct_change": -2.46
+      "value": 108.19,
+      "pct_change": -1.52
     },
     "brent_mcx_inr_bbl": {
-      "value": 10173,
-      "pct_change": -2.46,
+      "value": 10273,
+      "pct_change": -1.52,
       "note": "approx conversion"
     },
     "wti_usd_bbl": {
-      "value": 96.94,
-      "pct_change": -4.41
+      "value": 97.82,
+      "pct_change": -3.54
     },
     "natgas_usd_mmbtu": {
-      "value": 3.113,
-      "pct_change": -0.1
+      "value": 3.132,
+      "pct_change": 0.51
     },
     "copper_usd_lb": {
-      "value": 6.574,
-      "pct_change": 0.66
+      "value": 6.567,
+      "pct_change": 0.55
     }
   },
   "crypto": {
     "bitcoin": {
-      "value": 82839.0,
-      "pct_change": 1.0,
+      "value": 82692.0,
+      "pct_change": 0.82,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2436.05,
-      "pct_change": 1.13,
+      "value": 2432.33,
+      "pct_change": 0.98,
       "pair": "ETH/USD"
     }
   },
   "currency": {
     "usd_inr": {
-      "value": 94.935,
-      "change": -0.025
+      "value": 94.95,
+      "change": 0.015
     },
     "eur_inr": {
       "value": 106.43,
       "pct_change": -0.08
     },
     "gbp_inr": {
-      "value": 126.45,
-      "pct_change": 0.8
+      "value": 126.55,
+      "pct_change": 0.88
     }
   },
   "rbi_policy": {
@@ -158,9 +158,9 @@
   },
   "buffett_indicator": {
     "bse_mcap_lakh_cr": 454.29,
-    "bse_mcap_usd_tn": 4.79,
+    "bse_mcap_usd_tn": 4.78,
     "india_gdp_usd_tn": 4.15,
-    "ratio_pct": 115.4,
+    "ratio_pct": 115.2,
     "verdict": "Overvalued",
     "note": "BSE mcap estimated proportionally from prior session scaled by Nifty move; India GDP carried from last manual figure"
   },
@@ -171,7 +171,7 @@
     "erp_pct": -2.3,
     "interpretation": "Negative equity risk premium — bonds are relatively more attractive than equities on this simple model"
   },
-  "summary": "Nifty 50 rose +0.65% to 23,146.15 on 2026-10-16; India 10Y G-Sec at 7.36%; rupee firmed to 94.935; Gold $4197.7/oz +0.40%; ERP -2.30% — bonds more attractive.",
+  "summary": "Nifty 50 rose +0.65% to 23,146.15 on 2026-10-16; India 10Y G-Sec at 7.36%; rupee weakened to 94.950; Gold $4190.1/oz +0.22%; ERP -2.30% — bonds more attractive.",
   "nifty_history": [
     {
       "d": "2026-09-04",
@@ -291,7 +291,7 @@
     },
     {
       "d": "2026-10-19",
-      "c": 22885.2
+      "c": 22858.85
     }
   ],
   "india_sectors": {
