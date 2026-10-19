@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-18T08:13:45.696399+00:00",
+  "generated_at_utc": "2026-10-19T08:39:54.182046+00:00",
   "source": "morningstar.com (scraped, best-effort secondary check \u2014 see script docstring for known limitations)",
   "results": {
     "sp500": {
@@ -28,7 +28,7 @@
     },
     "ftse100": {
       "label": "FTSE 100",
-      "morningstar_price": 10881.9,
+      "morningstar_price": 10791.64,
       "status": "ok",
       "primary_value": null,
       "delta_pct_vs_primary": null,
