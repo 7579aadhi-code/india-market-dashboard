@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-10-30",
-  "generated_at_ist": "2026-11-01T15:45:16+05:30",
+  "generated_at_ist": "2026-11-01T16:12:37+05:30",
   "india_equity": {
     "nifty50": {
       "close": 23053.1,
@@ -86,12 +86,12 @@
       "note": "approx conversion, not exact MCX settlement"
     },
     "brent_usd_bbl": {
-      "value": 113.43,
-      "pct_change": -1.26
+      "value": 117.64,
+      "pct_change": 2.4
     },
     "brent_mcx_inr_bbl": {
-      "value": 10770,
-      "pct_change": -1.26,
+      "value": 11170,
+      "pct_change": 2.4,
       "note": "approx conversion"
     },
     "wti_usd_bbl": {
@@ -109,13 +109,13 @@
   },
   "crypto": {
     "bitcoin": {
-      "value": 78017.0,
-      "pct_change": 0.75,
+      "value": 77918.0,
+      "pct_change": 0.62,
       "pair": "BTC/USD"
     },
     "ethereum": {
-      "value": 2269.06,
-      "pct_change": 0.72,
+      "value": 2267.61,
+      "pct_change": 0.66,
       "pair": "ETH/USD"
     }
   },
