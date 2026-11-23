@@ -1,22 +1,22 @@
 {
-  "generated_at_utc": "2026-11-22T11:48:01.361973+00:00",
+  "generated_at_utc": "2026-11-23T12:02:27.690634+00:00",
   "source": "morningstar.com (scraped, best-effort secondary check \u2014 see script docstring for known limitations)",
   "results": {
     "sp500": {
       "label": "S&P 500",
-      "morningstar_price": 6910.39,
-      "status": "ok",
+      "morningstar_price": null,
+      "status": "not_found",
       "primary_value": 6910.39,
-      "delta_pct_vs_primary": 0.0,
-      "flag": "consistent"
+      "delta_pct_vs_primary": null,
+      "flag": null
     },
     "dow": {
       "label": "Dow Jones",
-      "morningstar_price": 48147.33,
-      "status": "ok",
+      "morningstar_price": null,
+      "status": "not_found",
       "primary_value": 48147.33,
-      "delta_pct_vs_primary": 0.0,
-      "flag": "consistent"
+      "delta_pct_vs_primary": null,
+      "flag": null
     },
     "nasdaq": {
       "label": "Nasdaq Composite",
@@ -28,7 +28,7 @@
     },
     "ftse100": {
       "label": "FTSE 100",
-      "morningstar_price": 10346.34,
+      "morningstar_price": 10407.43,
       "status": "ok",
       "primary_value": null,
       "delta_pct_vs_primary": null,
