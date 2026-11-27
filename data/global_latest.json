@@ -1,5 +1,5 @@
 {
-  "generated_at_ist": "2026-11-27T17:24:55+05:30",
+  "generated_at_ist": "2026-11-27T18:24:54+05:30",
   "as_of_date": "2026-11-27",
   "note": "All data via yfinance. Prices reflect last completed trading session for each exchange.",
   "regions": {
@@ -71,43 +71,43 @@
           "name": "FTSE 100",
           "country": "United Kingdom",
           "ticker": "^FTSE",
-          "close": 10689.0,
-          "pct_change": 0.75
+          "close": 10670.0,
+          "pct_change": 0.57
         },
         {
           "name": "DAX 40",
           "country": "Germany",
           "ticker": "^GDAXI",
-          "close": 25391.02,
-          "pct_change": 0.7
+          "close": 25364.78,
+          "pct_change": 0.59
         },
         {
           "name": "CAC 40",
           "country": "France",
           "ticker": "^FCHI",
-          "close": 8130.39,
-          "pct_change": 0.27
+          "close": 8124.02,
+          "pct_change": 0.19
         },
         {
           "name": "Euro Stoxx 50",
           "country": "Europe",
           "ticker": "^STOXX50E",
-          "close": 6081.4,
-          "pct_change": 1.11
+          "close": 6076.83,
+          "pct_change": 1.03
         },
         {
           "name": "IBEX 35",
           "country": "Spain",
           "ticker": "^IBEX",
-          "close": 19319.0,
-          "pct_change": 1.37
+          "close": 19322.0,
+          "pct_change": 1.39
         },
         {
           "name": "SMI",
           "country": "Switzerland",
           "ticker": "^SSMI",
-          "close": 14857.0,
-          "pct_change": 0.27
+          "close": 14828.0,
+          "pct_change": 0.07
         }
       ]
     },
@@ -162,8 +162,8 @@
   "currencies": {
     "eurusd": {
       "pair": "EUR/USD",
-      "rate": 1.0966,
-      "pct_change": -0.04
+      "rate": 1.0965,
+      "pct_change": -0.05
     },
     "gbpusd": {
       "pair": "GBP/USD",
@@ -172,8 +172,8 @@
     },
     "usdjpy": {
       "pair": "USD/JPY",
-      "rate": 159.4,
-      "pct_change": 0.12
+      "rate": 159.48,
+      "pct_change": 0.17
     },
     "usdsgd": {
       "pair": "USD/SGD",
@@ -182,18 +182,18 @@
     },
     "audusd": {
       "pair": "AUD/USD",
-      "rate": 0.6669,
-      "pct_change": 0.62
+      "rate": 0.6672,
+      "pct_change": 0.67
     },
     "usdcny": {
       "pair": "USD/CNY",
-      "rate": 6.6537,
-      "pct_change": -0.15
+      "rate": 6.6436,
+      "pct_change": -0.31
     },
     "usdkrw": {
       "pair": "USD/KRW",
-      "rate": 1335.19,
-      "pct_change": -0.58
+      "rate": 1334.32,
+      "pct_change": -0.64
     },
     "eurinr": {
       "pair": "EUR/INR",
@@ -235,8 +235,8 @@
   },
   "volatility": {
     "us_vix": {
-      "value": 25.1,
-      "pct_change": -6.34,
+      "value": 25.4,
+      "pct_change": -5.22,
       "name": "CBOE VIX"
     },
     "us_vxn": {
